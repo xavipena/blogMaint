@@ -40,6 +40,12 @@ namespace Blogs.Classes
                     op = new cbOption() { entityValue = "2", entityName = "Cris R." };
                     list.Add(op);
                     break;
+
+                case Combos.SECTION_TYPE:
+
+                    op = new cbOption() { entityValue = "T", entityName = "Text" };
+                    list.Add(op);
+                    break;
             }
 
             SetCombo(list, combobox);

@@ -49,5 +49,11 @@ namespace Blogs.Classes
         public const int STATUS = 0;
         public const int LANGUAGE = 1;
         public const int AUTHOR = 2;
+        public const int SECTION_TYPE = 3;
+    }
+    public class Language
+    {
+        public const string CASTELLA = "es";
+        public const string CATALA = "ca";
     }
 }

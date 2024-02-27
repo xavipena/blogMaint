@@ -105,6 +105,7 @@
     <Compile Include="Classes\Readers.cs" />
     <Compile Include="Classes\Singleton.cs" />
     <Compile Include="Classes\Workers.cs" />
+    <Compile Include="Classes\Writers.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

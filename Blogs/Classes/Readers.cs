@@ -10,7 +10,7 @@ namespace Blogs.Classes
 {
     internal class Readers
     {
-        public static List<cbOption> GetBlogs()
+        public static List<cbOption> _GetBlogs()
         {
             Singleton Gdata = Singleton.GetInstance();
             Gdata.db.DBOpen();
@@ -86,14 +86,42 @@ namespace Blogs.Classes
             return list;
         }
 
-        public static string GetTitle()
+        public static List<string> GetTabTexts(int section)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            int IDarticle = Gdata.IDarticle;
+            if (IDarticle == 0) return null;
+            List<string> list = new List<string>();
+            Gdata.db.DBOpen();
+
+            string sql = "select * from article_details " +
+                         "where IDarticle = " + IDarticle + " and position = " + section + " and lang = '" + Gdata.Lang + "'";
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                list.Add(reader.GetInt32(0).ToString());
+                list.Add(reader.GetString(1));
+                list.Add(reader.GetInt32(2).ToString());
+                list.Add(reader.GetString(3));
+                list.Add(reader.GetString(4));
+                list.Add(reader.GetString(5));
+                list.Add(reader.GetString(6));
+            }
+
+            Gdata.db.DBClose();
+            return list;
+        }
+
+        public static string GetTitle(string lang)
         {
             Singleton Gdata = Singleton.GetInstance();
             if (Gdata.IDarticle == 0) return null;
+            if (lang == string.Empty) lang = Gdata.Lang;
             string title = string.Empty;
             Gdata.db.DBOpen();
 
-            string sql = "select title from articles where IDblog = " + Gdata.currentBlog + " and IDarticle = " + Gdata.IDarticle + " and lang = '" + Gdata.Lang + "'";
+            string sql = "select title from articles where IDblog = " + Gdata.currentBlog + " and IDarticle = " + Gdata.IDarticle + " and lang = '" + lang + "'";
             var cmd = new MySqlCommand(sql, Gdata.db.Connection);
             var reader = cmd.ExecuteReader();
             if (reader.Read())
@@ -103,6 +131,29 @@ namespace Blogs.Classes
 
             Gdata.db.DBClose();
             return title;
+        }
+
+        public static List<cbOption> LoadList(string sql)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
+
+            var list = new List<cbOption>();
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                cbOption op = new cbOption()
+                {
+                    entityValue = reader.GetInt32(0).ToString(),
+                    entityName = reader.GetString(1)
+                };
+                list.Add(op);
+            }
+
+            Gdata.db.DBClose();
+            return list;
         }
     }
 }

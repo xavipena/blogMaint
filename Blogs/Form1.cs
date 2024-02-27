@@ -13,6 +13,7 @@ using Blogs.Classes;
 using System.Xml.Linq;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Runtime.Remoting.Messaging;
 
 namespace Blogs
 {
@@ -21,6 +22,7 @@ namespace Blogs
         bool NeedToSave = false;
         Singleton Gdata = Singleton.GetInstance();
         bool[] done = new bool[Constants.NUM_TABS];
+        bool loading = false;
 
         public Form1()
         {
@@ -29,6 +31,8 @@ namespace Blogs
             DefineGrids();
             Gdata.db = DBConnect();
             LoadCombos();
+            tbES.Text = Language.CASTELLA;
+            tbCA.Text = Language.CATALA;
         }
 
         // ---------------------------------------------------------------------------
@@ -117,14 +121,23 @@ namespace Blogs
             Loaders.LoadCombo(cbHeadStatus, Combos.STATUS);
             Loaders.LoadCombo(cbHeadLang, Combos.LANGUAGE);
             Loaders.LoadCombo(cbHeadAuthor, Combos.AUTHOR);
+
+            Loaders.LoadCombo(cbTextStatus, Combos.STATUS);
+            Loaders.LoadCombo(cbTextLang, Combos.LANGUAGE);
+            Loaders.LoadCombo(cbTextType, Combos.SECTION_TYPE);
         }
         private void LoadBlogs()
         {
+            Singleton Gdata = Singleton.GetInstance();
+
             //Build a list
             var dataSource = new List<cbOption>();
 
             // load the list
-            dataSource = Readers.GetBlogs();
+            string sql = "select blog, name " +
+                         "from project_blogs where status = 'A' and lang = '" + Gdata.Lang + "' and ga4 = 'A'";
+
+            dataSource = Readers.LoadList(sql);
 
             //Setup data binding
             cbBlogs.DataSource = dataSource;
@@ -133,6 +146,30 @@ namespace Blogs
             cbBlogs.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
+        private void LoadArticleSections()
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            loading = true;
+
+            //Build a list
+            var dataSource = new List<cbOption>();
+
+            // load the list
+            string sql = "select position, section from article_details " +
+                         "where IDarticle = " + Gdata.IDarticle + " and status = 'A' and lang = '" + Gdata.Lang + "'";
+
+            dataSource = Readers.LoadList(sql);
+
+            //Setup data binding
+            lbTextSections.DataSource = dataSource;
+            lbTextSections.DisplayMember = "entityName";
+            lbTextSections.ValueMember = "entityValue";
+
+            loading = false;
+            // Fill first section on tab
+            FillTabTexts(Int32.Parse(dataSource[0].entityValue));
+
+        }
 
         // ---------------------------------------------------------------------------
         // Generic ComboBox loader
@@ -312,11 +349,19 @@ namespace Blogs
         {
             if (!done[tabControl1.SelectedIndex])
             {
-                if (tabControl1.SelectedIndex == Tabs.HEADER)
+                switch (tabControl1.SelectedIndex)
                 {
-                    FillTabHead();
-                    done[tabControl1.SelectedIndex] = true;
+                    case Tabs.HEADER:
+                        FillTabHead();
+                        break;
+                    case Tabs.SECTIONS:
+                        // Once the article sections is completed, the rest of the tab is filled
+                        // with the selected section:
+                        // LoadArticleSections() --> FillTabText()
+                        LoadArticleSections();
+                        break;
                 }
+                done[tabControl1.SelectedIndex] = true;
             }
         }
 
@@ -342,6 +387,20 @@ namespace Blogs
                 tbHeadNext.Text = list[10];
                 tbHeadTime.Text = list[11];
                 tbHeadWords.Text = list[12];
+            }
+        }
+
+        private void FillTabTexts(int section)
+        {
+            List<string> list = new List<string>();
+            list = Readers.GetTabTexts(section);
+            if (list != null)
+            {
+                tbTextDetail.Text = list[4];
+                tbTextPos.Text = list[2];
+                cbTextType.Text = list[3];
+                cbTextStatus.Text = list[5];
+                cbTextLang.Text = list[6];
             }
         }
 
@@ -424,7 +483,8 @@ namespace Blogs
             Gdata.IDarticle = IDarticle;
 
             tbArticle.Text = IDarticle.ToString();
-            tbTitle.Text = Readers.GetTitle();
+            tbTitle.Text = Readers.GetTitle(Language.CASTELLA);
+            tbTitleCA.Text = Readers.GetTitle(Language.CATALA);
         }
 
         private void btnArtDetails_Click(object sender, EventArgs e)
@@ -432,6 +492,26 @@ namespace Blogs
             if (tbArticle.Text == string.Empty) return;
             FillTabHead();
             tabControl1.SelectedIndex = Tabs.HEADER;
+        }
+
+        private void lbTextSections_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (loading) return;
+
+            // Load Text tab
+            // get the selected section
+            cbOption op = lbTextSections.SelectedItem as cbOption;
+            FillTabTexts(Int32.Parse(op.entityValue));
+        }
+
+        private void btnChangeLang_Click(object sender, EventArgs e)
+        {
+            if (tbCA.Text == string.Empty) return;
+
+            Singleton Gdata = Singleton.GetInstance();
+            Gdata.Lang = Gdata.Lang == Language.CASTELLA ? Language.CATALA : Language.CASTELLA;
+            ClearDoneArray();
+            LoadArticlesGrid();
         }
     }
 }

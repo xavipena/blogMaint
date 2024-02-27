@@ -46,6 +46,7 @@
             this.dgvSelector = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.tbHeadWords = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -72,17 +73,17 @@
             this.cbHeadType = new System.Windows.Forms.ComboBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label22 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.tbTextPos = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.cbTextLang = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.comboBox8 = new System.Windows.Forms.ComboBox();
+            this.cbTextStatus = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.cbTextType = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.tbTextDetail = new System.Windows.Forms.TextBox();
+            this.lbTextSections = new System.Windows.Forms.ListBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.label35 = new System.Windows.Forms.Label();
             this.textBox19 = new System.Windows.Forms.TextBox();
@@ -153,6 +154,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tbTitle = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnChangeLang = new System.Windows.Forms.Button();
+            this.tbTitleCA = new System.Windows.Forms.TextBox();
+            this.label53 = new System.Windows.Forms.Label();
+            this.tbCA = new System.Windows.Forms.TextBox();
+            this.tbES = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticles)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -307,6 +313,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnChangeLang);
             this.tabPage2.Controls.Add(this.btnArtDetails);
             this.tabPage2.Controls.Add(this.dgvSelector);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
@@ -354,6 +361,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button1);
             this.tabPage3.Controls.Add(this.label14);
             this.tabPage3.Controls.Add(this.tbHeadWords);
             this.tabPage3.Controls.Add(this.label15);
@@ -384,6 +392,15 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Capçalera";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(838, 234);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 39;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // label14
             // 
@@ -452,7 +469,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(355, 234);
+            this.label11.Location = new System.Drawing.Point(369, 234);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(48, 16);
             this.label11.TabIndex = 30;
@@ -461,7 +478,7 @@
             // cbHeadLang
             // 
             this.cbHeadLang.FormattingEnabled = true;
-            this.cbHeadLang.Location = new System.Drawing.Point(413, 231);
+            this.cbHeadLang.Location = new System.Drawing.Point(427, 231);
             this.cbHeadLang.Name = "cbHeadLang";
             this.cbHeadLang.Size = new System.Drawing.Size(121, 24);
             this.cbHeadLang.TabIndex = 29;
@@ -469,7 +486,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(366, 204);
+            this.label10.Location = new System.Drawing.Point(380, 204);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(38, 16);
             this.label10.TabIndex = 28;
@@ -478,7 +495,7 @@
             // cbHeadAuthor
             // 
             this.cbHeadAuthor.FormattingEnabled = true;
-            this.cbHeadAuthor.Location = new System.Drawing.Point(413, 201);
+            this.cbHeadAuthor.Location = new System.Drawing.Point(427, 201);
             this.cbHeadAuthor.Name = "cbHeadAuthor";
             this.cbHeadAuthor.Size = new System.Drawing.Size(121, 24);
             this.cbHeadAuthor.TabIndex = 27;
@@ -486,7 +503,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(366, 174);
+            this.label9.Location = new System.Drawing.Point(380, 174);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(37, 16);
             this.label9.TabIndex = 26;
@@ -495,7 +512,7 @@
             // cbHeadStatus
             // 
             this.cbHeadStatus.FormattingEnabled = true;
-            this.cbHeadStatus.Location = new System.Drawing.Point(413, 171);
+            this.cbHeadStatus.Location = new System.Drawing.Point(427, 171);
             this.cbHeadStatus.Name = "cbHeadStatus";
             this.cbHeadStatus.Size = new System.Drawing.Size(121, 24);
             this.cbHeadStatus.TabIndex = 25;
@@ -503,7 +520,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(357, 55);
+            this.label8.Location = new System.Drawing.Point(367, 52);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(50, 16);
             this.label8.TabIndex = 24;
@@ -511,10 +528,10 @@
             // 
             // tbHeadExcerpt
             // 
-            this.tbHeadExcerpt.Location = new System.Drawing.Point(413, 52);
+            this.tbHeadExcerpt.Location = new System.Drawing.Point(427, 52);
             this.tbHeadExcerpt.Multiline = true;
             this.tbHeadExcerpt.Name = "tbHeadExcerpt";
-            this.tbHeadExcerpt.Size = new System.Drawing.Size(640, 77);
+            this.tbHeadExcerpt.Size = new System.Drawing.Size(626, 77);
             this.tbHeadExcerpt.TabIndex = 23;
             // 
             // label6
@@ -546,21 +563,21 @@
             // 
             // dtpHeadUpdate
             // 
-            this.dtpHeadUpdate.Location = new System.Drawing.Point(85, 136);
+            this.dtpHeadUpdate.Location = new System.Drawing.Point(92, 136);
             this.dtpHeadUpdate.Name = "dtpHeadUpdate";
             this.dtpHeadUpdate.Size = new System.Drawing.Size(256, 22);
             this.dtpHeadUpdate.TabIndex = 17;
             // 
             // dtpHeadPub
             // 
-            this.dtpHeadPub.Location = new System.Drawing.Point(85, 108);
+            this.dtpHeadPub.Location = new System.Drawing.Point(92, 108);
             this.dtpHeadPub.Name = "dtpHeadPub";
             this.dtpHeadPub.Size = new System.Drawing.Size(256, 22);
             this.dtpHeadPub.TabIndex = 16;
             // 
             // dtpHeadDate
             // 
-            this.dtpHeadDate.Location = new System.Drawing.Point(85, 80);
+            this.dtpHeadDate.Location = new System.Drawing.Point(92, 80);
             this.dtpHeadDate.Name = "dtpHeadDate";
             this.dtpHeadDate.Size = new System.Drawing.Size(256, 22);
             this.dtpHeadDate.TabIndex = 15;
@@ -577,7 +594,7 @@
             // cbHeadType
             // 
             this.cbHeadType.FormattingEnabled = true;
-            this.cbHeadType.Location = new System.Drawing.Point(85, 49);
+            this.cbHeadType.Location = new System.Drawing.Point(92, 49);
             this.cbHeadType.Name = "cbHeadType";
             this.cbHeadType.Size = new System.Drawing.Size(121, 24);
             this.cbHeadType.TabIndex = 13;
@@ -585,17 +602,17 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.label22);
-            this.tabPage4.Controls.Add(this.textBox11);
+            this.tabPage4.Controls.Add(this.tbTextPos);
             this.tabPage4.Controls.Add(this.label21);
-            this.tabPage4.Controls.Add(this.comboBox6);
+            this.tabPage4.Controls.Add(this.cbTextLang);
             this.tabPage4.Controls.Add(this.label23);
-            this.tabPage4.Controls.Add(this.comboBox8);
+            this.tabPage4.Controls.Add(this.cbTextStatus);
             this.tabPage4.Controls.Add(this.label20);
-            this.tabPage4.Controls.Add(this.comboBox5);
+            this.tabPage4.Controls.Add(this.cbTextType);
             this.tabPage4.Controls.Add(this.label19);
             this.tabPage4.Controls.Add(this.label18);
-            this.tabPage4.Controls.Add(this.textBox10);
-            this.tabPage4.Controls.Add(this.listBox1);
+            this.tabPage4.Controls.Add(this.tbTextDetail);
+            this.tabPage4.Controls.Add(this.lbTextSections);
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(1069, 455);
@@ -612,12 +629,12 @@
             this.label22.TabIndex = 40;
             this.label22.Text = "Posició";
             // 
-            // textBox11
+            // tbTextPos
             // 
-            this.textBox11.Location = new System.Drawing.Point(405, 300);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(61, 22);
-            this.textBox11.TabIndex = 39;
+            this.tbTextPos.Location = new System.Drawing.Point(405, 300);
+            this.tbTextPos.Name = "tbTextPos";
+            this.tbTextPos.Size = new System.Drawing.Size(61, 22);
+            this.tbTextPos.TabIndex = 39;
             // 
             // label21
             // 
@@ -628,13 +645,13 @@
             this.label21.TabIndex = 38;
             this.label21.Text = "Idioma";
             // 
-            // comboBox6
+            // cbTextLang
             // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new System.Drawing.Point(405, 388);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(121, 24);
-            this.comboBox6.TabIndex = 37;
+            this.cbTextLang.FormattingEnabled = true;
+            this.cbTextLang.Location = new System.Drawing.Point(405, 388);
+            this.cbTextLang.Name = "cbTextLang";
+            this.cbTextLang.Size = new System.Drawing.Size(121, 24);
+            this.cbTextLang.TabIndex = 37;
             // 
             // label23
             // 
@@ -645,13 +662,13 @@
             this.label23.TabIndex = 34;
             this.label23.Text = "Estat";
             // 
-            // comboBox8
+            // cbTextStatus
             // 
-            this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Location = new System.Drawing.Point(405, 358);
-            this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(121, 24);
-            this.comboBox8.TabIndex = 33;
+            this.cbTextStatus.FormattingEnabled = true;
+            this.cbTextStatus.Location = new System.Drawing.Point(405, 358);
+            this.cbTextStatus.Name = "cbTextStatus";
+            this.cbTextStatus.Size = new System.Drawing.Size(121, 24);
+            this.cbTextStatus.TabIndex = 33;
             // 
             // label20
             // 
@@ -662,13 +679,13 @@
             this.label20.TabIndex = 32;
             this.label20.Text = "Tipus";
             // 
-            // comboBox5
+            // cbTextType
             // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(405, 328);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(121, 24);
-            this.comboBox5.TabIndex = 31;
+            this.cbTextType.FormattingEnabled = true;
+            this.cbTextType.Location = new System.Drawing.Point(405, 328);
+            this.cbTextType.Name = "cbTextType";
+            this.cbTextType.Size = new System.Drawing.Size(121, 24);
+            this.cbTextType.TabIndex = 31;
             // 
             // label19
             // 
@@ -688,22 +705,23 @@
             this.label18.TabIndex = 29;
             this.label18.Text = "Text";
             // 
-            // textBox10
+            // tbTextDetail
             // 
-            this.textBox10.Location = new System.Drawing.Point(405, 35);
-            this.textBox10.Multiline = true;
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(640, 257);
-            this.textBox10.TabIndex = 28;
+            this.tbTextDetail.Location = new System.Drawing.Point(405, 35);
+            this.tbTextDetail.Multiline = true;
+            this.tbTextDetail.Name = "tbTextDetail";
+            this.tbTextDetail.Size = new System.Drawing.Size(640, 257);
+            this.tbTextDetail.TabIndex = 28;
             // 
-            // listBox1
+            // lbTextSections
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(30, 35);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(278, 372);
-            this.listBox1.TabIndex = 27;
+            this.lbTextSections.FormattingEnabled = true;
+            this.lbTextSections.ItemHeight = 16;
+            this.lbTextSections.Location = new System.Drawing.Point(30, 35);
+            this.lbTextSections.Name = "lbTextSections";
+            this.lbTextSections.Size = new System.Drawing.Size(278, 372);
+            this.lbTextSections.TabIndex = 27;
+            this.lbTextSections.SelectedIndexChanged += new System.EventHandler(this.lbTextSections_SelectedIndexChanged);
             // 
             // tabPage5
             // 
@@ -1320,7 +1338,7 @@
             // 
             this.tbArticle.Location = new System.Drawing.Point(66, 18);
             this.tbArticle.Name = "tbArticle";
-            this.tbArticle.Size = new System.Drawing.Size(100, 22);
+            this.tbArticle.Size = new System.Drawing.Size(58, 22);
             this.tbArticle.TabIndex = 0;
             // 
             // label2
@@ -1335,7 +1353,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(175, 21);
+            this.label7.Location = new System.Drawing.Point(182, 21);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(33, 16);
             this.label7.TabIndex = 22;
@@ -1343,13 +1361,17 @@
             // 
             // tbTitle
             // 
-            this.tbTitle.Location = new System.Drawing.Point(214, 18);
+            this.tbTitle.Location = new System.Drawing.Point(221, 18);
             this.tbTitle.Name = "tbTitle";
-            this.tbTitle.Size = new System.Drawing.Size(640, 22);
+            this.tbTitle.Size = new System.Drawing.Size(687, 22);
             this.tbTitle.TabIndex = 21;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tbCA);
+            this.groupBox2.Controls.Add(this.tbES);
+            this.groupBox2.Controls.Add(this.tbTitleCA);
+            this.groupBox2.Controls.Add(this.label53);
             this.groupBox2.Controls.Add(this.tbTitle);
             this.groupBox2.Controls.Add(this.tbArticle);
             this.groupBox2.Controls.Add(this.label2);
@@ -1360,6 +1382,46 @@
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Article";
+            // 
+            // btnChangeLang
+            // 
+            this.btnChangeLang.Location = new System.Drawing.Point(22, 56);
+            this.btnChangeLang.Name = "btnChangeLang";
+            this.btnChangeLang.Size = new System.Drawing.Size(147, 33);
+            this.btnChangeLang.TabIndex = 10;
+            this.btnChangeLang.Text = "Canvia el idioma";
+            this.btnChangeLang.UseVisualStyleBackColor = true;
+            this.btnChangeLang.Click += new System.EventHandler(this.btnChangeLang_Click);
+            // 
+            // tbTitleCA
+            // 
+            this.tbTitleCA.Location = new System.Drawing.Point(221, 42);
+            this.tbTitleCA.Name = "tbTitleCA";
+            this.tbTitleCA.Size = new System.Drawing.Size(687, 22);
+            this.tbTitleCA.TabIndex = 25;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(182, 45);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(33, 16);
+            this.label53.TabIndex = 26;
+            this.label53.Text = "Títol";
+            // 
+            // tbCA
+            // 
+            this.tbCA.Location = new System.Drawing.Point(130, 42);
+            this.tbCA.Name = "tbCA";
+            this.tbCA.Size = new System.Drawing.Size(41, 22);
+            this.tbCA.TabIndex = 29;
+            // 
+            // tbES
+            // 
+            this.tbES.Location = new System.Drawing.Point(130, 18);
+            this.tbES.Name = "tbES";
+            this.tbES.Size = new System.Drawing.Size(41, 22);
+            this.tbES.TabIndex = 27;
             // 
             // Form1
             // 
@@ -1456,17 +1518,17 @@
         private System.Windows.Forms.TextBox tbHeadExcerpt;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.ComboBox cbTextLang;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.ComboBox comboBox8;
+        private System.Windows.Forms.ComboBox cbTextStatus;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.ComboBox cbTextType;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TextBox tbTextDetail;
+        private System.Windows.Forms.ListBox lbTextSections;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox tbTextPos;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TextBox textBox16;
@@ -1533,6 +1595,12 @@
         private System.Windows.Forms.ComboBox comboBox15;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.ListBox listBox6;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnChangeLang;
+        private System.Windows.Forms.TextBox tbCA;
+        private System.Windows.Forms.TextBox tbES;
+        private System.Windows.Forms.TextBox tbTitleCA;
+        private System.Windows.Forms.Label label53;
     }
 }
 
