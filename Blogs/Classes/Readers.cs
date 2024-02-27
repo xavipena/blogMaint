@@ -79,7 +79,7 @@ namespace Blogs.Classes
                 list.Add(reader.GetInt32(11).ToString());
                 list.Add(reader.GetInt32(12).ToString());
                 list.Add(reader.GetDecimal(13).ToString());
-                list.Add(reader.GetInt32(12).ToString());
+                list.Add(reader.GetInt32(14).ToString());
             }
 
             Gdata.db.DBClose();
@@ -103,27 +103,6 @@ namespace Blogs.Classes
 
             Gdata.db.DBClose();
             return title;
-        }
-
-        // ---------------------------------------------------------------------------
-        // Combos
-        // ---------------------------------------------------------------------------
-
-        private void LoadBlogs()
-        {
-            //Build a list
-            var dataSource = new List<cbOption>();
-
-            // load the list
-            dataSource = Readers.GetBlogs();
-
-            //Setup data binding
-            cbBlogs.DataSource = dataSource;
-            cbBlogs.DisplayMember = "entityName";
-            cbBlogs.ValueMember = "entityValue";
-
-            // readonly
-            cbBlogs.DropDownStyle = ComboBoxStyle.DropDownList;
         }
     }
 }

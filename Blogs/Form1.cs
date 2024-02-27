@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Blogs.Classes;
 using System.Xml.Linq;
 using System.Data.SqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Blogs
 {
@@ -111,6 +112,11 @@ namespace Blogs
         {
             if (!Gdata.db.IsConnected) return;
             LoadBlogs();
+
+            LoadComboBox(cbHeadType, "select distinct type, type from articles");
+            Loaders.LoadCombo(cbHeadStatus, Combos.STATUS);
+            Loaders.LoadCombo(cbHeadLang, Combos.LANGUAGE);
+            Loaders.LoadCombo(cbHeadAuthor, Combos.AUTHOR);
         }
         private void LoadBlogs()
         {
@@ -124,8 +130,6 @@ namespace Blogs
             cbBlogs.DataSource = dataSource;
             cbBlogs.DisplayMember = "entityName";
             cbBlogs.ValueMember = "entityValue";
-
-            // readonly
             cbBlogs.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
@@ -133,13 +137,13 @@ namespace Blogs
         // ---------------------------------------------------------------------------
         // Generic ComboBox loader
         // ---------------------------------------------------------------------------
-        private const string CategoryColumnName = "entityName";
-        private const string CategoryColumnValue = "entityValue";
 
-        private DataTable CategoryLookupTable = new DataTable();
-
-        private void InitializeCategoryLookupTable(string sql)
+        private void LoadComboBox(System.Windows.Forms.ComboBox combobox, string sql)
         {
+            if (combobox == null) return;
+            if (sql == string.Empty) return;
+
+            List<cbOption> list = new List<cbOption>();
             Singleton Gdata = Singleton.GetInstance();
             Gdata.db.DBOpen();
             try
@@ -147,24 +151,34 @@ namespace Blogs
                 using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
                 using (var reader = cmd.ExecuteReader())
                 {
-                    CategoryLookupTable.Columns.Add(CategoryColumnName, typeof(string));
-                    CategoryLookupTable.Load(reader);
+                    while (reader.Read())
+                    {
+                        cbOption op = new cbOption()
+                        {
+                            entityValue = reader.GetString(0),
+                            entityName = reader.GetString(1)
+                        };
+                        list.Add(op);
+                    }
+
                 }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
             }
             finally
             {
                 Gdata.db.DBClose();
             }
+            combobox.DataSource = null;
+            combobox.DataSource = list;
+            combobox.ValueMember = "entityValue";
+            combobox.DisplayMember = "entityName";
+            // Readonly, not editable
+            combobox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        private void FillFromCategoryLookupTable(ComboBox combobox)
-        {
-            if (combobox == null) return; // Or throw new Exception...
-            if (combobox.DataSource == CategoryLookupTable) return;
-            combobox.DataSource = null;
-            combobox.ValueMember = CategoryColumnName;
-            combobox.DataSource = CategoryLookupTable;
-        }
         // ---------------------------------------------------------------------------
         // Load data
         // ---------------------------------------------------------------------------
@@ -320,14 +334,14 @@ namespace Blogs
                 dtpHeadDate.Text = list[1];
                 dtpHeadPub.Text = list[2];
                 dtpHeadUpdate.Text = list[3];
-                tbHeadExcerpt.Text = list[4];
-                cbHeadStatus.Text = list[5];    
-                cbHeadAuthor.Text = list[6];
-                cbHeadLang.Text = list[7];
-                tbHeadPrev.Text = list[8];
-                tbHeadNext.Text = list[9];
-                tbHeadTime.Text = list[10];
-                tbHeadWords.Text = list[11];
+                tbHeadExcerpt.Text = list[5];
+                cbHeadStatus.Text = list[6];    
+                cbHeadAuthor.Text = list[7];
+                cbHeadLang.Text = list[8];
+                tbHeadPrev.Text = list[9];
+                tbHeadNext.Text = list[10];
+                tbHeadTime.Text = list[11];
+                tbHeadWords.Text = list[12];
             }
         }
 

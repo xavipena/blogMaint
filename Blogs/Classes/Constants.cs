@@ -44,4 +44,10 @@ namespace Blogs.Classes
         public const int QUOTES = 7;
         public const int CODE = 8;
     }
+    public class Combos
+    {
+        public const int STATUS = 0;
+        public const int LANGUAGE = 1;
+        public const int AUTHOR = 2;
+    }
 }

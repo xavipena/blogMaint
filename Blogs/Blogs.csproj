@@ -101,6 +101,7 @@
     <Compile Include="Classes\Constants.cs" />
     <Compile Include="Classes\DBConnection.cs" />
     <Compile Include="Classes\cbOption.cs" />
+    <Compile Include="Classes\Loaders.cs" />
     <Compile Include="Classes\Readers.cs" />
     <Compile Include="Classes\Singleton.cs" />
     <Compile Include="Classes\Workers.cs" />
