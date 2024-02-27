@@ -10,22 +10,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Blogs.Classes;
+using System.Xml.Linq;
+using System.Data.SqlClient;
 
 namespace Blogs
 {
     public partial class Form1 : Form
     {
-        DBConnection dbCon;
-        string lang = "es";
-        int currentBlog = 0;
+        bool NeedToSave = false;
+        Singleton Gdata = Singleton.GetInstance();
+        bool[] done = new bool[Constants.NUM_TABS];
 
         public Form1()
         {
             InitializeComponent();
             SetUpForm();
             DefineGrids();
-            DBConnect();
-            LoadBlogs();
+            Gdata.db = DBConnect();
+            LoadCombos();
         }
 
         // ---------------------------------------------------------------------------
@@ -50,12 +52,14 @@ namespace Blogs
 
             // Set the start position of the form to the center of the screen.
             this.StartPosition = FormStartPosition.CenterScreen;
+
+            tabControl1.Click += new EventHandler(tabControl_Click);
         }
 
         private void DefineGrids()
         {
             dgvArticles.Rows.Clear();
-            dgvArticles.ColumnCount = 4;
+            dgvArticles.ColumnCount = 5;
             dgvArticles.AllowUserToAddRows = false;
 
             dgvArticles.Columns[0].Name = "ID";
@@ -66,11 +70,24 @@ namespace Blogs
             dgvArticles.Columns[2].Width = 50;
             dgvArticles.Columns[3].Name = "Mots";
             dgvArticles.Columns[3].Width = 50;
+            dgvArticles.Columns[4].Name = "Mod";
+            dgvArticles.Columns[4].Width = 40;
+
+            dgvSelector.Rows.Clear();
+            dgvSelector.ColumnCount = 3;
+            dgvSelector.AllowUserToAddRows = false;
+
+            dgvSelector.Columns[0].Name = "ID";
+            dgvSelector.Columns[0].Width = 40;
+            dgvSelector.Columns[1].Name = "Secció";
+            dgvSelector.Columns[1].Width = 100;
+            dgvSelector.Columns[2].Name = "Títol";
+            dgvSelector.Columns[2].Width = 400;
         }
 
-        private void DBConnect()
+        private DBConnection DBConnect()
         {
-            dbCon = DBConnection.Instance();
+            DBConnection dbCon = DBConnection.Instance();
             dbCon.Server = "qahz995.diaridigital.net";
             dbCon.DatabaseName = "qahz995";
             dbCon.UserName = "qahz995";
@@ -78,25 +95,30 @@ namespace Blogs
             if (dbCon.DBConnect())
             {
                 lblMessage.Text = "Connectat";
+                return dbCon;
             }
             else
             {
                 lblMessage.Text = "No es pot connectar a la base de dades";
+                return null;
             }
         }
 
         /// <summary>
         /// Load combo box with salespersons
         /// </summary>
+        private void LoadCombos()
+        {
+            if (!Gdata.db.IsConnected) return;
+            LoadBlogs();
+        }
         private void LoadBlogs()
         {
-            if (!dbCon.IsConnected) return;
-
             //Build a list
             var dataSource = new List<cbOption>();
 
             // load the list
-            dataSource = GetBlogs();
+            dataSource = Readers.GetBlogs();
 
             //Setup data binding
             cbBlogs.DataSource = dataSource;
@@ -107,13 +129,53 @@ namespace Blogs
             cbBlogs.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        private void LoadArticles(int blog)
-        {
-            dbCon.DBOpen();
 
-            string sql = "select IDarticle, title, readTime, wordCount " +
-                         "from articles where IDblog = " + blog + " and status = 'A' and lang = '" + lang + "'";
-            var cmd = new MySqlCommand(sql, dbCon.Connection);
+        // ---------------------------------------------------------------------------
+        // Generic ComboBox loader
+        // ---------------------------------------------------------------------------
+        private const string CategoryColumnName = "entityName";
+        private const string CategoryColumnValue = "entityValue";
+
+        private DataTable CategoryLookupTable = new DataTable();
+
+        private void InitializeCategoryLookupTable(string sql)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
+            try
+            {
+                using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    CategoryLookupTable.Columns.Add(CategoryColumnName, typeof(string));
+                    CategoryLookupTable.Load(reader);
+                }
+            }
+            finally
+            {
+                Gdata.db.DBClose();
+            }
+        }
+
+        private void FillFromCategoryLookupTable(ComboBox combobox)
+        {
+            if (combobox == null) return; // Or throw new Exception...
+            if (combobox.DataSource == CategoryLookupTable) return;
+            combobox.DataSource = null;
+            combobox.ValueMember = CategoryColumnName;
+            combobox.DataSource = CategoryLookupTable;
+        }
+        // ---------------------------------------------------------------------------
+        // Load data
+        // ---------------------------------------------------------------------------
+
+        private void LoadArticles()
+        {
+            Gdata.db.DBOpen();
+
+            string sql = "select IDarticle, title, readTime, wordCount, type " +
+                         "from articles where IDblog = " + Gdata.currentBlog + " and status = 'A' and lang = '" + Gdata.Lang + "'";
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -122,69 +184,167 @@ namespace Blogs
                     reader.GetInt32(0).ToString(),
                     reader.GetString(1),
                     reader.GetInt32(2).ToString(),
-                    reader.GetInt32(3).ToString()
+                    reader.GetInt32(3).ToString(),
+                    string.Empty
                 };
                 dgvArticles.Rows.Add(aRow);
-            }
-
-            dbCon.DBClose();
-        }
-
-        private List<cbOption> GetBlogs()
-        { 
-            var list = new List<cbOption>();
-            dbCon.DBOpen();
-
-            string sql = "select blog, name " +
-                         "from project_blogs where status = 'A' and lang = '" + lang + "' and ga4 = 'A'";
-            var cmd = new MySqlCommand(sql, dbCon.Connection);
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                cbOption op = new cbOption()
+                string[] selRow = new string[]
                 {
-                    entityValue = reader.GetInt32(0).ToString(),
-                    entityName = reader.GetString(1)
+                    reader.GetInt32(0).ToString(),
+                    reader.GetString(4),
+                    reader.GetString(1)
                 };
-                list.Add(op);
+                dgvSelector.Rows.Add(selRow);
             }
 
-            dbCon.DBClose();
-            return list;
+            Gdata.db.DBClose();
         }
 
         // ---------------------------------------------------------------------------
         // Routines
         // ---------------------------------------------------------------------------
 
-        private int GetWordCount(int IDarticle)
+        private void UpdateTableArticle()
         {
-            dbCon.DBOpen();
-
-            string artText = string.Empty;
-            int wordCount = 0;
-
-            string sql = "select text " +
-                         "from article_details where IDarticle = " + IDarticle + " and lang = '" + lang + "' and status = 'A'";
-            var cmd = new MySqlCommand(sql, dbCon.Connection);
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            foreach (DataGridViewRow row in dgvArticles.Rows)
             {
-                artText = reader.GetString(0);
-                string[] words = artText.Split(' ');
-                wordCount += words.Length;
+                if (row.Cells[4].Value.ToString() == Marks.MODIFIED)
+                {
+                    UpdateRow(row);
+                }
             }
+        }
 
-            dbCon.DBClose();
-            return wordCount;
+        private void UpdateRow(DataGridViewRow row)
+        {
+            string sql = "update articles " +
+                        "set readTime = @val1, wordCount = @val2 " +
+                        "where IDblog = @par1 and IDarticle = @par2";
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            cmd.Parameters.AddWithValue("@par1", Gdata.currentBlog);
+            cmd.Parameters.AddWithValue("@par2", row.Cells[0].Value);
+            cmd.Parameters.AddWithValue("@val1", row.Cells[2].Value);
+            cmd.Parameters.AddWithValue("@val2", row.Cells[3].Value);
+            cmd.ExecuteNonQuery();
+        }
+
+        private void SetReadTimeFor(DataGridViewRow row)
+        {
+            // Search details and count words
+            int ID = Int32.Parse(row.Cells[0].Value.ToString());
+            int w = Workers.GetWordCount(ID);
+            int m = (w / Articles.WORDS_PER_MIN) + 1;
+            // update
+            row.Cells[2].Value = m;
+            row.Cells[3].Value = w;
+            row.Cells[4].Value = Marks.MODIFIED;
+            NeedToSave = true;
+        }
+
+        // ---------------------------------------------------------------------------
+        // Save
+        // ---------------------------------------------------------------------------
+
+        /// <summary>
+        /// Remind user to save the file
+        /// </summary>
+        /// <returns></returns>
+        private bool ForgotToSave()
+        {
+            if (NeedToSave)
+            {
+                if (MessageBox.Show("No estan gravats els canvis." + Environment.NewLine + "Sortir?", "Confirma",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Close app
+        /// </summary>
+        private void CleanUp()
+        {
+            if (Gdata.db.IsOpen) Gdata.db.DBClose();
+        }
+
+        private void LoadArticlesGrid()
+        {
+            dgvArticles.Rows.Clear();
+            dgvSelector.Rows.Clear();
+
+            cbOption op = cbBlogs.SelectedItem as cbOption;
+            Gdata.currentBlog = Int32.Parse(op.entityValue);
+            lblDesc.Text = Readers.GetBlogDescription();
+            LoadArticles();
+        }
+
+        // ---------------------------------------------------------------------------
+        // Change tab
+        // ---------------------------------------------------------------------------
+
+        private void ClearDoneArray()
+        {
+            for (int i = 0; i < tabControl1.Controls.Count; i++)
+            {
+                done[i] = false;
+            }
+        }
+        private void tabControl_Click(object sender, EventArgs e)
+        {
+            if (!done[tabControl1.SelectedIndex])
+            {
+                if (tabControl1.SelectedIndex == Tabs.HEADER)
+                {
+                    FillTabHead();
+                    done[tabControl1.SelectedIndex] = true;
+                }
+            }
+        }
+
+        // ---------------------------------------------------------------------------
+        // Fill tabs
+        // ---------------------------------------------------------------------------
+
+        private void FillTabHead()
+        {
+            List<string> list = new List<string>();
+            list = Readers.GetTabHeader();
+            if (list != null)
+            {
+                cbHeadType.Text = list[0];
+                dtpHeadDate.Text = list[1];
+                dtpHeadPub.Text = list[2];
+                dtpHeadUpdate.Text = list[3];
+                tbHeadExcerpt.Text = list[4];
+                cbHeadStatus.Text = list[5];    
+                cbHeadAuthor.Text = list[6];
+                cbHeadLang.Text = list[7];
+                tbHeadPrev.Text = list[8];
+                tbHeadNext.Text = list[9];
+                tbHeadTime.Text = list[10];
+                tbHeadWords.Text = list[11];
+            }
         }
 
         // ---------------------------------------------------------------------------
         // Events
         // ---------------------------------------------------------------------------
 
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (ForgotToSave()) return;
+            CleanUp();
+        }
+
         private void btnExit_Click(object sender, EventArgs e)
         {
+            if (ForgotToSave()) return;
+            CleanUp();
             Application.Exit();
         }
 
@@ -193,50 +353,71 @@ namespace Blogs
             LoadArticlesGrid();
         }
 
-        private void LoadArticlesGrid() 
-        { 
-            dgvArticles.Rows.Clear();
-            cbOption op = cbBlogs.SelectedItem as cbOption;
-            currentBlog = Int32.Parse(op.entityValue);
-            LoadArticles(currentBlog);
-        }
-
         private void btnWords_Click(object sender, EventArgs e)
         {
-            int IDarticle = 0;
+            Cursor.Current = Cursors.WaitCursor;
+            bool noData = true;
             foreach (DataGridViewRow row in dgvArticles.SelectedRows)
             {
-                // Search details and count words
-                int ID = Int32.Parse(row.Cells[0].Value.ToString());
-                int w = GetWordCount(ID);
-                int m = (w / 235) + 1;
-                label2.Text = "ID" +ID + ": " + w + " mots; "+ m + " mins";
-                // update
-                UpdateArticle(ID, w, m);
-                LoadArticlesGrid();
+                SetReadTimeFor(row);
+                noData = false;
             }
-            if (IDarticle == 0)
+            if (noData)
             {
                 lblMessage.Text = "Res seleccionat";
             }
+            Cursor.Current = Cursors.Default;
         }
 
-        private void UpdateArticle(int IDarticle, int words, int time)
+        private void btnWordsAll_Click(object sender, EventArgs e)
         {
-            dbCon.DBOpen();
+            if (dgvArticles.Rows.Count == 0)
+            {
+                lblMessage.Text = "No hi ha articles";
+                return;
+            }
+            Cursor.Current = Cursors.WaitCursor;
+            int x = 0;
+            foreach (DataGridViewRow row in dgvArticles.Rows)
+            {
+                if (Int32.Parse(row.Cells[2].Value.ToString()) == 0
+                 || Int32.Parse(row.Cells[3].Value.ToString()) == 0)
+                {
+                    SetReadTimeFor(row);
+                    x += 1;
+                }
+            }
+            if (x > 0)
+            {
+                //LoadArticlesGrid();
+                lblMessage.Text = x + " articles actualitzats";
+            }
+            Cursor.Current = Cursors.Default;
+        }
 
-            string sql = "update articles " +
-                         "set readTime = @val1, wordCount = @val2 " +
-                         "where IDblog = @par1 and IDarticle = @par2";
+        private void btnSaveChanges_Click(object sender, EventArgs e)
+        {
+            UpdateTableArticle();
+            NeedToSave = false;
+            LoadArticlesGrid();
+        }
 
-            var cmd = new MySqlCommand(sql, dbCon.Connection);
-            cmd.Parameters.AddWithValue("@par1", currentBlog);
-            cmd.Parameters.AddWithValue("@par2", IDarticle);
-            cmd.Parameters.AddWithValue("@val1", words);
-            cmd.Parameters.AddWithValue("@val2", time);
-            cmd.ExecuteNonQuery();
+        private void dgvSelector_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Get the article selected and fill the header
+            int IDarticle = Int32.Parse(dgvSelector.Rows[e.RowIndex].Cells[0].Value.ToString());
+            Singleton Gdata = Singleton.GetInstance();
+            Gdata.IDarticle = IDarticle;
 
-            dbCon.DBClose();
+            tbArticle.Text = IDarticle.ToString();
+            tbTitle.Text = Readers.GetTitle();
+        }
+
+        private void btnArtDetails_Click(object sender, EventArgs e)
+        {
+            if (tbArticle.Text == string.Empty) return;
+            FillTabHead();
+            tabControl1.SelectedIndex = Tabs.HEADER;
         }
     }
 }
