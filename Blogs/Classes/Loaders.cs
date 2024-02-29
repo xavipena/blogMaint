@@ -46,6 +46,14 @@ namespace Blogs.Classes
                     op = new cbOption() { entityValue = "T", entityName = "Text" };
                     list.Add(op);
                     break;
+
+                case Combos.BLOG_SET:
+
+                    op = new cbOption() { entityValue = "A", entityName = "Blocs técnics" };
+                    list.Add(op);
+                    op = new cbOption() { entityValue = "B", entityName = "Blocs personals" };
+                    list.Add(op);
+                    break;
             }
 
             SetCombo(list, combobox);

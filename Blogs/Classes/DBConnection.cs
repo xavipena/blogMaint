@@ -1,35 +1,56 @@
 ﻿using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Utilities.Bzip2;
 using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using Blogs.Classes;
 
 namespace Blogs
 {
     public class DBConnection
     {
-        private DBConnection()
-        { }
+        public DBConnection()
+        {
+            // Default
+            SetDatabase(BlogSet.TECHNICAL);
+            this.IsConnected = false;
+            this.IsOpen = false;
+        }
 
         public string Server { get; set; }
         public string DatabaseName { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public bool IsConnected = false;
-        public bool IsOpen = false;
+        public bool IsConnected { get; set; }
+        public bool IsOpen { get; set; }
 
         public MySqlConnection Connection { get; set; }
 
+        /*
         private static DBConnection _instance = null;
         public static DBConnection Instance()
         {
             if (_instance == null)
                 _instance = new DBConnection();
             return _instance;
+        }
+        */
+
+        public void SetDatabase(string set)
+        {
+            switch (set)
+            {
+                case BlogSet.TECHNICAL:
+                    this.Server = dBServers.TECHNICAL;
+                    this.DatabaseName = "qahz995";
+                    this.UserName = "qahz995";
+                    this.Password = "CrisRami2023";
+                    break;
+
+                case BlogSet.PERSONAL:
+                    this.Server = dBServers.PERSONAL;
+                    this.DatabaseName = "qahz997";
+                    this.UserName = "qahz997";
+                    this.Password = "CrisRami2023";
+                    break;
+            }
         }
 
         public bool DBConnect()

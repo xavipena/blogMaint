@@ -16,11 +16,20 @@ namespace Blogs.Classes
     {
         private static Singleton _instance;
 
+        // Defaults
         public string Lang = "es";
+        public string currentSet = "A";
+
+        // Initialize
         public int currentBlog = 0;
-        public DBConnection db;
-        public string ErrorText = string.Empty;
         public int IDarticle = 0;
+        
+        // This is current database
+        public DBConnection db = null;
+        // This is fixed database, for common tables
+        public DBConnection dbCommon = null;
+        public string ErrorText = string.Empty;
+        public string url = string.Empty;
 
         // Constructor (protected)
         protected Singleton()
