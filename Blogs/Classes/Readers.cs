@@ -1,11 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Collections.Specialized.BitVector32;
 
 namespace Blogs.Classes
 {
@@ -15,14 +10,13 @@ namespace Blogs.Classes
         {
             string desc = string.Empty;
             Singleton Gdata = Singleton.GetInstance();
-            Gdata.db.DBOpen();
+            Gdata.dbCommon.DBOpen();
 
             string sql = "select description, url " +
                          "from project_blogs " +
                          "where IDblog = " + Gdata.currentBlog + " and status = 'A' " +
                          "  and lang = '" + Gdata.Lang + "' and ga4 = '" + Gdata.currentSet + "'";
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            ... set the common
+            var cmd = new MySqlCommand(sql, Gdata.dbCommon.Connection);
             var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
@@ -30,7 +24,7 @@ namespace Blogs.Classes
                 Gdata.url = reader.GetString(1);
             }
 
-            Gdata.db.DBClose();
+            Gdata.dbCommon.DBClose();
             return desc;
         }
 
@@ -195,6 +189,8 @@ namespace Blogs.Classes
         public static List<string> GetTabCode(int section)
         {
             Singleton Gdata = Singleton.GetInstance();
+            if (Gdata.currentSet == BlogSet.PERSONAL) return null;
+
             int IDarticle = Gdata.IDarticle;
             if (IDarticle == 0) return null;
             List<string> list = new List<string>();
@@ -267,15 +263,15 @@ namespace Blogs.Classes
             return title;
         }
 
-        public static List<cbOption> LoadList(string sql)
+        public static List<cbOption> LoadList(string sql, DBConnection db)
         {
             Singleton Gdata = Singleton.GetInstance();
-            if (Gdata.dbCommon == null) return null;
-            if (!Gdata.dbCommon.IsConnected) return null;
-            Gdata.dbCommon.DBOpen();
+            if (db == null) return null;
+            if (!db.IsConnected) return null;
+            db.DBOpen();
 
             var list = new List<cbOption>();
-            var cmd = new MySqlCommand(sql, Gdata.dbCommon.Connection);
+            var cmd = new MySqlCommand(sql, db.Connection);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
@@ -287,7 +283,7 @@ namespace Blogs.Classes
                 list.Add(op);
             }
 
-            Gdata.dbCommon.DBClose();
+            db.DBClose();
             return list;
         }
 

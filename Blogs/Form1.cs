@@ -9,9 +9,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-//using static System.Net.Mime.MediaTypeNames;
+using System.ComponentModel;
 
 namespace Blogs
 {
@@ -33,6 +31,7 @@ namespace Blogs
             LoadBlogs();
             Loaders.LoadCombo(cbSet, Combos.BLOG_SET);
             LoadCombos();
+
             tbES.Text = Language.CASTELLA;
             tbCA.Text = Language.CATALA;
             lblMessage.Text = Messages.READY;
@@ -66,6 +65,9 @@ namespace Blogs
             tabControl1.Click += new EventHandler(tabControl_Click);
         }
 
+        /// <summary>
+        /// Grid feinition
+        /// </summary>
         private void DefineGrids()
         {
             dgvArticles.Rows.Clear();
@@ -85,15 +87,17 @@ namespace Blogs
 
 
             dgvSelector.Rows.Clear();
-            dgvSelector.ColumnCount = 3;
+            dgvSelector.ColumnCount = 4;
             dgvSelector.AllowUserToAddRows = false;
 
             dgvSelector.Columns[0].Name = "ID";
             dgvSelector.Columns[0].Width = 40;
             dgvSelector.Columns[1].Name = "Secció";
             dgvSelector.Columns[1].Width = 100;
-            dgvSelector.Columns[2].Name = "Títol";
-            dgvSelector.Columns[2].Width = 400;
+            dgvSelector.Columns[2].Name = "Data";
+            dgvSelector.Columns[2].Width = 100;
+            dgvSelector.Columns[3].Name = "Títol";
+            dgvSelector.Columns[3].Width = 400;
 
 
             dgvMetadata.Rows.Clear();
@@ -110,6 +114,11 @@ namespace Blogs
             dgvMetadata.Columns[3].Width = 350;
         }
 
+        /// <summary>
+        /// Connect to database using the connecion class
+        /// </summary>
+        /// <param name="bSet"></param>
+        /// <returns></returns>
         private DBConnection DBConnect(string bSet)
         {
             if (Gdata.db != null)
@@ -120,7 +129,6 @@ namespace Blogs
                 }
             }
 
-            //DBConnection dbCon = new DBConnection.Instance();
             DBConnection dbCon = new DBConnection();
             dbCon.SetDatabase(bSet);
             if (dbCon.DBConnect())
@@ -138,7 +146,7 @@ namespace Blogs
         }
 
         /// <summary>
-        /// Load all combos in app
+        /// Load all combos in app using a common loading routine
         /// </summary>
         private void LoadCombos()
         {
@@ -169,6 +177,9 @@ namespace Blogs
             LoadCodeLanguages();
         }
 
+        /// <summary>
+        /// Load blogs list
+        /// </summary>
         private void LoadBlogs()
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -180,7 +191,7 @@ namespace Blogs
             string sql = "select blog, name " +
                          "from project_blogs where status = 'A' and lang = '" + Gdata.Lang + "' and ga4 = '" + Gdata.currentSet + "'";
 
-            dataSource = Readers.LoadList(sql);
+            dataSource = Readers.LoadList(sql, Gdata.dbCommon);
             if (dataSource != null)
             {
                 //Setup data binding
@@ -191,6 +202,9 @@ namespace Blogs
             }
         }
 
+        /// <summary>
+        /// Load programming language codes
+        /// </summary>
         private void LoadCodeLanguages()
         {
             cbCodeLanguage.DataSource = Readers.LoadLangTypes();
@@ -213,9 +227,9 @@ namespace Blogs
 
             // load the list
             string sql = "select position, section from article_details " +
-                         "where IDarticle = " + Gdata.IDarticle + " and status = 'A' and lang = '" + Gdata.Lang + "'";
+                         "where IDarticle = " + Gdata.IDarticle + " and lang = '" + Gdata.Lang + "'";
 
-            dataSource = Readers.LoadList(sql);
+            dataSource = Readers.LoadList(sql, Gdata.db);
             if (dataSource != null)
             {
                 // Setup data binding
@@ -226,6 +240,9 @@ namespace Blogs
                 lbImageSections.DataSource = dataSource;
                 lbImageSections.DisplayMember = "entityName";
                 lbImageSections.ValueMember = "entityValue";
+
+                cbOption op = dataSource[0];
+                LoadImageSequences(op.entityValue.ToString());
 
                 lbLinkSections.DataSource = dataSource;
                 lbLinkSections.DisplayMember = "entityName";
@@ -248,10 +265,26 @@ namespace Blogs
             loading = false;
         }
 
+        private void LoadImageSequences(string section)
+        {
+            string sql = "select sequence from article_images " +
+                         "where IDarticle = " + Gdata.IDarticle + " and section = '" + section + "' and lang = '" + Gdata.Lang + "'";
+            var dataSource = Readers.LoadList(sql, Gdata.db);
+            lbImageSeqs.DataSource = dataSource;
+            lbImageSeqs.DisplayMember = "entityName";
+            lbImageSeqs.ValueMember = "entityValue";
+
+        }
+
         // ---------------------------------------------------------------------------
         // Generic ComboBox loader
         // ---------------------------------------------------------------------------
 
+        /// <summary>
+        /// Generic combo loader
+        /// </summary>
+        /// <param name="combobox"></param>
+        /// <param name="sql"></param>
         private void LoadComboBox(System.Windows.Forms.ComboBox combobox, string sql)
         {
             if (combobox == null) return;
@@ -295,15 +328,34 @@ namespace Blogs
         }
 
         // ---------------------------------------------------------------------------
+        // Update butons status
+        // ---------------------------------------------------------------------------
+
+        private void SetButtonStatus()
+        {
+            if (Gdata.IDarticle > 0)
+            {
+                if (NeedToSave)
+                {
+                    btnSaveHead.Enabled = false;
+                }
+            }
+            btnNewArticle.Enabled = false;
+        }
+
+        // ---------------------------------------------------------------------------
         // Load data
         // ---------------------------------------------------------------------------
 
+        /// <summary>
+        /// Load articles list
+        /// </summary>
         private void LoadArticles()
         {
             Gdata.db.DBOpen();
 
-            string sql = "select IDarticle, title, readTime, wordCount, type " +
-                         "from articles where IDblog = " + Gdata.currentBlog + " and status = 'A' and lang = '" + Gdata.Lang + "'";
+            string sql = "select IDarticle, title, readTime, wordCount, type, date " +
+                         "from articles where IDblog = " + Gdata.currentBlog + " and lang = '" + Gdata.Lang + "'";
             var cmd = new MySqlCommand(sql, Gdata.db.Connection);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -321,6 +373,7 @@ namespace Blogs
                 {
                     reader.GetInt32(0).ToString(),
                     reader.GetString(4),
+                    reader.GetDateTime(5).ToString().Substring(0,10),
                     reader.GetString(1)
                 };
                 dgvSelector.Rows.Add(selRow);
@@ -333,6 +386,9 @@ namespace Blogs
         // Routines to update time/words
         // ---------------------------------------------------------------------------
 
+        /// <summary>
+        /// Check grid to determine which rows need update
+        /// </summary>
         private void UpdateTableArticle()
         {
             foreach (DataGridViewRow row in dgvArticles.Rows)
@@ -344,6 +400,10 @@ namespace Blogs
             }
         }
 
+        /// <summary>
+        /// Update one single row from list
+        /// </summary>
+        /// <param name="row"></param>
         private void UpdateRow(DataGridViewRow row)
         {
             string sql = "update articles " +
@@ -358,6 +418,10 @@ namespace Blogs
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Calculate article read time
+        /// </summary>
+        /// <param name="row"></param>
         private void SetReadTimeFor(DataGridViewRow row)
         {
             // Search details and count words
@@ -401,14 +465,19 @@ namespace Blogs
             if (Gdata.db.IsOpen) Gdata.db.DBClose();
         }
 
+        /// <summary>
+        /// Load article list into grid
+        /// </summary>
         private void LoadArticlesGrid()
         {
             dgvArticles.Rows.Clear();
             dgvSelector.Rows.Clear();
+            dgvSelector.Sort(dgvSelector.Columns[0], ListSortDirection.Descending);
 
             cbOption op = cbBlogs.SelectedItem as cbOption;
             Gdata.currentBlog = Int32.Parse(op.entityValue);
             LoadArticles();
+            lblRowCount.Text = dgvSelector.Rows.Count + " files";
         }
 
         // ---------------------------------------------------------------------------
@@ -535,10 +604,7 @@ namespace Blogs
 
             string imageRequested = string.Empty;
             string[] tokens = url.Split('/');
-            foreach (string token in tokens)
-            {
-                imageRequested = tokens.Last();
-            }
+            imageRequested = tokens.Last();
 
             if (File.Exists(Paths.DOWNLOAD + imageRequested))
             {
@@ -556,6 +622,7 @@ namespace Blogs
             {
                 using (WebClient client = new WebClient())
                 {
+                    url = Gdata.url + "/images/" + imageRequested;
                     client.DownloadFileAsync(new Uri(url), Paths.DOWNLOAD + imageRequested);
                 }
             }
@@ -575,7 +642,7 @@ namespace Blogs
             client.DefaultRequestHeaders.Accept.ParseAdd("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
             try
             {
-                string url = Gdata.url + "/" + image;
+                string url = Gdata.url + "/images/" + image;
                 UpdateMessage("Baixant...");
                 byte[] data = await client.GetByteArrayAsync(url);
                 UpdateMessage("Gravant...");
@@ -590,22 +657,22 @@ namespace Blogs
             }
         }
 
-        public static Image ResizeImage(Image imgToResize, Size size)
+        public static System.Drawing.Image ResizeImage(System.Drawing.Image imgToResize, Size size)
         {
-            return (Image)(new Bitmap(imgToResize, size));
+            return (System.Drawing.Image)(new Bitmap(imgToResize, size));
         }
 
         private void ShowImage(string image)
         {
-            Image DownloadedImage = null;
+            System.Drawing.Image DownloadedImage = null;
             try
             {
-                DownloadedImage = Image.FromFile(Paths.DOWNLOAD + image);
+                DownloadedImage = System.Drawing.Image.FromFile(Paths.DOWNLOAD + image);
             }
-            catch (OutOfMemoryException)
+            catch (OutOfMemoryException e)
             {
                 UpdateMessage("Imatge massa gran");
-                return;
+                //throw; throw newOutOfMemoryException("Imatge massa gran: " + image, e);
             }
             if (lblMessage.InvokeRequired)
             {
@@ -787,8 +854,8 @@ namespace Blogs
                 cbHeadStatus.Text = list[6];    
                 cbHeadAuthor.Text = list[7];
                 cbHeadLang.Text = list[8];
-                tbHeadPrev.Text = list[9];
-                tbHeadNext.Text = list[10];
+                tbHeadNext.Text = list[9];
+                tbHeadPrev.Text = list[10];
                 tbHeadTime.Text = list[11];
                 tbHeadWords.Text = list[12];
             }
@@ -1024,7 +1091,7 @@ namespace Blogs
         {
             if (ForgotToSave()) return;
             CleanUp();
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
         }
 
         private void btnWords_Click(object sender, EventArgs e)
@@ -1091,13 +1158,6 @@ namespace Blogs
             LoadArticleSections();
         }
 
-        private void btnArtDetails_Click(object sender, EventArgs e)
-        {
-            if (tbArticle.Text == string.Empty) return;
-            FillTabHead();
-            tabControl1.SelectedIndex = Tabs.HEADER;
-        }
-
         private void btnChangeLang_Click(object sender, EventArgs e)
         {
             if (tbCA.Text == string.Empty) return;
@@ -1110,6 +1170,8 @@ namespace Blogs
 
         private void cbSet_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (loading) return;
+
             Singleton Gdata = Singleton.GetInstance();
             cbOption op = cbSet.SelectedItem as cbOption;
             Gdata.db = DBConnect(op.entityValue);
@@ -1189,6 +1251,51 @@ namespace Blogs
             // get the selected section
             cbOption op = lbRefSections.SelectedItem as cbOption;
             FillTabReferences(op.entityValue);
+        }
+
+        private void btnSaveHead_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+        }
+
+        private void btnNewArticle_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+        }
+
+        private void btnSaveText_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+        }
+
+        private void btnImageSave_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+        }
+
+        private void btnLinkSave_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+        }
+
+        private void btnRefSave_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+        }
+
+        private void btnQuoteSave_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+        }
+
+        private void btnCodeSave_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+        }
+
+        private void lbImageSeqs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
