@@ -85,7 +85,7 @@ namespace Blogs.Classes
             return list;
         }
 
-        public static List<string> GetTabImages(int section)
+        public static List<string> GetTabImages(int section, int sequence)
         {
             Singleton Gdata = Singleton.GetInstance();
             int IDarticle = Gdata.IDarticle;
@@ -94,7 +94,16 @@ namespace Blogs.Classes
             Gdata.db.DBOpen();
 
             string sql = "select * from article_images " +
-                         "where IDarticle = " + IDarticle + " and section = " + section + " and lang = '" + Gdata.Lang + "'";
+                         "where IDarticle = " + IDarticle +
+                         "  and section = " + section;
+            if (sequence > 0)
+            {
+                // If not sequence given, then select first. This is for first time filling the tab
+                // with no specific sequence selected
+                sql += "  and sequence = '" + sequence + "' ";
+            }            
+            sql += "  and lang = '" + Gdata.Lang + "'";
+
             var cmd = new MySqlCommand(sql, Gdata.db.Connection);
             var reader = cmd.ExecuteReader();
             if (reader.Read())
@@ -186,7 +195,7 @@ namespace Blogs.Classes
             return list;
         }
 
-        public static List<string> GetTabCode(int section)
+        public static List<string> GetTabCode(int section, int sequence)
         {
             Singleton Gdata = Singleton.GetInstance();
             if (Gdata.currentSet == BlogSet.PERSONAL) return null;
@@ -198,14 +207,21 @@ namespace Blogs.Classes
 
             string sql = "select * from article_code " +
                          "where IDarticle = " + IDarticle + " and section = " + section;
+            if (sequence > 0)
+            {
+                // If not sequence given, then select first. This is for first time filling the tab
+                // with no specific sequence selected
+                sql += "  and sequence = '" + sequence + "' ";
+            }
+
             var cmd = new MySqlCommand(sql, Gdata.db.Connection);
             var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                list.Add(reader.GetInt32(1).ToString());
-                list.Add(reader.GetString(2));
+                list.Add(reader.GetInt32(2).ToString());
                 list.Add(reader.GetString(3));
                 list.Add(reader.GetString(4));
+                list.Add(reader.GetString(5));
             }
 
             Gdata.db.DBClose();

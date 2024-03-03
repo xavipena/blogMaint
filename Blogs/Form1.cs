@@ -15,9 +15,9 @@ namespace Blogs
 {
     public partial class Form1 : Form
     {
-        bool NeedToSave = false;
         Singleton Gdata = Singleton.GetInstance();
         bool[] done = new bool[Constants.NUM_TABS];
+        bool[] NeedToSave = new bool[Constants.NUM_TABS];
         bool loading = false;
 
         public Form1()
@@ -242,7 +242,7 @@ namespace Blogs
                 lbImageSections.ValueMember = "entityValue";
 
                 cbOption op = dataSource[0];
-                LoadImageSequences(op.entityValue.ToString());
+                LoadImageSequences(Int32.Parse(op.entityValue.ToString()));
 
                 lbLinkSections.DataSource = dataSource;
                 lbLinkSections.DisplayMember = "entityName";
@@ -256,6 +256,8 @@ namespace Blogs
                 lbCodeSections.DisplayMember = "entityName";
                 lbCodeSections.ValueMember = "entityValue";
 
+                LoadCodeSequences(Int32.Parse(op.entityValue.ToString()));
+
                 // References, get list
                 dataSource = Readers.LoadRefList();
                 lbRefSections.DataSource = dataSource;
@@ -265,15 +267,24 @@ namespace Blogs
             loading = false;
         }
 
-        private void LoadImageSequences(string section)
+        private void LoadImageSequences(int section)
         {
-            string sql = "select sequence from article_images " +
+            string sql = "select sequence, concat(section,'-',sequence) from article_images " +
                          "where IDarticle = " + Gdata.IDarticle + " and section = '" + section + "' and lang = '" + Gdata.Lang + "'";
             var dataSource = Readers.LoadList(sql, Gdata.db);
             lbImageSeqs.DataSource = dataSource;
             lbImageSeqs.DisplayMember = "entityName";
             lbImageSeqs.ValueMember = "entityValue";
+        }
 
+        private void LoadCodeSequences(int section)
+        {
+            string sql = "select sequence, concat(section,'-',sequence) from article_code " +
+                         "where IDarticle = " + Gdata.IDarticle + " and section = '" + section + "'";
+            var dataSource = Readers.LoadList(sql, Gdata.db);
+            lbCodeSeqs.DataSource = dataSource;
+            lbCodeSeqs.DisplayMember = "entityName";
+            lbCodeSeqs.ValueMember = "entityValue";
         }
 
         // ---------------------------------------------------------------------------
@@ -335,9 +346,12 @@ namespace Blogs
         {
             if (Gdata.IDarticle > 0)
             {
-                if (NeedToSave)
+                for (int i = 0; i < Constants.NUM_TABS; i++)
                 {
-                    btnSaveHead.Enabled = false;
+                    if (NeedToSave[i])
+                    {
+                        btnSaveHead.Enabled = true;
+                    }
                 }
             }
             btnNewArticle.Enabled = false;
@@ -355,7 +369,8 @@ namespace Blogs
             Gdata.db.DBOpen();
 
             string sql = "select IDarticle, title, readTime, wordCount, type, date " +
-                         "from articles where IDblog = " + Gdata.currentBlog + " and lang = '" + Gdata.Lang + "'";
+                         "from articles where IDblog = " + Gdata.currentBlog + " and lang = '" + Gdata.Lang + "' " +
+                         "order by date desc";
             var cmd = new MySqlCommand(sql, Gdata.db.Connection);
             var reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -432,7 +447,7 @@ namespace Blogs
             row.Cells[2].Value = m;
             row.Cells[3].Value = w;
             row.Cells[4].Value = Marks.MODIFIED;
-            NeedToSave = true;
+            NeedToSave[tabControl1.SelectedIndex] = true;
         }
 
         // ---------------------------------------------------------------------------
@@ -445,7 +460,9 @@ namespace Blogs
         /// <returns></returns>
         private bool ForgotToSave()
         {
-            if (NeedToSave)
+            bool NeedSave = false;
+            for (int i = 0; i < Constants.NUM_TABS; i++) NeedSave = NeedSave || NeedToSave[i];
+            if (NeedSave)
             {
                 if (MessageBox.Show("No estan gravats els canvis." + Environment.NewLine + "Sortir?", "Confirma",
                     MessageBoxButtons.YesNo,
@@ -521,12 +538,12 @@ namespace Blogs
                         break;
 
                     case Tabs.IMAGES:
-                        if (lbImageSections.Text == string.Empty)
+                        if (tbImageName.Text == string.Empty)
                         {
                             cbOption op = lbImageSections.SelectedItem as cbOption;
                             if (op != null)
                             {
-                                FillTabImages(Int32.Parse(op.entityValue));
+                                FillTabImages(Int32.Parse(op.entityValue), 0);
                             }
                         }
                         break;
@@ -570,7 +587,7 @@ namespace Blogs
                             cbOption op = lbCodeSections.SelectedItem as cbOption;
                             if (op != null)
                             {
-                                FillTabCode(Int32.Parse(op.entityValue));
+                                FillTabCode(Int32.Parse(op.entityValue), 0);
                             }
                         }
                         break;
@@ -664,12 +681,12 @@ namespace Blogs
 
         private void ShowImage(string image)
         {
-            System.Drawing.Image DownloadedImage = null;
+            Image DownloadedImage = null;
             try
             {
-                DownloadedImage = System.Drawing.Image.FromFile(Paths.DOWNLOAD + image);
+                DownloadedImage = Image.FromFile(Paths.DOWNLOAD + image);
             }
-            catch (OutOfMemoryException e)
+            catch (OutOfMemoryException)
             {
                 UpdateMessage("Imatge massa gran");
                 //throw; throw newOutOfMemoryException("Imatge massa gran: " + image, e);
@@ -875,13 +892,16 @@ namespace Blogs
             }
         }
 
-        private void FillTabImages(int section)
+        private void FillTabImages(int section, int sequence)
         {
             // This tab can has sections with no images, so disable empty fields
             // Enable if want to add
 
+            // The very firt time, disable the layout
+            if (sequence == 0) ClearTabImages();
+
             List<string> list = new List<string>();
-            list = Readers.GetTabImages(section);
+            list = Readers.GetTabImages(section, sequence);
             if (list != null && list.Count > 0)
             {
                 TabImagesFields(true);
@@ -970,20 +990,23 @@ namespace Blogs
             }
         }
 
-        private void FillTabCode(int section)
+        private void FillTabCode(int section, int sequence)
         {
             // This tab can has sections with no code, so disable empty fields
             // Enable if want to add
 
+            // The very firt time, disable the layout
+            if (sequence == 0) ClearTabImages();
+
             List<string> list = new List<string>();
-            list = Readers.GetTabCode(section);
+            list = Readers.GetTabCode(section, sequence);
             if (list != null && list.Count > 0)
             {
                 TabCodeFields(true);
 
-                tbCode.Text = list[0];
-                tbCodeSeq.Text = list[1];
-                cbCodeStatus.Text = list[3];
+                tbCodeSeq.Text      = list[0];
+                cbCodeStatus.Text   = list[1];
+                tbCode.Text         = list[2];
                 cbCodeLanguage.Text = list[3];
             }
             else
@@ -1139,12 +1162,15 @@ namespace Blogs
         private void btnSaveChanges_Click(object sender, EventArgs e)
         {
             UpdateTableArticle();
-            NeedToSave = false;
+            NeedToSave[tabControl1.SelectedIndex] = false;
             LoadArticlesGrid();
         }
 
         private void dgvSelector_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            // ???
+            if (e.RowIndex < 0) return;
+
             // Get the article selected and fill the header
             int IDarticle = Int32.Parse(dgvSelector.Rows[e.RowIndex].Cells[0].Value.ToString());
             Singleton Gdata = Singleton.GetInstance();
@@ -1154,6 +1180,8 @@ namespace Blogs
             tbTitle.Text = Readers.GetTitle(Language.CASTELLA);
             tbTitleCA.Text = Readers.GetTitle(Language.CATALA);
 
+            // Restar tabs and load
+            ClearAllBoxes();
             ClearDoneArray();
             LoadArticleSections();
         }
@@ -1229,8 +1257,10 @@ namespace Blogs
 
             // Load Text tab
             // get the selected section
+
             cbOption op = lbImageSections.SelectedItem as cbOption;
-            FillTabImages(Int32.Parse(op.entityValue));
+            LoadImageSequences(Int32.Parse(op.entityValue));
+            FillTabImages(Int32.Parse(op.entityValue), 0);
         }
 
         private void lbLinkSections_SelectedIndexChanged(object sender, EventArgs e)
@@ -1251,6 +1281,14 @@ namespace Blogs
             // get the selected section
             cbOption op = lbRefSections.SelectedItem as cbOption;
             FillTabReferences(op.entityValue);
+        }
+
+        private void lbCodeSections_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbOption op = lbCodeSections.SelectedItem as cbOption;
+            LoadCodeSequences(Int32.Parse(op.entityValue));
+            FillTabCode(Int32.Parse(op.entityValue), 0);
+
         }
 
         private void btnSaveHead_Click(object sender, EventArgs e)
@@ -1295,7 +1333,28 @@ namespace Blogs
 
         private void lbImageSeqs_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (loading) return;
 
+            // Load Text tab
+            // get the selected section and sequence
+            cbOption op = lbImageSections.SelectedItem as cbOption;
+            int section = Int32.Parse(op.entityValue);
+                     op = lbImageSeqs.SelectedItem as cbOption;
+            int sequence = Int32.Parse(op.entityValue);
+            FillTabImages(section, sequence);
+        }
+
+        private void lbCodeSeqs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (loading) return;
+
+            // Load Text tab
+            // get the selected section and sequence
+            cbOption op = lbCodeSections.SelectedItem as cbOption;
+            int section = Int32.Parse(op.entityValue);
+            op = lbCodeSeqs.SelectedItem as cbOption;
+            int sequence = Int32.Parse(op.entityValue);
+            FillTabCode(section, sequence);
         }
     }
 }
