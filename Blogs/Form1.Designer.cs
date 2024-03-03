@@ -43,13 +43,13 @@
             this.btnWordsAll = new System.Windows.Forms.Button();
             this.btnSaveChanges = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabSelector = new System.Windows.Forms.TabPage();
             this.lblRowCount = new System.Windows.Forms.Label();
             this.dgvSelector = new System.Windows.Forms.DataGridView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabHeader = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnNewArticle = new System.Windows.Forms.Button();
-            this.btnSaveHead = new System.Windows.Forms.Button();
+            this.btnHeadSave = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.tbHeadWords = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -74,9 +74,9 @@
             this.dtpHeadDate = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.cbHeadType = new System.Windows.Forms.ComboBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabTexts = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnSaveText = new System.Windows.Forms.Button();
+            this.btnTextSave = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.tbTextPos = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
@@ -89,7 +89,8 @@
             this.label18 = new System.Windows.Forms.Label();
             this.tbTextDetail = new System.Windows.Forms.TextBox();
             this.lbTextSections = new System.Windows.Forms.ListBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabImages = new System.Windows.Forms.TabPage();
+            this.label54 = new System.Windows.Forms.Label();
             this.lbImageSeqs = new System.Windows.Forms.ListBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.btnImageSave = new System.Windows.Forms.Button();
@@ -113,7 +114,7 @@
             this.tbImageName = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.lbImageSections = new System.Windows.Forms.ListBox();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.tabLinks = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.btnLinkSave = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
@@ -126,7 +127,7 @@
             this.tbLinkName = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.lbLinkSections = new System.Windows.Forms.ListBox();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabReference = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.btnRefSave = new System.Windows.Forms.Button();
             this.label37 = new System.Windows.Forms.Label();
@@ -139,7 +140,7 @@
             this.tbRefName = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
             this.lbRefSections = new System.Windows.Forms.ListBox();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabQuotes = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btnQuoteSave = new System.Windows.Forms.Button();
             this.label45 = new System.Windows.Forms.Label();
@@ -152,7 +153,9 @@
             this.cbQuoteStatus = new System.Windows.Forms.ComboBox();
             this.label42 = new System.Windows.Forms.Label();
             this.lbQuoteSections = new System.Windows.Forms.ListBox();
-            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.tabCode = new System.Windows.Forms.TabPage();
+            this.label55 = new System.Windows.Forms.Label();
+            this.lbCodeSeqs = new System.Windows.Forms.ListBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.btnCodeSave = new System.Windows.Forms.Button();
             this.label51 = new System.Windows.Forms.Label();
@@ -165,10 +168,10 @@
             this.cbCodeStatus = new System.Windows.Forms.ComboBox();
             this.label47 = new System.Windows.Forms.Label();
             this.lbCodeSections = new System.Windows.Forms.ListBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.tabTime = new System.Windows.Forms.TabPage();
+            this.tabMetadata = new System.Windows.Forms.TabPage();
             this.dgvMetadata = new System.Windows.Forms.DataGridView();
-            this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.tabViewer = new System.Windows.Forms.TabPage();
             this.lblDatabase = new System.Windows.Forms.Label();
             this.lblCopyright = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
@@ -183,34 +186,32 @@
             this.tbES = new System.Windows.Forms.TextBox();
             this.tbTitleCA = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
-            this.label54 = new System.Windows.Forms.Label();
-            this.lbCodeSeqs = new System.Windows.Forms.ListBox();
-            this.label55 = new System.Windows.Forms.Label();
+            this.btnTest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticles)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabSelector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelector)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            this.tabHeader.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.tabTexts.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
+            this.tabImages.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
-            this.tabPage8.SuspendLayout();
+            this.tabLinks.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.tabPage6.SuspendLayout();
+            this.tabReference.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            this.tabPage7.SuspendLayout();
+            this.tabQuotes.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            this.tabPage9.SuspendLayout();
+            this.tabCode.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage10.SuspendLayout();
+            this.tabTime.SuspendLayout();
+            this.tabMetadata.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).BeginInit();
-            this.tabPage11.SuspendLayout();
+            this.tabViewer.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -228,7 +229,7 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(684, 3);
+            this.lblTitle.Location = new System.Drawing.Point(684, 5);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(29, 13);
@@ -270,7 +271,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 23);
+            this.label1.Location = new System.Drawing.Point(18, 23);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(28, 13);
@@ -295,7 +296,7 @@
             this.groupBox1.Controls.Add(this.lblDesc);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cbBlogs);
-            this.groupBox1.Location = new System.Drawing.Point(128, 15);
+            this.groupBox1.Location = new System.Drawing.Point(128, 17);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -327,7 +328,7 @@
             // lblDesc
             // 
             this.lblDesc.AutoSize = true;
-            this.lblDesc.Location = new System.Drawing.Point(48, 44);
+            this.lblDesc.Location = new System.Drawing.Point(48, 45);
             this.lblDesc.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDesc.Name = "lblDesc";
             this.lblDesc.Size = new System.Drawing.Size(57, 13);
@@ -369,17 +370,17 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage8);
-            this.tabControl1.Controls.Add(this.tabPage6);
-            this.tabControl1.Controls.Add(this.tabPage7);
-            this.tabControl1.Controls.Add(this.tabPage9);
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage10);
-            this.tabControl1.Controls.Add(this.tabPage11);
+            this.tabControl1.Controls.Add(this.tabSelector);
+            this.tabControl1.Controls.Add(this.tabHeader);
+            this.tabControl1.Controls.Add(this.tabTexts);
+            this.tabControl1.Controls.Add(this.tabImages);
+            this.tabControl1.Controls.Add(this.tabLinks);
+            this.tabControl1.Controls.Add(this.tabReference);
+            this.tabControl1.Controls.Add(this.tabQuotes);
+            this.tabControl1.Controls.Add(this.tabCode);
+            this.tabControl1.Controls.Add(this.tabTime);
+            this.tabControl1.Controls.Add(this.tabMetadata);
+            this.tabControl1.Controls.Add(this.tabViewer);
             this.tabControl1.Location = new System.Drawing.Point(9, 182);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
@@ -387,18 +388,18 @@
             this.tabControl1.Size = new System.Drawing.Size(808, 393);
             this.tabControl1.TabIndex = 11;
             // 
-            // tabPage2
+            // tabSelector
             // 
-            this.tabPage2.Controls.Add(this.lblRowCount);
-            this.tabPage2.Controls.Add(this.dgvSelector);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(800, 367);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Selector";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabSelector.Controls.Add(this.lblRowCount);
+            this.tabSelector.Controls.Add(this.dgvSelector);
+            this.tabSelector.Location = new System.Drawing.Point(4, 22);
+            this.tabSelector.Margin = new System.Windows.Forms.Padding(2);
+            this.tabSelector.Name = "tabSelector";
+            this.tabSelector.Padding = new System.Windows.Forms.Padding(2);
+            this.tabSelector.Size = new System.Drawing.Size(800, 367);
+            this.tabSelector.TabIndex = 1;
+            this.tabSelector.Text = "Selector";
+            this.tabSelector.UseVisualStyleBackColor = true;
             // 
             // lblRowCount
             // 
@@ -422,45 +423,45 @@
             this.dgvSelector.TabIndex = 0;
             this.dgvSelector.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSelector_CellClick);
             // 
-            // tabPage3
+            // tabHeader
             // 
-            this.tabPage3.Controls.Add(this.groupBox3);
-            this.tabPage3.Controls.Add(this.label14);
-            this.tabPage3.Controls.Add(this.tbHeadWords);
-            this.tabPage3.Controls.Add(this.label15);
-            this.tabPage3.Controls.Add(this.tbHeadTime);
-            this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Controls.Add(this.tbHeadNext);
-            this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.tbHeadPrev);
-            this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Controls.Add(this.cbHeadLang);
-            this.tabPage3.Controls.Add(this.label10);
-            this.tabPage3.Controls.Add(this.cbHeadAuthor);
-            this.tabPage3.Controls.Add(this.label9);
-            this.tabPage3.Controls.Add(this.cbHeadStatus);
-            this.tabPage3.Controls.Add(this.label8);
-            this.tabPage3.Controls.Add(this.tbHeadExcerpt);
-            this.tabPage3.Controls.Add(this.label6);
-            this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.label4);
-            this.tabPage3.Controls.Add(this.dtpHeadUpdate);
-            this.tabPage3.Controls.Add(this.dtpHeadPub);
-            this.tabPage3.Controls.Add(this.dtpHeadDate);
-            this.tabPage3.Controls.Add(this.label3);
-            this.tabPage3.Controls.Add(this.cbHeadType);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(800, 367);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Capçalera";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabHeader.Controls.Add(this.groupBox3);
+            this.tabHeader.Controls.Add(this.label14);
+            this.tabHeader.Controls.Add(this.tbHeadWords);
+            this.tabHeader.Controls.Add(this.label15);
+            this.tabHeader.Controls.Add(this.tbHeadTime);
+            this.tabHeader.Controls.Add(this.label13);
+            this.tabHeader.Controls.Add(this.tbHeadNext);
+            this.tabHeader.Controls.Add(this.label12);
+            this.tabHeader.Controls.Add(this.tbHeadPrev);
+            this.tabHeader.Controls.Add(this.label11);
+            this.tabHeader.Controls.Add(this.cbHeadLang);
+            this.tabHeader.Controls.Add(this.label10);
+            this.tabHeader.Controls.Add(this.cbHeadAuthor);
+            this.tabHeader.Controls.Add(this.label9);
+            this.tabHeader.Controls.Add(this.cbHeadStatus);
+            this.tabHeader.Controls.Add(this.label8);
+            this.tabHeader.Controls.Add(this.tbHeadExcerpt);
+            this.tabHeader.Controls.Add(this.label6);
+            this.tabHeader.Controls.Add(this.label5);
+            this.tabHeader.Controls.Add(this.label4);
+            this.tabHeader.Controls.Add(this.dtpHeadUpdate);
+            this.tabHeader.Controls.Add(this.dtpHeadPub);
+            this.tabHeader.Controls.Add(this.dtpHeadDate);
+            this.tabHeader.Controls.Add(this.label3);
+            this.tabHeader.Controls.Add(this.cbHeadType);
+            this.tabHeader.Location = new System.Drawing.Point(4, 22);
+            this.tabHeader.Margin = new System.Windows.Forms.Padding(2);
+            this.tabHeader.Name = "tabHeader";
+            this.tabHeader.Size = new System.Drawing.Size(800, 367);
+            this.tabHeader.TabIndex = 2;
+            this.tabHeader.Text = "Capçalera";
+            this.tabHeader.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnNewArticle);
-            this.groupBox3.Controls.Add(this.btnSaveHead);
+            this.groupBox3.Controls.Add(this.btnHeadSave);
             this.groupBox3.Location = new System.Drawing.Point(69, 240);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
@@ -481,21 +482,21 @@
             this.btnNewArticle.UseVisualStyleBackColor = true;
             this.btnNewArticle.Click += new System.EventHandler(this.btnNewArticle_Click);
             // 
-            // btnSaveHead
+            // btnHeadSave
             // 
-            this.btnSaveHead.Location = new System.Drawing.Point(18, 28);
-            this.btnSaveHead.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSaveHead.Name = "btnSaveHead";
-            this.btnSaveHead.Size = new System.Drawing.Size(122, 27);
-            this.btnSaveHead.TabIndex = 39;
-            this.btnSaveHead.Text = "Desa els canvis";
-            this.btnSaveHead.UseVisualStyleBackColor = true;
-            this.btnSaveHead.Click += new System.EventHandler(this.btnSaveHead_Click);
+            this.btnHeadSave.Location = new System.Drawing.Point(18, 28);
+            this.btnHeadSave.Margin = new System.Windows.Forms.Padding(2);
+            this.btnHeadSave.Name = "btnHeadSave";
+            this.btnHeadSave.Size = new System.Drawing.Size(122, 27);
+            this.btnHeadSave.TabIndex = 39;
+            this.btnHeadSave.Text = "Desa els canvis";
+            this.btnHeadSave.UseVisualStyleBackColor = true;
+            this.btnHeadSave.Click += new System.EventHandler(this.btnHeadSave_Click);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(630, 163);
+            this.label14.Location = new System.Drawing.Point(630, 144);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(84, 13);
@@ -504,7 +505,7 @@
             // 
             // tbHeadWords
             // 
-            this.tbHeadWords.Location = new System.Drawing.Point(715, 161);
+            this.tbHeadWords.Location = new System.Drawing.Point(715, 142);
             this.tbHeadWords.Margin = new System.Windows.Forms.Padding(2);
             this.tbHeadWords.Name = "tbHeadWords";
             this.tbHeadWords.Size = new System.Drawing.Size(76, 20);
@@ -513,7 +514,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(626, 139);
+            this.label15.Location = new System.Drawing.Point(626, 120);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(89, 13);
@@ -522,7 +523,7 @@
             // 
             // tbHeadTime
             // 
-            this.tbHeadTime.Location = new System.Drawing.Point(715, 136);
+            this.tbHeadTime.Location = new System.Drawing.Point(715, 117);
             this.tbHeadTime.Margin = new System.Windows.Forms.Padding(2);
             this.tbHeadTime.Name = "tbHeadTime";
             this.tbHeadTime.Size = new System.Drawing.Size(76, 20);
@@ -531,7 +532,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(465, 163);
+            this.label13.Location = new System.Drawing.Point(465, 144);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(47, 13);
@@ -540,7 +541,7 @@
             // 
             // tbHeadNext
             // 
-            this.tbHeadNext.Location = new System.Drawing.Point(512, 161);
+            this.tbHeadNext.Location = new System.Drawing.Point(512, 142);
             this.tbHeadNext.Margin = new System.Windows.Forms.Padding(2);
             this.tbHeadNext.Name = "tbHeadNext";
             this.tbHeadNext.Size = new System.Drawing.Size(76, 20);
@@ -549,7 +550,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(468, 139);
+            this.label12.Location = new System.Drawing.Point(468, 120);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(43, 13);
@@ -558,7 +559,7 @@
             // 
             // tbHeadPrev
             // 
-            this.tbHeadPrev.Location = new System.Drawing.Point(512, 136);
+            this.tbHeadPrev.Location = new System.Drawing.Point(512, 117);
             this.tbHeadPrev.Margin = new System.Windows.Forms.Padding(2);
             this.tbHeadPrev.Name = "tbHeadPrev";
             this.tbHeadPrev.Size = new System.Drawing.Size(76, 20);
@@ -567,7 +568,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(277, 190);
+            this.label11.Location = new System.Drawing.Point(277, 171);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(38, 13);
@@ -577,7 +578,7 @@
             // cbHeadLang
             // 
             this.cbHeadLang.FormattingEnabled = true;
-            this.cbHeadLang.Location = new System.Drawing.Point(320, 188);
+            this.cbHeadLang.Location = new System.Drawing.Point(320, 169);
             this.cbHeadLang.Margin = new System.Windows.Forms.Padding(2);
             this.cbHeadLang.Name = "cbHeadLang";
             this.cbHeadLang.Size = new System.Drawing.Size(92, 21);
@@ -586,7 +587,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(285, 166);
+            this.label10.Location = new System.Drawing.Point(285, 147);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(32, 13);
@@ -596,7 +597,7 @@
             // cbHeadAuthor
             // 
             this.cbHeadAuthor.FormattingEnabled = true;
-            this.cbHeadAuthor.Location = new System.Drawing.Point(320, 163);
+            this.cbHeadAuthor.Location = new System.Drawing.Point(320, 144);
             this.cbHeadAuthor.Margin = new System.Windows.Forms.Padding(2);
             this.cbHeadAuthor.Name = "cbHeadAuthor";
             this.cbHeadAuthor.Size = new System.Drawing.Size(92, 21);
@@ -605,7 +606,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(285, 141);
+            this.label9.Location = new System.Drawing.Point(285, 122);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 13);
@@ -615,7 +616,7 @@
             // cbHeadStatus
             // 
             this.cbHeadStatus.FormattingEnabled = true;
-            this.cbHeadStatus.Location = new System.Drawing.Point(320, 139);
+            this.cbHeadStatus.Location = new System.Drawing.Point(320, 120);
             this.cbHeadStatus.Margin = new System.Windows.Forms.Padding(2);
             this.cbHeadStatus.Name = "cbHeadStatus";
             this.cbHeadStatus.Size = new System.Drawing.Size(92, 21);
@@ -713,32 +714,32 @@
             this.cbHeadType.Size = new System.Drawing.Size(92, 21);
             this.cbHeadType.TabIndex = 13;
             // 
-            // tabPage4
+            // tabTexts
             // 
-            this.tabPage4.Controls.Add(this.groupBox4);
-            this.tabPage4.Controls.Add(this.label22);
-            this.tabPage4.Controls.Add(this.tbTextPos);
-            this.tabPage4.Controls.Add(this.label21);
-            this.tabPage4.Controls.Add(this.cbTextLang);
-            this.tabPage4.Controls.Add(this.label23);
-            this.tabPage4.Controls.Add(this.cbTextStatus);
-            this.tabPage4.Controls.Add(this.label20);
-            this.tabPage4.Controls.Add(this.cbTextType);
-            this.tabPage4.Controls.Add(this.label19);
-            this.tabPage4.Controls.Add(this.label18);
-            this.tabPage4.Controls.Add(this.tbTextDetail);
-            this.tabPage4.Controls.Add(this.lbTextSections);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(800, 367);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Seccions";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabTexts.Controls.Add(this.groupBox4);
+            this.tabTexts.Controls.Add(this.label22);
+            this.tabTexts.Controls.Add(this.tbTextPos);
+            this.tabTexts.Controls.Add(this.label21);
+            this.tabTexts.Controls.Add(this.cbTextLang);
+            this.tabTexts.Controls.Add(this.label23);
+            this.tabTexts.Controls.Add(this.cbTextStatus);
+            this.tabTexts.Controls.Add(this.label20);
+            this.tabTexts.Controls.Add(this.cbTextType);
+            this.tabTexts.Controls.Add(this.label19);
+            this.tabTexts.Controls.Add(this.label18);
+            this.tabTexts.Controls.Add(this.tbTextDetail);
+            this.tabTexts.Controls.Add(this.lbTextSections);
+            this.tabTexts.Location = new System.Drawing.Point(4, 22);
+            this.tabTexts.Margin = new System.Windows.Forms.Padding(2);
+            this.tabTexts.Name = "tabTexts";
+            this.tabTexts.Size = new System.Drawing.Size(800, 367);
+            this.tabTexts.TabIndex = 3;
+            this.tabTexts.Text = "Seccions";
+            this.tabTexts.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.btnSaveText);
+            this.groupBox4.Controls.Add(this.btnTextSave);
             this.groupBox4.Location = new System.Drawing.Point(434, 244);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
@@ -748,16 +749,16 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Actualització";
             // 
-            // btnSaveText
+            // btnTextSave
             // 
-            this.btnSaveText.Location = new System.Drawing.Point(18, 28);
-            this.btnSaveText.Margin = new System.Windows.Forms.Padding(2);
-            this.btnSaveText.Name = "btnSaveText";
-            this.btnSaveText.Size = new System.Drawing.Size(122, 27);
-            this.btnSaveText.TabIndex = 39;
-            this.btnSaveText.Text = "Desa els canvis";
-            this.btnSaveText.UseVisualStyleBackColor = true;
-            this.btnSaveText.Click += new System.EventHandler(this.btnSaveText_Click);
+            this.btnTextSave.Location = new System.Drawing.Point(18, 28);
+            this.btnTextSave.Margin = new System.Windows.Forms.Padding(2);
+            this.btnTextSave.Name = "btnTextSave";
+            this.btnTextSave.Size = new System.Drawing.Size(122, 27);
+            this.btnTextSave.TabIndex = 39;
+            this.btnTextSave.Text = "Desa els canvis";
+            this.btnTextSave.UseVisualStyleBackColor = true;
+            this.btnTextSave.Click += new System.EventHandler(this.btnTextSave_Click);
             // 
             // label22
             // 
@@ -873,38 +874,48 @@
             this.lbTextSections.TabIndex = 27;
             this.lbTextSections.SelectedIndexChanged += new System.EventHandler(this.lbTextSections_SelectedIndexChanged);
             // 
-            // tabPage5
+            // tabImages
             // 
-            this.tabPage5.Controls.Add(this.label54);
-            this.tabPage5.Controls.Add(this.lbImageSeqs);
-            this.tabPage5.Controls.Add(this.groupBox5);
-            this.tabPage5.Controls.Add(this.label35);
-            this.tabPage5.Controls.Add(this.tbImageSeq);
-            this.tabPage5.Controls.Add(this.label34);
-            this.tabPage5.Controls.Add(this.pbImage);
-            this.tabPage5.Controls.Add(this.label32);
-            this.tabPage5.Controls.Add(this.cbImageLang);
-            this.tabPage5.Controls.Add(this.label33);
-            this.tabPage5.Controls.Add(this.cbImageStatus);
-            this.tabPage5.Controls.Add(this.label31);
-            this.tabPage5.Controls.Add(this.tbImageCredit);
-            this.tabPage5.Controls.Add(this.label30);
-            this.tabPage5.Controls.Add(this.tbImageAlternate);
-            this.tabPage5.Controls.Add(this.label29);
-            this.tabPage5.Controls.Add(this.tbImageLCaption);
-            this.tabPage5.Controls.Add(this.label28);
-            this.tabPage5.Controls.Add(this.tbImageCaption);
-            this.tabPage5.Controls.Add(this.label27);
-            this.tabPage5.Controls.Add(this.tbImageName);
-            this.tabPage5.Controls.Add(this.label26);
-            this.tabPage5.Controls.Add(this.lbImageSections);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(800, 367);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Imatges";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabImages.Controls.Add(this.label54);
+            this.tabImages.Controls.Add(this.lbImageSeqs);
+            this.tabImages.Controls.Add(this.groupBox5);
+            this.tabImages.Controls.Add(this.label35);
+            this.tabImages.Controls.Add(this.tbImageSeq);
+            this.tabImages.Controls.Add(this.label34);
+            this.tabImages.Controls.Add(this.pbImage);
+            this.tabImages.Controls.Add(this.label32);
+            this.tabImages.Controls.Add(this.cbImageLang);
+            this.tabImages.Controls.Add(this.label33);
+            this.tabImages.Controls.Add(this.cbImageStatus);
+            this.tabImages.Controls.Add(this.label31);
+            this.tabImages.Controls.Add(this.tbImageCredit);
+            this.tabImages.Controls.Add(this.label30);
+            this.tabImages.Controls.Add(this.tbImageAlternate);
+            this.tabImages.Controls.Add(this.label29);
+            this.tabImages.Controls.Add(this.tbImageLCaption);
+            this.tabImages.Controls.Add(this.label28);
+            this.tabImages.Controls.Add(this.tbImageCaption);
+            this.tabImages.Controls.Add(this.label27);
+            this.tabImages.Controls.Add(this.tbImageName);
+            this.tabImages.Controls.Add(this.label26);
+            this.tabImages.Controls.Add(this.lbImageSections);
+            this.tabImages.Location = new System.Drawing.Point(4, 22);
+            this.tabImages.Margin = new System.Windows.Forms.Padding(2);
+            this.tabImages.Name = "tabImages";
+            this.tabImages.Size = new System.Drawing.Size(800, 367);
+            this.tabImages.TabIndex = 4;
+            this.tabImages.Text = "Imatges";
+            this.tabImages.UseVisualStyleBackColor = true;
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(233, 13);
+            this.label54.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(44, 13);
+            this.label54.TabIndex = 53;
+            this.label54.Text = "Imatges";
             // 
             // lbImageSeqs
             // 
@@ -1126,26 +1137,26 @@
             this.lbImageSections.TabIndex = 31;
             this.lbImageSections.SelectedIndexChanged += new System.EventHandler(this.lbImageSections_SelectedIndexChanged);
             // 
-            // tabPage8
+            // tabLinks
             // 
-            this.tabPage8.Controls.Add(this.groupBox6);
-            this.tabPage8.Controls.Add(this.label25);
-            this.tabPage8.Controls.Add(this.cbLinkLang);
-            this.tabPage8.Controls.Add(this.label36);
-            this.tabPage8.Controls.Add(this.cbLinkStatus);
-            this.tabPage8.Controls.Add(this.label17);
-            this.tabPage8.Controls.Add(this.tbLinkURL);
-            this.tabPage8.Controls.Add(this.label24);
-            this.tabPage8.Controls.Add(this.tbLinkName);
-            this.tabPage8.Controls.Add(this.label16);
-            this.tabPage8.Controls.Add(this.lbLinkSections);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(800, 367);
-            this.tabPage8.TabIndex = 7;
-            this.tabPage8.Text = "Enllaços";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.tabLinks.Controls.Add(this.groupBox6);
+            this.tabLinks.Controls.Add(this.label25);
+            this.tabLinks.Controls.Add(this.cbLinkLang);
+            this.tabLinks.Controls.Add(this.label36);
+            this.tabLinks.Controls.Add(this.cbLinkStatus);
+            this.tabLinks.Controls.Add(this.label17);
+            this.tabLinks.Controls.Add(this.tbLinkURL);
+            this.tabLinks.Controls.Add(this.label24);
+            this.tabLinks.Controls.Add(this.tbLinkName);
+            this.tabLinks.Controls.Add(this.label16);
+            this.tabLinks.Controls.Add(this.lbLinkSections);
+            this.tabLinks.Location = new System.Drawing.Point(4, 22);
+            this.tabLinks.Margin = new System.Windows.Forms.Padding(2);
+            this.tabLinks.Name = "tabLinks";
+            this.tabLinks.Size = new System.Drawing.Size(800, 367);
+            this.tabLinks.TabIndex = 7;
+            this.tabLinks.Text = "Enllaços";
+            this.tabLinks.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 
@@ -1265,26 +1276,26 @@
             this.lbLinkSections.TabIndex = 31;
             this.lbLinkSections.SelectedIndexChanged += new System.EventHandler(this.lbLinkSections_SelectedIndexChanged);
             // 
-            // tabPage6
+            // tabReference
             // 
-            this.tabPage6.Controls.Add(this.groupBox7);
-            this.tabPage6.Controls.Add(this.label37);
-            this.tabPage6.Controls.Add(this.tbRefSeq);
-            this.tabPage6.Controls.Add(this.label38);
-            this.tabPage6.Controls.Add(this.cbRefStatus);
-            this.tabPage6.Controls.Add(this.label39);
-            this.tabPage6.Controls.Add(this.tbRefURL);
-            this.tabPage6.Controls.Add(this.label40);
-            this.tabPage6.Controls.Add(this.tbRefName);
-            this.tabPage6.Controls.Add(this.label41);
-            this.tabPage6.Controls.Add(this.lbRefSections);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(800, 367);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Referència";
-            this.tabPage6.UseVisualStyleBackColor = true;
+            this.tabReference.Controls.Add(this.groupBox7);
+            this.tabReference.Controls.Add(this.label37);
+            this.tabReference.Controls.Add(this.tbRefSeq);
+            this.tabReference.Controls.Add(this.label38);
+            this.tabReference.Controls.Add(this.cbRefStatus);
+            this.tabReference.Controls.Add(this.label39);
+            this.tabReference.Controls.Add(this.tbRefURL);
+            this.tabReference.Controls.Add(this.label40);
+            this.tabReference.Controls.Add(this.tbRefName);
+            this.tabReference.Controls.Add(this.label41);
+            this.tabReference.Controls.Add(this.lbRefSections);
+            this.tabReference.Location = new System.Drawing.Point(4, 22);
+            this.tabReference.Margin = new System.Windows.Forms.Padding(2);
+            this.tabReference.Name = "tabReference";
+            this.tabReference.Size = new System.Drawing.Size(800, 367);
+            this.tabReference.TabIndex = 5;
+            this.tabReference.Text = "Referència";
+            this.tabReference.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
@@ -1403,26 +1414,26 @@
             this.lbRefSections.TabIndex = 51;
             this.lbRefSections.SelectedIndexChanged += new System.EventHandler(this.lbRefSections_SelectedIndexChanged);
             // 
-            // tabPage7
+            // tabQuotes
             // 
-            this.tabPage7.Controls.Add(this.groupBox8);
-            this.tabPage7.Controls.Add(this.label45);
-            this.tabPage7.Controls.Add(this.tbQuoteText);
-            this.tabPage7.Controls.Add(this.label46);
-            this.tabPage7.Controls.Add(this.tbQuoteAuthor);
-            this.tabPage7.Controls.Add(this.label43);
-            this.tabPage7.Controls.Add(this.cbQuoteLang);
-            this.tabPage7.Controls.Add(this.label44);
-            this.tabPage7.Controls.Add(this.cbQuoteStatus);
-            this.tabPage7.Controls.Add(this.label42);
-            this.tabPage7.Controls.Add(this.lbQuoteSections);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(800, 367);
-            this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "Cites";
-            this.tabPage7.UseVisualStyleBackColor = true;
+            this.tabQuotes.Controls.Add(this.groupBox8);
+            this.tabQuotes.Controls.Add(this.label45);
+            this.tabQuotes.Controls.Add(this.tbQuoteText);
+            this.tabQuotes.Controls.Add(this.label46);
+            this.tabQuotes.Controls.Add(this.tbQuoteAuthor);
+            this.tabQuotes.Controls.Add(this.label43);
+            this.tabQuotes.Controls.Add(this.cbQuoteLang);
+            this.tabQuotes.Controls.Add(this.label44);
+            this.tabQuotes.Controls.Add(this.cbQuoteStatus);
+            this.tabQuotes.Controls.Add(this.label42);
+            this.tabQuotes.Controls.Add(this.lbQuoteSections);
+            this.tabQuotes.Location = new System.Drawing.Point(4, 22);
+            this.tabQuotes.Margin = new System.Windows.Forms.Padding(2);
+            this.tabQuotes.Name = "tabQuotes";
+            this.tabQuotes.Size = new System.Drawing.Size(800, 367);
+            this.tabQuotes.TabIndex = 6;
+            this.tabQuotes.Text = "Cites";
+            this.tabQuotes.UseVisualStyleBackColor = true;
             // 
             // groupBox8
             // 
@@ -1541,28 +1552,47 @@
             this.lbQuoteSections.Size = new System.Drawing.Size(210, 303);
             this.lbQuoteSections.TabIndex = 53;
             // 
-            // tabPage9
+            // tabCode
             // 
-            this.tabPage9.Controls.Add(this.label55);
-            this.tabPage9.Controls.Add(this.lbCodeSeqs);
-            this.tabPage9.Controls.Add(this.groupBox9);
-            this.tabPage9.Controls.Add(this.label51);
-            this.tabPage9.Controls.Add(this.cbCodeLanguage);
-            this.tabPage9.Controls.Add(this.label50);
-            this.tabPage9.Controls.Add(this.tbCode);
-            this.tabPage9.Controls.Add(this.label48);
-            this.tabPage9.Controls.Add(this.tbCodeSeq);
-            this.tabPage9.Controls.Add(this.label49);
-            this.tabPage9.Controls.Add(this.cbCodeStatus);
-            this.tabPage9.Controls.Add(this.label47);
-            this.tabPage9.Controls.Add(this.lbCodeSections);
-            this.tabPage9.Location = new System.Drawing.Point(4, 22);
-            this.tabPage9.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(800, 367);
-            this.tabPage9.TabIndex = 8;
-            this.tabPage9.Text = "Codi";
-            this.tabPage9.UseVisualStyleBackColor = true;
+            this.tabCode.Controls.Add(this.label55);
+            this.tabCode.Controls.Add(this.lbCodeSeqs);
+            this.tabCode.Controls.Add(this.groupBox9);
+            this.tabCode.Controls.Add(this.label51);
+            this.tabCode.Controls.Add(this.cbCodeLanguage);
+            this.tabCode.Controls.Add(this.label50);
+            this.tabCode.Controls.Add(this.tbCode);
+            this.tabCode.Controls.Add(this.label48);
+            this.tabCode.Controls.Add(this.tbCodeSeq);
+            this.tabCode.Controls.Add(this.label49);
+            this.tabCode.Controls.Add(this.cbCodeStatus);
+            this.tabCode.Controls.Add(this.label47);
+            this.tabCode.Controls.Add(this.lbCodeSections);
+            this.tabCode.Location = new System.Drawing.Point(4, 22);
+            this.tabCode.Margin = new System.Windows.Forms.Padding(2);
+            this.tabCode.Name = "tabCode";
+            this.tabCode.Size = new System.Drawing.Size(800, 367);
+            this.tabCode.TabIndex = 8;
+            this.tabCode.Text = "Codi";
+            this.tabCode.UseVisualStyleBackColor = true;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(234, 13);
+            this.label55.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(63, 13);
+            this.label55.TabIndex = 71;
+            this.label55.Text = "Seqüències";
+            // 
+            // lbCodeSeqs
+            // 
+            this.lbCodeSeqs.FormattingEnabled = true;
+            this.lbCodeSeqs.Location = new System.Drawing.Point(237, 28);
+            this.lbCodeSeqs.Name = "lbCodeSeqs";
+            this.lbCodeSeqs.Size = new System.Drawing.Size(83, 186);
+            this.lbCodeSeqs.TabIndex = 70;
+            this.lbCodeSeqs.SelectedIndexChanged += new System.EventHandler(this.lbCodeSeqs_SelectedIndexChanged);
             // 
             // groupBox9
             // 
@@ -1682,31 +1712,31 @@
             this.lbCodeSections.TabIndex = 55;
             this.lbCodeSections.SelectedIndexChanged += new System.EventHandler(this.lbCodeSections_SelectedIndexChanged);
             // 
-            // tabPage1
+            // tabTime
             // 
-            this.tabPage1.Controls.Add(this.dgvArticles);
-            this.tabPage1.Controls.Add(this.btnSaveChanges);
-            this.tabPage1.Controls.Add(this.btnWordsAll);
-            this.tabPage1.Controls.Add(this.btnWords);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(800, 367);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Temps";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabTime.Controls.Add(this.dgvArticles);
+            this.tabTime.Controls.Add(this.btnSaveChanges);
+            this.tabTime.Controls.Add(this.btnWordsAll);
+            this.tabTime.Controls.Add(this.btnWords);
+            this.tabTime.Location = new System.Drawing.Point(4, 22);
+            this.tabTime.Margin = new System.Windows.Forms.Padding(2);
+            this.tabTime.Name = "tabTime";
+            this.tabTime.Padding = new System.Windows.Forms.Padding(2);
+            this.tabTime.Size = new System.Drawing.Size(800, 367);
+            this.tabTime.TabIndex = 0;
+            this.tabTime.Text = "Temps";
+            this.tabTime.UseVisualStyleBackColor = true;
             // 
-            // tabPage10
+            // tabMetadata
             // 
-            this.tabPage10.Controls.Add(this.dgvMetadata);
-            this.tabPage10.Location = new System.Drawing.Point(4, 22);
-            this.tabPage10.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Size = new System.Drawing.Size(800, 367);
-            this.tabPage10.TabIndex = 9;
-            this.tabPage10.Text = "Metadades";
-            this.tabPage10.UseVisualStyleBackColor = true;
+            this.tabMetadata.Controls.Add(this.dgvMetadata);
+            this.tabMetadata.Location = new System.Drawing.Point(4, 22);
+            this.tabMetadata.Margin = new System.Windows.Forms.Padding(2);
+            this.tabMetadata.Name = "tabMetadata";
+            this.tabMetadata.Size = new System.Drawing.Size(800, 367);
+            this.tabMetadata.TabIndex = 9;
+            this.tabMetadata.Text = "Metadades";
+            this.tabMetadata.UseVisualStyleBackColor = true;
             // 
             // dgvMetadata
             // 
@@ -1719,18 +1749,19 @@
             this.dgvMetadata.Size = new System.Drawing.Size(785, 335);
             this.dgvMetadata.TabIndex = 0;
             // 
-            // tabPage11
+            // tabViewer
             // 
-            this.tabPage11.Controls.Add(this.lblDatabase);
-            this.tabPage11.Controls.Add(this.lblCopyright);
-            this.tabPage11.Controls.Add(this.lblVersion);
-            this.tabPage11.Controls.Add(this.lblCreditsDesc);
-            this.tabPage11.Location = new System.Drawing.Point(4, 22);
-            this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Size = new System.Drawing.Size(800, 367);
-            this.tabPage11.TabIndex = 10;
-            this.tabPage11.Text = "Visor";
-            this.tabPage11.UseVisualStyleBackColor = true;
+            this.tabViewer.Controls.Add(this.btnTest);
+            this.tabViewer.Controls.Add(this.lblDatabase);
+            this.tabViewer.Controls.Add(this.lblCopyright);
+            this.tabViewer.Controls.Add(this.lblVersion);
+            this.tabViewer.Controls.Add(this.lblCreditsDesc);
+            this.tabViewer.Location = new System.Drawing.Point(4, 22);
+            this.tabViewer.Name = "tabViewer";
+            this.tabViewer.Size = new System.Drawing.Size(800, 367);
+            this.tabViewer.TabIndex = 10;
+            this.tabViewer.Text = "Visor";
+            this.tabViewer.UseVisualStyleBackColor = true;
             // 
             // lblDatabase
             // 
@@ -1770,7 +1801,7 @@
             // 
             // btnChangeLang
             // 
-            this.btnChangeLang.Location = new System.Drawing.Point(14, 138);
+            this.btnChangeLang.Location = new System.Drawing.Point(9, 138);
             this.btnChangeLang.Margin = new System.Windows.Forms.Padding(2);
             this.btnChangeLang.Name = "btnChangeLang";
             this.btnChangeLang.Size = new System.Drawing.Size(97, 27);
@@ -1791,12 +1822,12 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 17);
+            this.label2.Location = new System.Drawing.Point(28, 18);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
+            this.label2.Size = new System.Drawing.Size(18, 13);
             this.label2.TabIndex = 12;
-            this.label2.Text = "Article";
+            this.label2.Text = "ID";
             // 
             // label7
             // 
@@ -1826,7 +1857,7 @@
             this.groupBox2.Controls.Add(this.tbArticle);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(128, 98);
+            this.groupBox2.Location = new System.Drawing.Point(128, 100);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
@@ -1837,7 +1868,7 @@
             // 
             // tbCA
             // 
-            this.tbCA.Location = new System.Drawing.Point(98, 36);
+            this.tbCA.Location = new System.Drawing.Point(98, 38);
             this.tbCA.Margin = new System.Windows.Forms.Padding(2);
             this.tbCA.Name = "tbCA";
             this.tbCA.ReadOnly = true;
@@ -1855,7 +1886,7 @@
             // 
             // tbTitleCA
             // 
-            this.tbTitleCA.Location = new System.Drawing.Point(166, 36);
+            this.tbTitleCA.Location = new System.Drawing.Point(166, 38);
             this.tbTitleCA.Margin = new System.Windows.Forms.Padding(2);
             this.tbTitleCA.Name = "tbTitleCA";
             this.tbTitleCA.Size = new System.Drawing.Size(516, 20);
@@ -1864,41 +1895,23 @@
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(136, 39);
+            this.label53.Location = new System.Drawing.Point(136, 41);
             this.label53.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(29, 13);
             this.label53.TabIndex = 26;
             this.label53.Text = "Títol";
             // 
-            // label54
+            // btnTest
             // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(233, 13);
-            this.label54.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(44, 13);
-            this.label54.TabIndex = 53;
-            this.label54.Text = "Imatges";
-            // 
-            // lbCodeSeqs
-            // 
-            this.lbCodeSeqs.FormattingEnabled = true;
-            this.lbCodeSeqs.Location = new System.Drawing.Point(237, 28);
-            this.lbCodeSeqs.Name = "lbCodeSeqs";
-            this.lbCodeSeqs.Size = new System.Drawing.Size(83, 186);
-            this.lbCodeSeqs.TabIndex = 70;
-            this.lbCodeSeqs.SelectedIndexChanged += new System.EventHandler(this.lbCodeSeqs_SelectedIndexChanged);
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(234, 13);
-            this.label55.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(63, 13);
-            this.label55.TabIndex = 71;
-            this.label55.Text = "Seqüències";
+            this.btnTest.Location = new System.Drawing.Point(575, 137);
+            this.btnTest.Margin = new System.Windows.Forms.Padding(2);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(97, 27);
+            this.btnTest.TabIndex = 13;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // Form1
             // 
@@ -1922,36 +1935,36 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabSelector.ResumeLayout(false);
+            this.tabSelector.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelector)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tabHeader.ResumeLayout(false);
+            this.tabHeader.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
+            this.tabTexts.ResumeLayout(false);
+            this.tabTexts.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
+            this.tabImages.ResumeLayout(false);
+            this.tabImages.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).EndInit();
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
+            this.tabLinks.ResumeLayout(false);
+            this.tabLinks.PerformLayout();
             this.groupBox6.ResumeLayout(false);
-            this.tabPage6.ResumeLayout(false);
-            this.tabPage6.PerformLayout();
+            this.tabReference.ResumeLayout(false);
+            this.tabReference.PerformLayout();
             this.groupBox7.ResumeLayout(false);
-            this.tabPage7.ResumeLayout(false);
-            this.tabPage7.PerformLayout();
+            this.tabQuotes.ResumeLayout(false);
+            this.tabQuotes.PerformLayout();
             this.groupBox8.ResumeLayout(false);
-            this.tabPage9.ResumeLayout(false);
-            this.tabPage9.PerformLayout();
+            this.tabCode.ResumeLayout(false);
+            this.tabCode.PerformLayout();
             this.groupBox9.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage10.ResumeLayout(false);
+            this.tabTime.ResumeLayout(false);
+            this.tabMetadata.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).EndInit();
-            this.tabPage11.ResumeLayout(false);
-            this.tabPage11.PerformLayout();
+            this.tabViewer.ResumeLayout(false);
+            this.tabViewer.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -1974,10 +1987,10 @@
         private System.Windows.Forms.Button btnSaveChanges;
         private System.Windows.Forms.Label lblDesc;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabTime;
+        private System.Windows.Forms.TabPage tabSelector;
         private System.Windows.Forms.DataGridView dgvSelector;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabHeader;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox tbTitle;
         private System.Windows.Forms.Label label6;
@@ -2006,7 +2019,7 @@
         private System.Windows.Forms.ComboBox cbHeadStatus;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbHeadExcerpt;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabTexts;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox cbTextLang;
         private System.Windows.Forms.Label label23;
@@ -2019,7 +2032,7 @@
         private System.Windows.Forms.ListBox lbTextSections;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox tbTextPos;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tabImages;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TextBox tbImageLCaption;
         private System.Windows.Forms.Label label28;
@@ -2040,10 +2053,10 @@
         private System.Windows.Forms.TextBox tbImageCredit;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox tbImageAlternate;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.TabPage tabPage8;
-        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.TabPage tabReference;
+        private System.Windows.Forms.TabPage tabQuotes;
+        private System.Windows.Forms.TabPage tabLinks;
+        private System.Windows.Forms.TabPage tabCode;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.ComboBox cbLinkLang;
@@ -2085,16 +2098,16 @@
         private System.Windows.Forms.ComboBox cbCodeStatus;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.ListBox lbCodeSections;
-        private System.Windows.Forms.Button btnSaveHead;
+        private System.Windows.Forms.Button btnHeadSave;
         private System.Windows.Forms.Button btnChangeLang;
         private System.Windows.Forms.TextBox tbCA;
         private System.Windows.Forms.TextBox tbES;
         private System.Windows.Forms.TextBox tbTitleCA;
         private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.TabPage tabMetadata;
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.ComboBox cbSet;
-        private System.Windows.Forms.TabPage tabPage11;
+        private System.Windows.Forms.TabPage tabViewer;
         private System.Windows.Forms.Label lblCopyright;
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label lblCreditsDesc;
@@ -2104,7 +2117,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnNewArticle;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button btnSaveText;
+        private System.Windows.Forms.Button btnTextSave;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button btnImageSave;
         private System.Windows.Forms.GroupBox groupBox6;
@@ -2119,6 +2132,7 @@
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.ListBox lbCodeSeqs;
+        private System.Windows.Forms.Button btnTest;
     }
 }
 

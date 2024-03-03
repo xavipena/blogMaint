@@ -10,6 +10,9 @@ using System.Net;
 using System.Net.Http;
 using System.Drawing;
 using System.ComponentModel;
+using Org.BouncyCastle.Crmf;
+using System.Text;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Blogs
 {
@@ -20,23 +23,29 @@ namespace Blogs
         bool[] NeedToSave = new bool[Constants.NUM_TABS];
         bool loading = false;
 
+        // buffers to read and check changes
+        List<string> listTabHead;
+
         public Form1()
         {
             InitializeComponent();
             SetUpForm();
             DefineGrids();
             loading = true;
+            Cursor.Current = Cursors.WaitCursor;
             Gdata.db = DBConnect(Gdata.currentSet);
             Gdata.dbCommon = Gdata.db;
             LoadBlogs();
             Loaders.LoadCombo(cbSet, Combos.BLOG_SET);
             LoadCombos();
+            //SetButtonStatus();
 
             tbES.Text = Language.CASTELLA;
             tbCA.Text = Language.CATALA;
             lblMessage.Text = Messages.READY;
             lblDesc.Text = Readers.GetBlogDescription();
             loading = false;
+            Cursor.Current = Cursors.Default;
         }
 
         // ---------------------------------------------------------------------------
@@ -221,6 +230,7 @@ namespace Blogs
             Singleton Gdata = Singleton.GetInstance();
             if (Gdata.IDarticle == 0) return;
             loading = true;
+            Cursor.Current = Cursors.WaitCursor;
 
             //Build a list
             var dataSource = new List<cbOption>();
@@ -265,6 +275,7 @@ namespace Blogs
                 lbRefSections.ValueMember = "entityValue";
             }
             loading = false;
+            Cursor.Current = Cursors.Default;
         }
 
         private void LoadImageSequences(int section)
@@ -350,9 +361,20 @@ namespace Blogs
                 {
                     if (NeedToSave[i])
                     {
-                        btnSaveHead.Enabled = true;
+                        btnHeadSave.Enabled = true;
                     }
                 }
+            }
+            else
+            {
+                // No article loaded
+                btnHeadSave.Enabled = false;
+                btnTextSave.Enabled = false;
+                btnImageSave.Enabled = false;
+                btnLinkSave.Enabled = false;
+                btnRefSave.Enabled = false;
+                btnQuoteSave.Enabled = false;
+                btnCodeSave.Enabled = false;
             }
             btnNewArticle.Enabled = false;
         }
@@ -395,6 +417,39 @@ namespace Blogs
             }
 
             Gdata.db.DBClose();
+        }
+
+        // ---------------------------------------------------------------------------
+        // Detect changes in form
+        // ---------------------------------------------------------------------------
+
+        internal static void ListControlsInTab(Control f)
+        {
+            foreach (Control c in f.Controls)
+            {
+                if (c.HasChildren)
+                {
+                    ListControlsInTab(c);
+                }
+                else
+                {
+                    if (c is TextBox)
+                    {
+                        TextBox tb = (TextBox)c;
+                        MessageBox.Show(tb.Name);
+                    }
+                    if (c is ComboBox)
+                    {
+                        ComboBox cb = (ComboBox)c;
+                        MessageBox.Show(cb.Name);
+                    }
+                    if (c is DateTimePicker)
+                    {
+                        DateTimePicker dt = (DateTimePicker)c;
+                        MessageBox.Show(dt.Name);
+                    }
+                }
+            }
         }
 
         // ---------------------------------------------------------------------------
@@ -674,9 +729,9 @@ namespace Blogs
             }
         }
 
-        public static System.Drawing.Image ResizeImage(System.Drawing.Image imgToResize, Size size)
+        public static Image ResizeImage(Image imgToResize, Size size)
         {
-            return (System.Drawing.Image)(new Bitmap(imgToResize, size));
+            return (Image)(new Bitmap(imgToResize, size));
         }
 
         private void ShowImage(string image)
@@ -859,22 +914,26 @@ namespace Blogs
 
         private void FillTabHead()
         {
-            List<string> list = new List<string>();
-            list = Readers.GetTabHeader();
-            if (list != null && list.Count > 0)
+            if (NeedToSave[1])
             {
-                cbHeadType.Text = list[0];
-                dtpHeadDate.Text = list[1];
-                dtpHeadPub.Text = list[2];
-                dtpHeadUpdate.Text = list[3];
-                tbHeadExcerpt.Text = list[5];
-                cbHeadStatus.Text = list[6];    
-                cbHeadAuthor.Text = list[7];
-                cbHeadLang.Text = list[8];
-                tbHeadNext.Text = list[9];
-                tbHeadPrev.Text = list[10];
-                tbHeadTime.Text = list[11];
-                tbHeadWords.Text = list[12];
+                MessageBox.Show("Hi ha canvis sense desar.");
+                return;
+            }
+            listTabHead = Readers.GetTabHeader();
+            if (listTabHead != null && listTabHead.Count > 0)
+            {
+                cbHeadType.Text = listTabHead[0];
+                dtpHeadDate.Text = listTabHead[1];
+                dtpHeadPub.Text = listTabHead[2];
+                dtpHeadUpdate.Text = listTabHead[3];
+                tbHeadExcerpt.Text = listTabHead[5];
+                cbHeadStatus.Text = listTabHead[6];
+                cbHeadAuthor.Text = listTabHead[7];
+                cbHeadLang.Text = listTabHead[8];
+                tbHeadNext.Text = listTabHead[9];
+                tbHeadPrev.Text = listTabHead[10];
+                tbHeadTime.Text = listTabHead[11];
+                tbHeadWords.Text = listTabHead[12];
             }
         }
 
@@ -1048,56 +1107,6 @@ namespace Blogs
             {
                 return;
             }
-            /*
-            Uri url;
-
-            var success = Uri.TryCreate(urlString, UriKind.RelativeOrAbsolute, out url);
-
-            // Basic parsing was a success, now we need to perform additional checks
-            if (success)
-            {
-                // Load absolute urls directly.
-                // You may wish to validate the scheme is http/https
-                // e.g. url.Scheme == Uri.UriSchemeHttp || url.Scheme == Uri.UriSchemeHttps
-                if (url.IsAbsoluteUri)
-                {
-                    chromiumWebBrowser1.LoadUrl(urlString);
-
-                    return;
-                }
-
-                // Relative Url
-                // We'll do some additional checks to see if we can load the Url
-                // or if we pass the url off to the search engine
-                var hostNameType = Uri.CheckHostName(urlString);
-
-                if (hostNameType == UriHostNameType.IPv4 || hostNameType == UriHostNameType.IPv6)
-                {
-                    chromiumWebBrowser1.LoadUrl(urlString);
-
-                    return;
-                }
-
-                if (hostNameType == UriHostNameType.Dns)
-                {
-                    try
-                    {
-                        var hostEntry = Dns.GetHostEntry(urlString);
-                        if (hostEntry.AddressList.Length > 0)
-                        {
-                            chromiumWebBrowser1.LoadUrl(urlString);
-
-                            return;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        // Failed to resolve the host
-                        lblMessage.Text = "No es troba la pàgina web";
-                    }
-                }
-            }
-            */
         }
 
         // ---------------------------------------------------------------------------
@@ -1114,7 +1123,7 @@ namespace Blogs
         {
             if (ForgotToSave()) return;
             CleanUp();
-            System.Windows.Forms.Application.Exit();
+            Application.Exit();
         }
 
         private void btnWords_Click(object sender, EventArgs e)
@@ -1196,6 +1205,10 @@ namespace Blogs
             LoadArticlesGrid();
         }
 
+        // ---------------------------------------------------------------------------
+        // Selection from List Boxes
+        // ---------------------------------------------------------------------------
+
         private void cbSet_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (loading) return;
@@ -1206,16 +1219,6 @@ namespace Blogs
 
             // Load blogs for new set
             LoadBlogs();
-
-            /*
-            loading = true;
-            ClearHeaders();
-            ClearAllBoxes();
-            ClearDoneArray();
-            LoadCombos();
-            LoadArticlesGrid();
-            loading = false;
-            */
         }
 
         private void cbBlogs_SelectedIndexChanged(object sender, EventArgs e)
@@ -1227,12 +1230,14 @@ namespace Blogs
             Gdata.currentBlog = Int32.Parse(op.entityValue);
 
             loading = true;
+            Cursor.Current = Cursors.WaitCursor;
             ClearHeaders();
             ClearAllBoxes();
             ClearDoneArray();
             LoadCombos();
             LoadArticlesGrid();
             loading = false;
+            Cursor.Current = Cursors.Default;
 
             lblDesc.Text = Readers.GetBlogDescription();
 
@@ -1254,6 +1259,7 @@ namespace Blogs
         private void lbImageSections_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (loading) return;
+            if (lbImageSections.SelectedItem == null) return;
 
             // Load Text tab
             // get the selected section
@@ -1291,17 +1297,101 @@ namespace Blogs
 
         }
 
-        private void btnSaveHead_Click(object sender, EventArgs e)
+        // ---------------------------------------------------------------------------
+        // Selected indexes for sequences
+        // ---------------------------------------------------------------------------
+
+        private void lbImageSeqs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblMessage.Text = "Encara no";
+            if (loading) return;
+
+            // Load Text tab
+            // get the selected section and sequence
+            cbOption op = lbImageSections.SelectedItem as cbOption;
+            int section = Int32.Parse(op.entityValue);
+            op = lbImageSeqs.SelectedItem as cbOption;
+            int sequence = Int32.Parse(op.entityValue);
+            FillTabImages(section, sequence);
         }
 
-        private void btnNewArticle_Click(object sender, EventArgs e)
+        private void lbCodeSeqs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblMessage.Text = "Encara no";
+            if (loading) return;
+
+            // Load Text tab
+            // get the selected section and sequence
+            cbOption op = lbCodeSections.SelectedItem as cbOption;
+            int section = Int32.Parse(op.entityValue);
+            op = lbCodeSeqs.SelectedItem as cbOption;
+            int sequence = Int32.Parse(op.entityValue);
+            FillTabCode(section, sequence);
         }
 
-        private void btnSaveText_Click(object sender, EventArgs e)
+        // ---------------------------------------------------------------------------
+        // Save tabs
+        // ---------------------------------------------------------------------------
+
+        private void btnHeadSave_Click(object sender, EventArgs e)
+        {
+            NeedToSave[1] = AnyChangeInHead();
+            if (NeedToSave[1])
+            {
+                lblMessage.Text = "Gravar canvis";
+            }
+            else lblMessage.Text = "No hi ha canvis";
+        }
+
+        private bool AnyChangeInHead()
+        {
+            if (listTabHead == null) return false;
+            bool changes = false;
+
+            changes = changes || cbHeadType.Text != listTabHead[0];
+
+            changes = changes || dtpHeadDate.Value.ToString("dd/MM/yyyy") != listTabHead[1].Substring(0,10);
+            changes = changes || dtpHeadPub.Value.ToString("dd/MM/yyyy") != listTabHead[2].Substring(0, 10);
+            changes = changes || dtpHeadUpdate.Value.ToString("dd/MM/yyyy") != listTabHead[3].Substring(0, 10);
+            
+            changes = changes || tbHeadExcerpt.Text != listTabHead[5];
+
+            changes = changes || cbHeadStatus.SelectedValue.ToString() != listTabHead[6];
+            changes = changes || cbHeadAuthor.SelectedValue.ToString() != listTabHead[7];
+            changes = changes || cbHeadLang.SelectedValue.ToString() != listTabHead[8];
+            
+            changes = changes || tbHeadNext.Text != listTabHead[9];
+            changes = changes || tbHeadPrev.Text != listTabHead[10];
+            changes = changes || tbHeadTime.Text != listTabHead[11];
+            changes = changes || tbHeadWords.Text != listTabHead[12];
+
+            return changes;
+        }
+
+        private void SaveHeadChanges()
+        {
+            string sql = "update articles set " +
+                         " = @val1 " +
+                        cbHeadType.Text = listTabHead[0];
+                        dtpHeadDate.Text = listTabHead[1];
+                        dtpHeadPub.Text = listTabHead[2];
+                        dtpHeadUpdate.Text = listTabHead[3];
+                        tbHeadExcerpt.Text = listTabHead[5];
+                        cbHeadStatus.Text = listTabHead[6];
+                        cbHeadAuthor.Text = listTabHead[7];
+                        cbHeadLang.Text = listTabHead[8];
+                        tbHeadNext.Text = listTabHead[9];
+                        tbHeadPrev.Text = listTabHead[10];
+                        tbHeadTime.Text = listTabHead[11];
+                        tbHeadWords.Text = listTabHead[12];
+                        "where IDblog = @par1 and IDarticle = @par2";
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            cmd.Parameters.AddWithValue("@par1", Gdata.currentBlog);
+            cmd.Parameters.AddWithValue("@par2", Gdata.IDarticle);
+            
+            cmd.ExecuteNonQuery();
+        }
+
+        private void btnTextSave_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
         }
@@ -1331,30 +1421,19 @@ namespace Blogs
             lblMessage.Text = "Encara no";
         }
 
-        private void lbImageSeqs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (loading) return;
+        // ---------------------------------------------------------------------------
+        // Add new records from tabs
+        // ---------------------------------------------------------------------------
 
-            // Load Text tab
-            // get the selected section and sequence
-            cbOption op = lbImageSections.SelectedItem as cbOption;
-            int section = Int32.Parse(op.entityValue);
-                     op = lbImageSeqs.SelectedItem as cbOption;
-            int sequence = Int32.Parse(op.entityValue);
-            FillTabImages(section, sequence);
+        private void btnNewArticle_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
         }
 
-        private void lbCodeSeqs_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnTest_Click(object sender, EventArgs e)
         {
-            if (loading) return;
-
-            // Load Text tab
-            // get the selected section and sequence
-            cbOption op = lbCodeSections.SelectedItem as cbOption;
-            int section = Int32.Parse(op.entityValue);
-            op = lbCodeSeqs.SelectedItem as cbOption;
-            int sequence = Int32.Parse(op.entityValue);
-            FillTabCode(section, sequence);
+            //tabControl1.SelectedTab = tabControl1.TabPages[1];
+            //ListControlsInTab(tabControl1.TabPages[1]);
         }
     }
 }
