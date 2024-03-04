@@ -13,6 +13,7 @@ using System.ComponentModel;
 using Org.BouncyCastle.Crmf;
 using System.Text;
 using Google.Protobuf.WellKnownTypes;
+using MySqlX.XDevAPI.Common;
 
 namespace Blogs
 {
@@ -1333,10 +1334,17 @@ namespace Blogs
 
         private void btnHeadSave_Click(object sender, EventArgs e)
         {
+            if (Gdata.IDarticle == 0)
+            {
+                lblMessage.Text = "Res seleccionat";
+                return;
+            }
+
             NeedToSave[1] = AnyChangeInHead();
             if (NeedToSave[1])
             {
                 lblMessage.Text = "Gravar canvis";
+                SaveHeadChanges();
             }
             else lblMessage.Text = "No hi ha canvis";
         }
@@ -1368,27 +1376,38 @@ namespace Blogs
 
         private void SaveHeadChanges()
         {
+            string[] val = { "", "", "" };
+            cbOption op = cbHeadStatus.SelectedItem as cbOption;
+            val[0] = op.entityValue;
+                     op = cbHeadAuthor.SelectedItem as cbOption;
+            val[1] = op.entityValue;
+                     op = cbHeadLang.SelectedItem as cbOption;
+            val[2] = op.entityValue;
+
             string sql = "update articles set " +
-                         " = @val1 " +
-                        cbHeadType.Text = listTabHead[0];
-                        dtpHeadDate.Text = listTabHead[1];
-                        dtpHeadPub.Text = listTabHead[2];
-                        dtpHeadUpdate.Text = listTabHead[3];
-                        tbHeadExcerpt.Text = listTabHead[5];
-                        cbHeadStatus.Text = listTabHead[6];
-                        cbHeadAuthor.Text = listTabHead[7];
-                        cbHeadLang.Text = listTabHead[8];
-                        tbHeadNext.Text = listTabHead[9];
-                        tbHeadPrev.Text = listTabHead[10];
-                        tbHeadTime.Text = listTabHead[11];
-                        tbHeadWords.Text = listTabHead[12];
-                        "where IDblog = @par1 and IDarticle = @par2";
+                         ", type        = '" + cbHeadType.Text + "'" +  
+                         ", date        = '" + dtpHeadDate.Value.ToString("yyyy/MM/dd") + "'" +
+                         ", publish     = '" + dtpHeadPub.Value.ToString("yyyy/MM/dd")    + "'" +
+                         ", updated     = '" + dtpHeadUpdate.Value.ToString("yyyy/MM/dd") + "'" +
+                         ", excerpt     = '" + tbHeadExcerpt.Text + "'" +
+                         ", status      = '" + val[0] + "'" +
+                         ", IDauthor    =  " + val[1] +  
+                         ", lang        = '" + val[2] + "'" +
+                         ", next        =  " + tbHeadNext.Text +  
+                         ", prev        =  " + tbHeadPrev.Text +  
+                         ", readTime    =  " + tbHeadTime.Text.Replace(',','.') +  
+                         ", wordCount   =  " + tbHeadWords.Text +  
+                         " where IDblog = @par1 and IDarticle = @par2";
 
             var cmd = new MySqlCommand(sql, Gdata.db.Connection);
             cmd.Parameters.AddWithValue("@par1", Gdata.currentBlog);
             cmd.Parameters.AddWithValue("@par2", Gdata.IDarticle);
-            
-            cmd.ExecuteNonQuery();
+
+            if (RunUpdate(cmd))
+            {
+                NeedToSave[Tabs.HEADER] = false;
+                FillTabHead();
+            }
         }
 
         private void btnTextSave_Click(object sender, EventArgs e)
@@ -1421,6 +1440,33 @@ namespace Blogs
             lblMessage.Text = "Encara no";
         }
 
+        private bool RunUpdate(MySqlCommand cmd)
+        {
+            bool result = false;
+            try
+            {
+                if (chkTestMode.Checked)
+                {
+                    string sql = cmd.CommandText;
+                    foreach (MySqlParameter p in cmd.Parameters)
+                    {
+                        sql = sql.Replace(p.ParameterName.ToString(), p.Value.ToString());
+                    }
+                    MessageBox.Show(sql + " (" + Gdata.currentBlog + "," + Gdata.IDarticle + ")");
+                }
+                else
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            return result;
+        }
+
         // ---------------------------------------------------------------------------
         // Add new records from tabs
         // ---------------------------------------------------------------------------
@@ -1428,12 +1474,6 @@ namespace Blogs
         private void btnNewArticle_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
-        }
-
-        private void btnTest_Click(object sender, EventArgs e)
-        {
-            //tabControl1.SelectedTab = tabControl1.TabPages[1];
-            //ListControlsInTab(tabControl1.TabPages[1]);
         }
     }
 }
