@@ -14,6 +14,7 @@ using Org.BouncyCastle.Crmf;
 using System.Text;
 using Google.Protobuf.WellKnownTypes;
 using MySqlX.XDevAPI.Common;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Blogs
 {
@@ -1334,20 +1335,42 @@ namespace Blogs
 
         private void btnHeadSave_Click(object sender, EventArgs e)
         {
-            if (Gdata.IDarticle == 0)
-            {
-                lblMessage.Text = "Res seleccionat";
-                return;
-            }
-
-            NeedToSave[1] = AnyChangeInHead();
-            if (NeedToSave[1])
-            {
-                lblMessage.Text = "Gravar canvis";
-                SaveHeadChanges();
-            }
-            else lblMessage.Text = "No hi ha canvis";
+            UpdateTheTab(Tabs.HEADER);
         }
+
+        private void btnTextSave_Click(object sender, EventArgs e)
+        {
+            UpdateTheTab(Tabs.SECTIONS);
+        }
+
+        private void btnImageSave_Click(object sender, EventArgs e)
+        {
+            UpdateTheTab(Tabs.IMAGES);
+        }
+
+        private void btnLinkSave_Click(object sender, EventArgs e)
+        {
+            UpdateTheTab(Tabs.LINKS);
+        }
+
+        private void btnRefSave_Click(object sender, EventArgs e)
+        {
+            UpdateTheTab(Tabs.REFERENCE);
+        }
+
+        private void btnQuoteSave_Click(object sender, EventArgs e)
+        {
+            UpdateTheTab(Tabs.QUOTES);
+        }
+
+        private void btnCodeSave_Click(object sender, EventArgs e)
+        {
+            UpdateTheTab(Tabs.CODE);
+        }
+
+        // ---------------------------------------------------------------------------
+        // Deal with changes
+        // ---------------------------------------------------------------------------
 
         private bool AnyChangeInHead()
         {
@@ -1356,16 +1379,16 @@ namespace Blogs
 
             changes = changes || cbHeadType.Text != listTabHead[0];
 
-            changes = changes || dtpHeadDate.Value.ToString("dd/MM/yyyy") != listTabHead[1].Substring(0,10);
+            changes = changes || dtpHeadDate.Value.ToString("dd/MM/yyyy") != listTabHead[1].Substring(0, 10);
             changes = changes || dtpHeadPub.Value.ToString("dd/MM/yyyy") != listTabHead[2].Substring(0, 10);
             changes = changes || dtpHeadUpdate.Value.ToString("dd/MM/yyyy") != listTabHead[3].Substring(0, 10);
-            
+
             changes = changes || tbHeadExcerpt.Text != listTabHead[5];
 
             changes = changes || cbHeadStatus.SelectedValue.ToString() != listTabHead[6];
             changes = changes || cbHeadAuthor.SelectedValue.ToString() != listTabHead[7];
             changes = changes || cbHeadLang.SelectedValue.ToString() != listTabHead[8];
-            
+
             changes = changes || tbHeadNext.Text != listTabHead[9];
             changes = changes || tbHeadPrev.Text != listTabHead[10];
             changes = changes || tbHeadTime.Text != listTabHead[11];
@@ -1379,24 +1402,24 @@ namespace Blogs
             string[] val = { "", "", "" };
             cbOption op = cbHeadStatus.SelectedItem as cbOption;
             val[0] = op.entityValue;
-                     op = cbHeadAuthor.SelectedItem as cbOption;
+            op = cbHeadAuthor.SelectedItem as cbOption;
             val[1] = op.entityValue;
-                     op = cbHeadLang.SelectedItem as cbOption;
+            op = cbHeadLang.SelectedItem as cbOption;
             val[2] = op.entityValue;
 
             string sql = "update articles set " +
-                         ", type        = '" + cbHeadType.Text + "'" +  
+                         ", type        = '" + cbHeadType.Text + "'" +
                          ", date        = '" + dtpHeadDate.Value.ToString("yyyy/MM/dd") + "'" +
-                         ", publish     = '" + dtpHeadPub.Value.ToString("yyyy/MM/dd")    + "'" +
+                         ", publish     = '" + dtpHeadPub.Value.ToString("yyyy/MM/dd") + "'" +
                          ", updated     = '" + dtpHeadUpdate.Value.ToString("yyyy/MM/dd") + "'" +
                          ", excerpt     = '" + tbHeadExcerpt.Text + "'" +
                          ", status      = '" + val[0] + "'" +
-                         ", IDauthor    =  " + val[1] +  
+                         ", IDauthor    =  " + val[1] +
                          ", lang        = '" + val[2] + "'" +
-                         ", next        =  " + tbHeadNext.Text +  
-                         ", prev        =  " + tbHeadPrev.Text +  
-                         ", readTime    =  " + tbHeadTime.Text.Replace(',','.') +  
-                         ", wordCount   =  " + tbHeadWords.Text +  
+                         ", next        =  " + tbHeadNext.Text +
+                         ", prev        =  " + tbHeadPrev.Text +
+                         ", readTime    =  " + tbHeadTime.Text.Replace(',', '.') +
+                         ", wordCount   =  " + tbHeadWords.Text +
                          " where IDblog = @par1 and IDarticle = @par2";
 
             var cmd = new MySqlCommand(sql, Gdata.db.Connection);
@@ -1410,34 +1433,75 @@ namespace Blogs
             }
         }
 
-        private void btnTextSave_Click(object sender, EventArgs e)
-        {
-            lblMessage.Text = "Encara no";
-        }
 
-        private void btnImageSave_Click(object sender, EventArgs e)
-        {
-            lblMessage.Text = "Encara no";
-        }
+        // ---------------------------------------------------------------------------
+        // Helpers
+        // ---------------------------------------------------------------------------
 
-        private void btnLinkSave_Click(object sender, EventArgs e)
+        private void UpdateTheTab(int tab)
         {
-            lblMessage.Text = "Encara no";
-        }
+            if (Gdata.IDarticle == 0)
+            {
+                lblMessage.Text = "Res seleccionat";
+                return;
+            }
 
-        private void btnRefSave_Click(object sender, EventArgs e)
-        {
-            lblMessage.Text = "Encara no";
-        }
-
-        private void btnQuoteSave_Click(object sender, EventArgs e)
-        {
-            lblMessage.Text = "Encara no";
-        }
-
-        private void btnCodeSave_Click(object sender, EventArgs e)
-        {
-            lblMessage.Text = "Encara no";
+            if (!NeedToSave[tab])
+            {
+                switch (tab)
+                {
+                    case Tabs.HEADER:
+                        NeedToSave[tab] = AnyChangeInHead();
+                        break;
+                    case Tabs.SECTIONS:
+                        NeedToSave[tab] = AnyChangeInText();
+                        break;
+                    case Tabs.IMAGES:
+                        NeedToSave[tab] = AnyChangeInImage();
+                        break;
+                    case Tabs.LINKS:
+                        NeedToSave[tab] = AnyChangeInLink();
+                        break;
+                    case Tabs.REFERENCE:
+                        NeedToSave[tab] = AnyChangeInRefs();
+                        break;
+                    case Tabs.QUOTES:
+                        NeedToSave[tab] = AnyChangeInQuote();
+                        break;
+                    case Tabs.CODE:
+                        NeedToSave[tab] = AnyChangeInCode();
+                        break;
+                }
+            }
+            if (NeedToSave[tab])
+            {
+                lblMessage.Text = "Gravar canvis";
+                switch (tab)
+                {
+                    case Tabs.HEADER:
+                        SaveHeadChanges();
+                        break;
+                    case Tabs.SECTIONS:
+                        SaveTextChanges();
+                        break;
+                    case Tabs.IMAGES:
+                        SaveImageChanges();
+                        break;
+                    case Tabs.LINKS:
+                        SaveLinkChanges();
+                        break;
+                    case Tabs.REFERENCE:
+                        SaveRefsChanges();
+                        break;
+                    case Tabs.QUOTES:
+                        SaveQuoteChanges();
+                        break;
+                    case Tabs.CODE:
+                        SaveCodeChanges();
+                        break;
+                }
+            }
+            else lblMessage.Text = "No hi ha canvis";
         }
 
         private bool RunUpdate(MySqlCommand cmd)
