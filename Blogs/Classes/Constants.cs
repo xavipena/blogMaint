@@ -80,4 +80,9 @@ namespace Blogs.Classes
         public const string CONNECTED = "Connectat";
         public const string READY = "Preparat";
     }
+    public class Actions
+    {
+        public const int LIST = 0;
+        public const int CLEAR = 1;
+    }
 }

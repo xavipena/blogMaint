@@ -426,44 +426,6 @@ namespace Blogs
             Gdata.db.DBClose();
         }
 
-        // ---------------------------------------------------------------------------
-        // Detect changes in form
-        // list the controls in a Control (tab)
-        // ---------------------------------------------------------------------------
-
-        private void ListControlsInTab(Control f)
-        {
-            List<string> cList = new List<string>();
-            foreach (Control c in f.Controls)
-            {
-                if (c.HasChildren)
-                {
-                    ListControlsInTab(c);
-                }
-                else
-                {
-                    if (c is TextBox)
-                    {
-                        TextBox tb = (TextBox)c;
-                        cList.Add(tb.Name);
-                    }
-                    if (c is ComboBox)
-                    {
-                        ComboBox cb = (ComboBox)c;
-                        cList.Add(cb.Name);
-                    }
-                    if (c is DateTimePicker)
-                    {
-                        DateTimePicker dt = (DateTimePicker)c;
-                        cList.Add(dt.Name);
-                    }
-                }
-            }
-            if (cList.Count > 0)
-            {
-                lbControls.DataSource = cList;
-            }
-        }
 
         // ---------------------------------------------------------------------------
         // Routines to update time/words
@@ -1604,6 +1566,61 @@ namespace Blogs
                 MessageBox.Show(ex.Message);
             }
             return result;
+        }
+
+
+        // ---------------------------------------------------------------------------
+        // list the controls in a Control (tab) and apply action
+        // ---------------------------------------------------------------------------
+
+        private void ListControlsInTab(Control f, int action)
+        {
+            List<string> cList = new List<string>();
+            foreach (Control c in f.Controls)
+            {
+                if (c.HasChildren)
+                {
+                    ListControlsInTab(c, action);
+                }
+                else
+                {
+                    if (c is TextBox)
+                    {
+                        TextBox tb = (TextBox)c;
+                        switch (action)
+                        {
+                            case Actions.LIST:
+                                cList.Add(tb.Name);
+                                break;
+                            case Actions.CLEAR:
+                                tb.Text = string.Empty;
+                                break;
+                        }
+                    }
+                    if (c is ComboBox)
+                    {
+                        ComboBox cb = (ComboBox)c;
+                        cList.Add(cb.Name);
+                    }
+                    if (c is DateTimePicker)
+                    {
+                        DateTimePicker dt = (DateTimePicker)c;
+                        switch (action)
+                        {
+                            case Actions.LIST:
+                                cList.Add(dt.Name);
+                                break;
+                            case Actions.CLEAR:
+                                dt.Value = DateTime.Today;
+                                break;
+                        }
+                    }
+                }
+            }
+            if (cList.Count > 0)
+            {
+                lbControls.DataSource = cList;
+            }
         }
 
         // ---------------------------------------------------------------------------
