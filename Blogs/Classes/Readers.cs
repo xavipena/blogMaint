@@ -6,6 +6,10 @@ namespace Blogs.Classes
 {
     internal class Readers
     {
+        /// <summary>
+        /// Retrieve blog description
+        /// </summary>
+        /// <returns></returns>
         public static string GetBlogDescription()
         {
             string desc = string.Empty;
@@ -28,6 +32,10 @@ namespace Blogs.Classes
             return desc;
         }
 
+        /// <summary>
+        /// Retrieve header tab for current blog/article
+        /// </summary>
+        /// <returns></returns>
         public static List<string> GetTabHeader()
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -60,6 +68,11 @@ namespace Blogs.Classes
             return list;
         }
 
+        /// <summary>
+        /// Retrieve texts tab for given section
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
         public static List<string> GetTabTexts(int section)
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -68,23 +81,31 @@ namespace Blogs.Classes
             List<string> list = new List<string>();
             Gdata.db.DBOpen();
 
-            string sql = "select * from article_details " +
+            string sql = "select section, position, type, text, status, lang " +
+                         "from article_details " +
                          "where IDarticle = " + IDarticle + " and position = " + section + " and lang = '" + Gdata.Lang + "'";
             var cmd = new MySqlCommand(sql, Gdata.db.Connection);
             var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                list.Add(reader.GetInt32(2).ToString());
+                list.Add(reader.GetString(0));
+                list.Add(reader.GetInt32(1).ToString());
+                list.Add(reader.GetString(2));
                 list.Add(reader.GetString(3));
                 list.Add(reader.GetString(4));
                 list.Add(reader.GetString(5));
-                list.Add(reader.GetString(6));
             }
 
             Gdata.db.DBClose();
             return list;
         }
 
+        /// <summary>
+        /// Retrieve image detail for given section/sequence
+        /// </summary>
+        /// <param name="section"></param>
+        /// <param name="sequence"></param>
+        /// <returns></returns>
         public static List<string> GetTabImages(int section, int sequence)
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -122,6 +143,11 @@ namespace Blogs.Classes
             return list;
         }
 
+        /// <summary>
+        /// Retrieve links tab for given section
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
         public static List<string> GetTabLinks(int section)
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -146,6 +172,11 @@ namespace Blogs.Classes
             return list;
         }
 
+        /// <summary>
+        /// Retrieve references list tab
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public static List<string> GetTabReferences(string key)
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -170,6 +201,11 @@ namespace Blogs.Classes
             return list;
         }
 
+        /// <summary>
+        /// Retrieve quotes tab for given section
+        /// </summary>
+        /// <param name="section"></param>
+        /// <returns></returns>
         public static List<string> GetTabQuotes(int section)
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -195,6 +231,12 @@ namespace Blogs.Classes
             return list;
         }
 
+        /// <summary>
+        /// Retrieve coding tab for given section/sequence
+        /// </summary>
+        /// <param name="section"></param>
+        /// <param name="sequence"></param>
+        /// <returns></returns>
         public static List<string> GetTabCode(int section, int sequence)
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -228,6 +270,10 @@ namespace Blogs.Classes
             return list;
         }
 
+        /// <summary>
+        /// Get metadata for current article in selected blog
+        /// </summary>
+        /// <returns></returns>
         public static List<string[]> GetTabMetadata()
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -259,6 +305,11 @@ namespace Blogs.Classes
             return list;
         }
 
+        /// <summary>
+        /// Get article title
+        /// </summary>
+        /// <param name="lang"></param>
+        /// <returns></returns>
         public static string GetTitle(string lang)
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -279,6 +330,12 @@ namespace Blogs.Classes
             return title;
         }
 
+        /// <summary>
+        /// Load cbOption list based on given query
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="db"></param>
+        /// <returns></returns>
         public static List<cbOption> LoadList(string sql, DBConnection db)
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -303,6 +360,10 @@ namespace Blogs.Classes
             return list;
         }
 
+        /// <summary>
+        /// Load programming languages list
+        /// </summary>
+        /// <returns></returns>
         public static List<cbOption> LoadLangTypes()
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -327,6 +388,10 @@ namespace Blogs.Classes
             return list;
         }
 
+        /// <summary>
+        /// Load references list
+        /// </summary>
+        /// <returns></returns>
         public static List<cbOption> LoadRefList()
         {
             Singleton Gdata = Singleton.GetInstance();

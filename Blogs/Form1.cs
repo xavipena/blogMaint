@@ -14,7 +14,6 @@ using Org.BouncyCastle.Crmf;
 using System.Text;
 using Google.Protobuf.WellKnownTypes;
 using MySqlX.XDevAPI.Common;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Blogs
 {
@@ -27,6 +26,12 @@ namespace Blogs
 
         // buffers to read and check changes
         List<string> listTabHead;
+        List<string> listTabText;
+        List<string> listTabImage;
+        List<string> listTabLink;
+        List<string> listTabRefs;
+        List<string> listTabQuote;
+        List<string> listTabCode;
 
         public Form1()
         {
@@ -423,10 +428,12 @@ namespace Blogs
 
         // ---------------------------------------------------------------------------
         // Detect changes in form
+        // list the controls in a Control (tab)
         // ---------------------------------------------------------------------------
 
-        internal static void ListControlsInTab(Control f)
+        private void ListControlsInTab(Control f)
         {
+            List<string> cList = new List<string>();
             foreach (Control c in f.Controls)
             {
                 if (c.HasChildren)
@@ -438,19 +445,23 @@ namespace Blogs
                     if (c is TextBox)
                     {
                         TextBox tb = (TextBox)c;
-                        MessageBox.Show(tb.Name);
+                        cList.Add(tb.Name);
                     }
                     if (c is ComboBox)
                     {
                         ComboBox cb = (ComboBox)c;
-                        MessageBox.Show(cb.Name);
+                        cList.Add(cb.Name);
                     }
                     if (c is DateTimePicker)
                     {
                         DateTimePicker dt = (DateTimePicker)c;
-                        MessageBox.Show(dt.Name);
+                        cList.Add(dt.Name);
                     }
                 }
+            }
+            if (cList.Count > 0)
+            {
+                lbControls.DataSource = cList;
             }
         }
 
@@ -916,7 +927,7 @@ namespace Blogs
 
         private void FillTabHead()
         {
-            if (NeedToSave[1])
+            if (NeedToSave[Tabs.HEADER])
             {
                 MessageBox.Show("Hi ha canvis sense desar.");
                 return;
@@ -941,15 +952,20 @@ namespace Blogs
 
         private void FillTabTexts(int section)
         {
-            List<string> list = new List<string>();
-            list = Readers.GetTabTexts(section);
-            if (list != null && list.Count > 0)
+            if (NeedToSave[Tabs.SECTIONS])
             {
-                tbTextDetail.Text = list[2];
-                tbTextPos.Text = list[0];
-                cbTextType.Text = list[1];
-                cbTextStatus.Text = list[3];
-                cbTextLang.Text = list[4];
+                MessageBox.Show("Hi ha canvis sense desar."); 
+                return;
+            }
+            listTabText = Readers.GetTabTexts(section);
+            if (listTabText != null && listTabText.Count > 0)
+            {
+                tbTextSection.Text = listTabText[0];
+                tbTextPos.Text = listTabText[1];
+                cbTextType.Text = listTabText[2];
+                tbTextDetail.Text = listTabText[3];
+                cbTextStatus.Text = listTabText[4];
+                cbTextLang.Text = listTabText[5];
             }
         }
 
@@ -1096,6 +1112,14 @@ namespace Blogs
 
             lblCreditsDesc.Text = "Manteniment de la base de dades dels blocs publicats a Diari Digital";
             lblCopyright.Text = "© " + DateTime.Today.Year +  " Xavier Peña";
+
+            List<string> tList = new List<string>();
+            foreach (TabPage tp in tabControl1.TabPages)
+            {
+                tList.Add(tp.Name);
+            }
+            lbTabs.Items.Clear();
+            lbTabs.DataSource = tList;
         }
 
         // ---------------------------------------------------------------------------
@@ -1399,23 +1423,25 @@ namespace Blogs
 
         private void SaveHeadChanges()
         {
-            string[] val = { "", "", "" };
-            cbOption op = cbHeadStatus.SelectedItem as cbOption;
+            string[] val = { "", "", "", "" };
+            cbOption op = cbHeadType.SelectedItem as cbOption;
             val[0] = op.entityValue;
-            op = cbHeadAuthor.SelectedItem as cbOption;
+                     op = cbHeadStatus.SelectedItem as cbOption;
             val[1] = op.entityValue;
-            op = cbHeadLang.SelectedItem as cbOption;
+                     op = cbHeadAuthor.SelectedItem as cbOption;
             val[2] = op.entityValue;
+                     op = cbHeadLang.SelectedItem as cbOption;
+            val[3] = op.entityValue;
 
             string sql = "update articles set " +
-                         ", type        = '" + cbHeadType.Text + "'" +
+                         ", type        = '" + val[0] + "'" +
                          ", date        = '" + dtpHeadDate.Value.ToString("yyyy/MM/dd") + "'" +
                          ", publish     = '" + dtpHeadPub.Value.ToString("yyyy/MM/dd") + "'" +
                          ", updated     = '" + dtpHeadUpdate.Value.ToString("yyyy/MM/dd") + "'" +
                          ", excerpt     = '" + tbHeadExcerpt.Text + "'" +
-                         ", status      = '" + val[0] + "'" +
-                         ", IDauthor    =  " + val[1] +
-                         ", lang        = '" + val[2] + "'" +
+                         ", status      = '" + val[1] + "'" +
+                         ", IDauthor    =  " + val[2] +
+                         ", lang        = '" + val[3] + "'" +
                          ", next        =  " + tbHeadNext.Text +
                          ", prev        =  " + tbHeadPrev.Text +
                          ", readTime    =  " + tbHeadTime.Text.Replace(',', '.') +
@@ -1433,6 +1459,51 @@ namespace Blogs
             }
         }
 
+        private bool AnyChangeInText()
+        {
+            if (listTabText == null) return false;
+            bool changes = false;
+
+            changes = changes || tbTextSection.Text != listTabText[0];
+            changes = changes || tbTextPos.Text != listTabText[1];
+            changes = changes || tbTextDetail.Text != listTabText[3];
+
+            changes = changes || cbTextLang.SelectedValue.ToString() != listTabText[2];
+            changes = changes || cbTextStatus.SelectedValue.ToString() != listTabText[4];
+            changes = changes || cbTextType.SelectedValue.ToString() != listTabText[5];
+
+            return changes;
+        }
+
+        private void SaveTextChanges()
+        {
+            string[] val = { "", "", "" };
+            cbOption op = cbTextType.SelectedItem as cbOption;
+            val[0] = op.entityValue;
+                     op = cbTextStatus.SelectedItem as cbOption;
+            val[1] = op.entityValue;
+                     op = cbTextLang.SelectedItem as cbOption;
+            val[2] = op.entityValue;
+
+            string sql = "update article_detais set " +
+                         " section     = '" + tbTextSection.Text + "'" +
+                         ",type        = '" + val[0] + "'" +
+                         ",text        = '" + tbTextDetail.Text + "'" +
+                         ",status      = '" + val[1] + "'" +
+                         ",lang        = '" + val[2] + "'" +
+                         " where IDarticle = @par1 and position = @par2";
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            cmd.Parameters.AddWithValue("@par2", tbTextPos.Text);
+
+            if (RunUpdate(cmd))
+            {
+                NeedToSave[Tabs.SECTIONS] = false;
+                op = lbTextSections.SelectedItem as cbOption;
+                FillTabTexts(Int32.Parse(op.entityValue));
+            }
+        }
 
         // ---------------------------------------------------------------------------
         // Helpers
@@ -1456,6 +1527,7 @@ namespace Blogs
                     case Tabs.SECTIONS:
                         NeedToSave[tab] = AnyChangeInText();
                         break;
+                        /*
                     case Tabs.IMAGES:
                         NeedToSave[tab] = AnyChangeInImage();
                         break;
@@ -1471,6 +1543,7 @@ namespace Blogs
                     case Tabs.CODE:
                         NeedToSave[tab] = AnyChangeInCode();
                         break;
+                        */
                 }
             }
             if (NeedToSave[tab])
@@ -1484,6 +1557,7 @@ namespace Blogs
                     case Tabs.SECTIONS:
                         SaveTextChanges();
                         break;
+                        /*
                     case Tabs.IMAGES:
                         SaveImageChanges();
                         break;
@@ -1499,6 +1573,7 @@ namespace Blogs
                     case Tabs.CODE:
                         SaveCodeChanges();
                         break;
+                        */
                 }
             }
             else lblMessage.Text = "No hi ha canvis";
@@ -1538,6 +1613,12 @@ namespace Blogs
         private void btnNewArticle_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+        }
+
+        private void lbTabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Control c = tabControl1.TabPages[lbTabs.SelectedIndex];
+            ListControlsInTab(c);
         }
     }
 }
