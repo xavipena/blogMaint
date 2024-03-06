@@ -84,5 +84,7 @@ namespace Blogs.Classes
     {
         public const int LIST = 0;
         public const int CLEAR = 1;
+        public const int ENABLE = 3;
+        public const int DISABLE = 4;
     }
 }

@@ -14,6 +14,7 @@ using Org.BouncyCastle.Crmf;
 using System.Text;
 using Google.Protobuf.WellKnownTypes;
 using MySqlX.XDevAPI.Common;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Blogs
 {
@@ -45,7 +46,7 @@ namespace Blogs
             LoadBlogs();
             Loaders.LoadCombo(cbSet, Combos.BLOG_SET);
             LoadCombos();
-            //SetButtonStatus();
+            SetButtonStatus();
 
             tbES.Text = Language.CASTELLA;
             tbCA.Text = Language.CATALA;
@@ -362,28 +363,26 @@ namespace Blogs
 
         private void SetButtonStatus()
         {
-            if (Gdata.IDarticle > 0)
+            if (Gdata.IDarticle == 0)
             {
-                for (int i = 0; i < Constants.NUM_TABS; i++)
-                {
-                    if (NeedToSave[i])
-                    {
-                        btnHeadSave.Enabled = true;
-                    }
-                }
+                // No article loaded
+                AllButtonsDisabled(true);
             }
             else
             {
-                // No article loaded
-                btnHeadSave.Enabled = false;
-                btnTextSave.Enabled = false;
-                btnImageSave.Enabled = false;
-                btnLinkSave.Enabled = false;
-                btnRefSave.Enabled = false;
-                btnQuoteSave.Enabled = false;
-                btnCodeSave.Enabled = false;
+                AllButtonsDisabled(false);
             }
-            btnNewArticle.Enabled = false;
+        }
+
+        private void AllButtonsDisabled(bool status)
+        {
+            DisableButtonsInTab(tabControl1.TabPages[Tabs.HEADER], status);
+            DisableButtonsInTab(tabControl1.TabPages[Tabs.SECTIONS], status);
+            DisableButtonsInTab(tabControl1.TabPages[Tabs.IMAGES], status);
+            DisableButtonsInTab(tabControl1.TabPages[Tabs.LINKS], status);
+            DisableButtonsInTab(tabControl1.TabPages[Tabs.REFERENCE], status);
+            DisableButtonsInTab(tabControl1.TabPages[Tabs.QUOTES], status);
+            DisableButtonsInTab(tabControl1.TabPages[Tabs.CODE], status);
         }
 
         // ---------------------------------------------------------------------------
@@ -525,6 +524,7 @@ namespace Blogs
             Gdata.currentBlog = Int32.Parse(op.entityValue);
             LoadArticles();
             lblRowCount.Text = dgvSelector.Rows.Count + " files";
+            SetButtonStatus();
         }
 
         // ---------------------------------------------------------------------------
@@ -761,9 +761,9 @@ namespace Blogs
         private void ClearAllBoxes()
         {
             ClearSections();
-            ClearTabTexts();
-            ClearTabImages();
-            ClearTabLinks();
+            ListControlsInTab(tabControl1.TabPages[Tabs.SECTIONS], Actions.CLEAR);
+            ListControlsInTab(tabControl1.TabPages[Tabs.IMAGES], Actions.CLEAR);
+            ListControlsInTab(tabControl1.TabPages[Tabs.LINKS], Actions.CLEAR);
             ClearTabReferences();
             ClearTabQuotes();
             ClearTabCode();
@@ -795,41 +795,6 @@ namespace Blogs
             lbQuoteSections.DataSource = null;
             lbCodeSections.DataSource = null;
             lbRefSections.DataSource = null;
-
-        }
-
-        private void ClearTabTexts()
-        {
-            tbTextDetail.Text = string.Empty;
-            tbTextPos.Text = string.Empty;            
-        }
-
-        private void ClearTabImages()
-        {
-            tbImageSeq.Text = string.Empty;
-            tbImageName.Text = string.Empty;
-            tbImageCaption.Text = string.Empty;
-            tbImageLCaption.Text = string.Empty;
-            tbImageAlternate.Text = string.Empty;
-            tbImageCredit.Text = string.Empty;
-        }
-
-        private void TabImagesFields(bool enable)
-        {
-            tbImageSeq.Enabled = enable;
-            tbImageName.Enabled = enable;
-            tbImageCaption.Enabled = enable;
-            tbImageLCaption.Enabled = enable;
-            tbImageAlternate.Enabled = enable;
-            tbImageCredit.Enabled = enable;
-            cbImageStatus.Enabled = enable;
-            cbImageLang.Enabled = enable;
-        }
-
-        private void ClearTabLinks()
-        {
-            tbLinkName.Text = string.Empty;
-            tbLinkURL.Text = string.Empty;
         }
 
         private void TabLinksFields(bool enable)
@@ -937,13 +902,18 @@ namespace Blogs
             // Enable if want to add
 
             // The very firt time, disable the layout
-            if (sequence == 0) ClearTabImages();
+            if (sequence == 0)
+            {
+                ListControlsInTab(tabControl1.TabPages[Tabs.IMAGES], Actions.CLEAR);
+                ListControlsInTab(tabControl1.TabPages[Tabs.IMAGES], Actions.DISABLE);
+                pbImage.Image = null;
+            }
 
             List<string> list = new List<string>();
             list = Readers.GetTabImages(section, sequence);
             if (list != null && list.Count > 0)
             {
-                TabImagesFields(true);
+                ListControlsInTab(tabControl1.TabPages[Tabs.IMAGES], Actions.ENABLE);
 
                 tbImageSeq.Text = list[0];
                 tbImageName.Text = list[1];
@@ -958,8 +928,13 @@ namespace Blogs
             }
             else
             {
-                ClearTabImages();
-                TabImagesFields(false);
+                if (sequence > 0)
+                {
+                    // Do not clear again if aready done
+                    ListControlsInTab(tabControl1.TabPages[Tabs.IMAGES], Actions.CLEAR);
+                    ListControlsInTab(tabControl1.TabPages[Tabs.IMAGES], Actions.DISABLE);
+                    pbImage.Image = null;
+                }
             }
         }
 
@@ -968,41 +943,39 @@ namespace Blogs
             // This tab can has sections with no images, so disable empty fields
             // Enable if want to add
 
-            List<string> list = new List<string>();
-            list = Readers.GetTabLinks(section);
-            if (list != null && list.Count > 0)
+            listTabLink = Readers.GetTabLinks(section);
+            if (listTabLink != null && listTabLink.Count > 0)
             {
-                TabLinksFields(true);
+                ListControlsInTab(tabControl1.TabPages[Tabs.LINKS], Actions.ENABLE);
 
-                tbLinkName.Text = list[0];
-                tbLinkURL.Text = list[1];
-                cbLinkStatus.Text = list[2];
-                cbLinkLang.Text = list[3];
+                tbLinkName.Text = listTabLink[0];
+                tbLinkURL.Text = listTabLink[1];
+                cbLinkStatus.Text = listTabLink[2];
+                cbLinkLang.Text = listTabLink[3];
             }
             else
             {
-                ClearTabLinks();
-                TabLinksFields(false);
+                ListControlsInTab(tabControl1.TabPages[Tabs.LINKS], Actions.CLEAR);
+                ListControlsInTab(tabControl1.TabPages[Tabs.LINKS], Actions.DISABLE);
             }
         }
 
         private void FillTabReferences(string key)
         {
-            List<string> list = new List<string>();
-            list = Readers.GetTabReferences(key);
-            if (list != null && list.Count > 0)
+            listTabRefs = Readers.GetTabReferences(key);
+            if (listTabRefs != null && listTabRefs.Count > 0)
             {
-                TabReferenceFields(true);
+                ListControlsInTab(tabControl1.TabPages[Tabs.REFERENCE], Actions.ENABLE);
 
-                tbRefSeq.Text = list[0];
-                tbRefName.Text = list[1];
-                tbRefURL.Text = list[2];
-                cbRefStatus.Text = list[3];
+                tbRefSeq.Text = listTabRefs[0];
+                tbRefName.Text = listTabRefs[1];
+                tbRefURL.Text = listTabRefs[2];
+                cbRefStatus.Text = listTabRefs[3];
             }
             else
             {
-                ClearTabReferences();
-                TabReferenceFields(false);
+                ListControlsInTab(tabControl1.TabPages[Tabs.REFERENCE], Actions.CLEAR);
+                ListControlsInTab(tabControl1.TabPages[Tabs.REFERENCE], Actions.DISABLE);
             }
         }
 
@@ -1011,21 +984,20 @@ namespace Blogs
             // This tab can has sections with no quotes, so disable empty fields
             // Enable if want to add
 
-            List<string> list = new List<string>();
-            list = Readers.GetTabQuotes(section);
-            if (list != null && list.Count > 0)
+            listTabQuote = Readers.GetTabQuotes(section);
+            if (listTabQuote != null && listTabQuote.Count > 0)
             {
-                TabQuoteFields(true);
-
-                tbQuoteText.Text = list[0];
-                tbQuoteAuthor.Text = list[1];
-                cbQuoteStatus.Text = list[3];
-                cbQuoteLang.Text = list[3];
+                ListControlsInTab(tabControl1.TabPages[Tabs.QUOTES], Actions.ENABLE);
+                
+                tbQuoteText.Text = listTabQuote[1];
+                cbQuoteStatus.Text = listTabQuote[2];
+                cbQuoteLang.Text = listTabQuote[3];
+                tbQuoteAuthor.Text = listTabQuote[4];
             }
             else
             {
-                ClearTabQuotes();
-                TabQuoteFields(false);
+                ListControlsInTab(tabControl1.TabPages[Tabs.QUOTES], Actions.CLEAR);
+                ListControlsInTab(tabControl1.TabPages[Tabs.QUOTES], Actions.DISABLE);
             }
         }
 
@@ -1035,23 +1007,22 @@ namespace Blogs
             // Enable if want to add
 
             // The very firt time, disable the layout
-            if (sequence == 0) ClearTabImages();
+            if (sequence == 0) ListControlsInTab(tabControl1.TabPages[Tabs.CODE], Actions.CLEAR);
 
-            List<string> list = new List<string>();
-            list = Readers.GetTabCode(section, sequence);
-            if (list != null && list.Count > 0)
+            listTabCode = Readers.GetTabCode(section, sequence);
+            if (listTabCode != null && listTabCode.Count > 0)
             {
-                TabCodeFields(true);
+                ListControlsInTab(tabControl1.TabPages[Tabs.CODE], Actions.ENABLE);
 
-                tbCodeSeq.Text      = list[0];
-                cbCodeStatus.Text   = list[1];
-                tbCode.Text         = list[2];
-                cbCodeLanguage.Text = list[3];
+                tbCodeSeq.Text      = listTabCode[0];
+                cbCodeLanguage.Text = listTabCode[1];
+                tbCode.Text         = listTabCode[2];
+                cbCodeStatus.Text   = listTabCode[3];
             }
             else
             {
-                ClearTabCode();
-                TabCodeFields(false);
+                ListControlsInTab(tabControl1.TabPages[Tabs.CODE], Actions.CLEAR);
+                ListControlsInTab(tabControl1.TabPages[Tabs.CODE], Actions.DISABLE);
             }
         }
 
@@ -1181,6 +1152,7 @@ namespace Blogs
             ClearAllBoxes();
             ClearDoneArray();
             LoadArticleSections();
+            SetButtonStatus();
         }
 
         private void btnChangeLang_Click(object sender, EventArgs e)
@@ -1241,7 +1213,10 @@ namespace Blogs
             // Load Text tab
             // get the selected section
             cbOption op = lbTextSections.SelectedItem as cbOption;
-            FillTabTexts(Int32.Parse(op.entityValue));
+            if (op != null)
+            {
+                FillTabTexts(Int32.Parse(op.entityValue));
+            }
         }
 
         private void lbImageSections_SelectedIndexChanged(object sender, EventArgs e)
@@ -1253,8 +1228,11 @@ namespace Blogs
             // get the selected section
 
             cbOption op = lbImageSections.SelectedItem as cbOption;
-            LoadImageSequences(Int32.Parse(op.entityValue));
-            FillTabImages(Int32.Parse(op.entityValue), 0);
+            if (op != null)
+            {
+                LoadImageSequences(Int32.Parse(op.entityValue));
+                FillTabImages(Int32.Parse(op.entityValue), 0);
+            }
         }
 
         private void lbLinkSections_SelectedIndexChanged(object sender, EventArgs e)
@@ -1264,7 +1242,10 @@ namespace Blogs
             // Load Text tab
             // get the selected section
             cbOption op = lbLinkSections.SelectedItem as cbOption;
-            FillTabLinks(Int32.Parse(op.entityValue));
+            if (op != null)
+            {
+                FillTabLinks(Int32.Parse(op.entityValue));
+            }
         }
 
         private void lbRefSections_SelectedIndexChanged(object sender, EventArgs e)
@@ -1274,15 +1255,20 @@ namespace Blogs
             // Load Text tab
             // get the selected section
             cbOption op = lbRefSections.SelectedItem as cbOption;
-            FillTabReferences(op.entityValue);
+            if (op != null)
+            {
+                FillTabReferences(op.entityValue);
+            }
         }
 
         private void lbCodeSections_SelectedIndexChanged(object sender, EventArgs e)
         {
             cbOption op = lbCodeSections.SelectedItem as cbOption;
-            LoadCodeSequences(Int32.Parse(op.entityValue));
-            FillTabCode(Int32.Parse(op.entityValue), 0);
-
+            if (op != null)
+            {
+                LoadCodeSequences(Int32.Parse(op.entityValue));
+                FillTabCode(Int32.Parse(op.entityValue), 0);
+            }
         }
 
         // ---------------------------------------------------------------------------
@@ -1426,13 +1412,15 @@ namespace Blogs
             if (listTabText == null) return false;
             bool changes = false;
 
+            // section, position, type, text, status, lang
+
             changes = changes || tbTextSection.Text != listTabText[0];
             changes = changes || tbTextPos.Text != listTabText[1];
             changes = changes || tbTextDetail.Text != listTabText[3];
 
-            changes = changes || cbTextLang.SelectedValue.ToString() != listTabText[2];
+            changes = changes || cbTextLang.SelectedValue.ToString() != listTabText[5];
             changes = changes || cbTextStatus.SelectedValue.ToString() != listTabText[4];
-            changes = changes || cbTextType.SelectedValue.ToString() != listTabText[5];
+            changes = changes || cbTextType.SelectedValue.ToString() != listTabText[2];
 
             return changes;
         }
@@ -1447,7 +1435,7 @@ namespace Blogs
                      op = cbTextLang.SelectedItem as cbOption;
             val[2] = op.entityValue;
 
-            string sql = "update article_detais set " +
+            string sql = "update article_details set " +
                          " section     = '" + tbTextSection.Text + "'" +
                          ",type        = '" + val[0] + "'" +
                          ",text        = '" + tbTextDetail.Text + "'" +
@@ -1464,6 +1452,306 @@ namespace Blogs
                 NeedToSave[Tabs.SECTIONS] = false;
                 op = lbTextSections.SelectedItem as cbOption;
                 FillTabTexts(Int32.Parse(op.entityValue));
+            }
+        }
+
+        private bool AnyChangeInImage()
+        {
+            if (listTabImage == null) return false;
+            bool changes = false;
+
+            // sequence, image, caption, captionLong, alternate, credit, status, lang
+
+            changes = changes || tbImageSeq.Text != listTabImage[0];
+            changes = changes || tbImageName.Text != listTabImage[1];
+            changes = changes || tbImageCaption.Text != listTabImage[2];
+            changes = changes || tbImageLCaption.Text != listTabImage[3];
+            changes = changes || tbImageAlternate.Text != listTabImage[4];
+            changes = changes || tbImageCredit.Text != listTabImage[5];
+
+            changes = changes || cbImageStatus.SelectedValue.ToString() != listTabImage[6];
+            changes = changes || cbImageLang.SelectedValue.ToString() != listTabImage[7];
+
+            return changes;
+        }
+
+        private void SaveImageChanges()
+        {
+            string[] val = { "", "" };
+            cbOption op = cbImageStatus.SelectedItem as cbOption;
+            val[0] = op.entityValue;
+                     op = cbImageLang.SelectedItem as cbOption;
+            val[1] = op.entityValue;
+
+            string sql = "update article_images set " +
+                         " image        = '" + tbImageName.Text + "'" +
+                         ",caption      = '" + tbImageCaption.Text + "'" +
+                         ",captionLong  = '" + tbImageLCaption.Text + "'" +
+                         ",alternate    = '" + tbImageAlternate.Text + "'" +
+                         ",credit       = '" + tbImageCredit.Text + "'" +
+                         ",status       = '" + val[0] + "'" +
+                         ",lang         = '" + val[1] + "'" +
+                         " where IDarticle = @par1 and section = @par2 and sequence = @par3";
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            op = lbImageSections.SelectedItem as cbOption;
+            cmd.Parameters.AddWithValue("@par2", op.entityValue);
+            cmd.Parameters.AddWithValue("@par2", tbImageSeq.Text);
+
+            if (RunUpdate(cmd))
+            {
+                NeedToSave[Tabs.IMAGES] = false;
+                FillTabImages(Int32.Parse(op.entityValue), Int32.Parse(tbImageSeq.Text));
+            }
+        }
+
+        private bool AnyChangeInLink()
+        {
+            if (listTabLink == null) return false;
+            bool changes = false;
+
+            // name, url, status, lang
+
+            changes = changes || tbLinkName.Text != listTabLink[0];
+            changes = changes || tbLinkURL.Text != listTabLink[1];
+
+            changes = changes || cbLinkStatus.SelectedValue.ToString() != listTabLink[2];
+            changes = changes || cbLinkLang.SelectedValue.ToString() != listTabLink[3];
+
+            return changes;
+        }
+
+        private void SaveLinkChanges()
+        {
+            string[] val = { "", "" };
+            cbOption op = cbLinkStatus.SelectedItem as cbOption;
+            val[0] = op.entityValue;
+                     op = cbLinkLang.SelectedItem as cbOption;
+            val[1] = op.entityValue;
+
+            string sql = "update article_links set " +
+                         " name         = '" + tbLinkName.Text + "'" +
+                         ",url          = '" + tbLinkURL.Text + "'" +
+                         ",status       = '" + val[0] + "'" +
+                         ",lang         = '" + val[1] + "'" +
+                         " where IDarticle = @par1 and section = @par2";
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            op = lbLinkSections.SelectedItem as cbOption;
+            cmd.Parameters.AddWithValue("@par2", op.entityValue);
+
+            if (RunUpdate(cmd))
+            {
+                NeedToSave[Tabs.LINKS] = false;
+                FillTabLinks(Int32.Parse(op.entityValue));
+            }
+        }
+
+        private bool AnyChangeInRefs()
+        {
+            if (listTabRefs == null) return false;
+            bool changes = false;
+
+            // sequence, name, url, status
+
+            changes = changes || tbRefSeq.Text != listTabRefs[0];
+            changes = changes || tbRefName.Text != listTabRefs[1];
+            changes = changes || tbRefURL.Text != listTabRefs[2];
+
+            changes = changes || cbRefStatus.SelectedValue.ToString() != listTabRefs[3];
+
+            return changes;
+        }
+
+        private void SaveRefsChanges()
+        {
+            string[] val = { "" };
+            cbOption op = cbLinkStatus.SelectedItem as cbOption;
+            val[0] = op.entityValue;
+
+            string sql = "update article_related set " +
+                         " name         = '" + tbRefName.Text + "'" +
+                         ",url          = '" + tbRefURL.Text + "'" +
+                         ",status       = '" + val[0] + "'" +
+                         " where IDarticle = @par1 and section = @par2 and sequence = @par3";
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            op = lbRefSections.SelectedItem as cbOption;
+            string[] tokens = op.entityValue.Split('-');
+            cmd.Parameters.AddWithValue("@par2", tokens[0]);
+            cmd.Parameters.AddWithValue("@par3", tokens[1]);
+
+            if (RunUpdate(cmd))
+            {
+                NeedToSave[Tabs.REFERENCE] = false;
+                string key = tokens[0] + "-" + tokens[1];
+                FillTabReferences(key);
+            }
+        }
+
+        private bool AnyChangeInQuote()
+        {
+            if (listTabQuote == null) return false;
+            bool changes = false;
+
+            // embed, status, lang, author
+
+            changes = changes || tbQuoteText.Text != listTabQuote[0];
+            changes = changes || tbQuoteAuthor.Text != listTabQuote[4];
+
+            changes = changes || cbQuoteStatus.SelectedValue.ToString() != listTabQuote[2];
+            changes = changes || cbQuoteLang.SelectedValue.ToString() != listTabQuote[3];
+
+            return changes;
+        }
+
+        private void SaveQuoteChanges()
+        {
+            string[] val = { "", "" };
+            cbOption op = cbQuoteStatus.SelectedItem as cbOption;
+            val[0] = op.entityValue;
+                     op = cbQuoteLang.SelectedItem as cbOption;
+            val[1] = op.entityValue;
+
+            string sql = "update article_quotes set " +
+                         " embed      = '" + tbQuoteText.Text + "'" +
+                         ",author     = '" + tbQuoteAuthor.Text + "'" +
+                         ",status     = '" + val[0] + "'" +
+                         ",lang       = '" + val[1] + "'" +
+                         " where IDarticle = @par1 and section = @par2";
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            op = lbQuoteSections.SelectedItem as cbOption;
+            cmd.Parameters.AddWithValue("@par2", op.entityValue);
+
+            if (RunUpdate(cmd))
+            {
+                NeedToSave[Tabs.QUOTES] = false;
+                FillTabQuotes(Int32.Parse(op.entityValue));
+            }
+        }
+
+        private bool AnyChangeInCode()
+        {
+            if (listTabCode == null) return false;
+            bool changes = false;
+
+            // sequence, os, code, status
+
+            changes = changes || tbCode.Text != listTabCode[2];
+
+            changes = changes || cbCodeLanguage.SelectedValue.ToString() != listTabCode[1];
+            changes = changes || cbCodeStatus.SelectedValue.ToString() != listTabCode[3];
+
+            return changes;
+        }
+
+        private void SaveCodeChanges()
+        {
+            string[] val = { "", "" };
+            cbOption op = cbCodeLanguage.SelectedItem as cbOption;
+            val[0] = op.entityValue;
+                     op = cbCodeStatus.SelectedItem as cbOption;
+            val[1] = op.entityValue;
+
+            string sql = "update article_code set " +
+                         " os       = '" + val[0] + "'" +
+                         ",code     = '" + tbCode.Text + "'" +
+                         ",status   = '" + val[1] + "'" +
+                         " where IDarticle = @par1 and section = @par2 and sequence = @par3";
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            op = lbCodeSections.SelectedItem as cbOption;
+            cmd.Parameters.AddWithValue("@par2", op.entityValue);
+            op = lbCodeSeqs.SelectedItem as cbOption;
+            cmd.Parameters.AddWithValue("@par3", op.entityValue);
+
+            if (RunUpdate(cmd))
+            {
+                NeedToSave[Tabs.CODE] = false;
+                op = lbCodeSections.SelectedItem as cbOption;
+                int section = Int32.Parse(op.entityValue);
+                op = lbCodeSeqs.SelectedItem as cbOption;
+                int sequence = Int32.Parse(op.entityValue);
+                FillTabCode(section, sequence);
+            }
+        }
+
+        // ---------------------------------------------------------------------------
+        // Insertions
+        // ---------------------------------------------------------------------------
+
+        private bool GetNewNumber()
+        {
+            int num = Readers.GetNextArticle();
+            if (num > 0)
+            {
+                Gdata.IDarticle = num;
+            }
+            else
+            {
+                lblMessage.Text = "Error recuperant número";
+            }
+            return num > 0;
+        }
+
+        private bool AnyMissingFieldIn(int tab)
+        {
+            bool missingData = false;
+
+            switch (tab)
+            {
+                case Tabs.HEADER:
+                    missingData = CheckRequiredHeader();
+                    break;
+
+            }
+            return missingData;
+        }
+
+        private bool CheckRequiredHeader()
+        {
+            return false;
+        }
+
+        private void AddHeader()
+        {
+            string[] val = { "", "", "", "" };
+            cbOption op = cbHeadType.SelectedItem as cbOption;
+            val[0] = op.entityValue;
+            op = cbHeadStatus.SelectedItem as cbOption;
+            val[1] = op.entityValue;
+            op = cbHeadAuthor.SelectedItem as cbOption;
+            val[2] = op.entityValue;
+            op = cbHeadLang.SelectedItem as cbOption;
+            val[3] = op.entityValue;
+
+            string sql = "insert into articles set " +
+                         ", IDblog      = " + Gdata.currentBlog +
+                         ", IDarticle   = " + Gdata.IDarticle +
+                         ", type        = '" + val[0] + "'" +
+                         ", date        = '" + dtpHeadDate.Value.ToString("yyyy/MM/dd") + "'" +
+                         ", publish     = '" + dtpHeadPub.Value.ToString("yyyy/MM/dd") + "'" +
+                         ", updated     = '" + dtpHeadUpdate.Value.ToString("yyyy/MM/dd") + "'" +
+                         ", excerpt     = '" + tbHeadExcerpt.Text + "'" +
+                         ", status      = 'I'" +
+                         ", IDauthor    =  " + val[2] +
+                         ", lang        = '" + val[3] + "'" +
+                         ", next        =  " + tbHeadNext.Text +
+                         ", prev        =  " + tbHeadPrev.Text +
+                         ", readTime    =  " + tbHeadTime.Text.Replace(',', '.') +
+                         ", wordCount   =  " + tbHeadWords.Text;
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            if (RunUpdate(cmd))
+            {
+                NeedToSave[Tabs.HEADER] = false;
+                FillTabHead();
             }
         }
 
@@ -1489,7 +1777,6 @@ namespace Blogs
                     case Tabs.SECTIONS:
                         NeedToSave[tab] = AnyChangeInText();
                         break;
-                        /*
                     case Tabs.IMAGES:
                         NeedToSave[tab] = AnyChangeInImage();
                         break;
@@ -1505,7 +1792,6 @@ namespace Blogs
                     case Tabs.CODE:
                         NeedToSave[tab] = AnyChangeInCode();
                         break;
-                        */
                 }
             }
             if (NeedToSave[tab])
@@ -1519,7 +1805,6 @@ namespace Blogs
                     case Tabs.SECTIONS:
                         SaveTextChanges();
                         break;
-                        /*
                     case Tabs.IMAGES:
                         SaveImageChanges();
                         break;
@@ -1535,7 +1820,6 @@ namespace Blogs
                     case Tabs.CODE:
                         SaveCodeChanges();
                         break;
-                        */
                 }
             }
             else lblMessage.Text = "No hi ha canvis";
@@ -1553,7 +1837,7 @@ namespace Blogs
                     {
                         sql = sql.Replace(p.ParameterName.ToString(), p.Value.ToString());
                     }
-                    MessageBox.Show(sql + " (" + Gdata.currentBlog + "," + Gdata.IDarticle + ")");
+                    MessageBox.Show(sql);
                 }
                 else
                 {
@@ -1595,12 +1879,29 @@ namespace Blogs
                             case Actions.CLEAR:
                                 tb.Text = string.Empty;
                                 break;
+                            case Actions.ENABLE:
+                                tb.Enabled = true;
+                                break;
+                            case Actions.DISABLE:
+                                tb.Enabled = false;
+                                break;
                         }
                     }
                     if (c is ComboBox)
                     {
                         ComboBox cb = (ComboBox)c;
-                        cList.Add(cb.Name);
+                        switch (action)
+                        {
+                            case Actions.LIST:
+                                cList.Add(cb.Name);
+                                break;
+                            case Actions.ENABLE:
+                                cb.Enabled = true;
+                                break;
+                            case Actions.DISABLE:
+                                cb.Enabled = false;
+                                break;
+                        }
                     }
                     if (c is DateTimePicker)
                     {
@@ -1613,6 +1914,12 @@ namespace Blogs
                             case Actions.CLEAR:
                                 dt.Value = DateTime.Today;
                                 break;
+                            case Actions.ENABLE:
+                                dt.Enabled = true;
+                                break;
+                            case Actions.DISABLE:
+                                dt.Enabled = false;
+                                break;
                         }
                     }
                 }
@@ -1623,19 +1930,82 @@ namespace Blogs
             }
         }
 
+        private void DoActionOnControl(Action action, Control ctrl)
+        {
+        }
+
+        private void DisableButtonsInTab(Control f, bool status)
+        {
+            bool enable = !status;
+            foreach (Control c in f.Controls)
+            {
+                if (c.HasChildren)
+                {
+                    DisableButtonsInTab(c, status);
+                }
+                else
+                {
+                    if (c is Button)
+                    {
+                        c.Enabled = enable;
+                    }
+                }
+            }
+        }
+
+        private void lbTabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Control c = tabControl1.TabPages[lbTabs.SelectedIndex];
+            ListControlsInTab(c, Actions.LIST);
+        }
+
         // ---------------------------------------------------------------------------
         // Add new records from tabs
         // ---------------------------------------------------------------------------
 
         private void btnNewArticle_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "Encara no";
+            if (AnyMissingFieldIn(Tabs.HEADER))
+            {
+                return;
+            }
+            if (GetNewNumber()) AddHeader();
         }
 
-        private void lbTabs_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnNewText_Click(object sender, EventArgs e)
         {
-            Control c = tabControl1.TabPages[lbTabs.SelectedIndex];
-            ListControlsInTab(c);
+            lblMessage.Text = "Encara no";
+
+        }
+
+        private void btnNewImage_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+
+        }
+
+        private void btnNewLink_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+
+        }
+
+        private void btnNewRef_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+
+        }
+
+        private void btnNewQuote_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+
+        }
+
+        private void btnNewCode_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+
         }
     }
 }
