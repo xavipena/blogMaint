@@ -51,6 +51,7 @@ namespace Blogs
 
             tbES.Text = Language.CASTELLA;
             tbCA.Text = Language.CATALA;
+            tbES.BackColor = Color.LightYellow;
             lblMessage.Text = Messages.READY;
             lblDesc.Text = Readers.GetBlogDescription();
             lblDescription.Text = Texts.DESCRIPTION;
@@ -788,7 +789,6 @@ namespace Blogs
             dgvSelector.Rows.Clear();
             dgvArticles.Rows.Clear();
             dgvMetadata.Rows.Clear();
-
         }
 
         private void ClearSections()
@@ -801,27 +801,11 @@ namespace Blogs
             lbRefSections.DataSource = null;
         }
 
-        private void TabLinksFields(bool enable)
-        {
-            tbLinkName.Enabled = enable;
-            tbLinkURL.Enabled = enable;
-            cbLinkStatus.Enabled = enable;
-            cbLinkLang.Enabled = enable;
-        }
-
         private void ClearTabReferences()
         {
             tbRefSeq.Text = string.Empty;
             tbRefName.Text = string.Empty;
             tbRefURL.Text = string.Empty;
-        }
-
-        private void TabReferenceFields(bool enable)
-        {
-            tbRefSeq.Enabled = enable;
-            tbRefName.Enabled = enable;
-            tbRefURL.Enabled = enable;
-            cbRefStatus.Enabled = enable;
         }
 
         private void ClearTabQuotes()
@@ -830,26 +814,10 @@ namespace Blogs
             tbQuoteAuthor.Text = string.Empty;
         }
 
-        private void TabQuoteFields(bool enable)
-        {
-            tbQuoteText.Enabled = enable;
-            tbQuoteAuthor.Enabled = enable;
-            cbQuoteStatus.Enabled = enable;
-            cbQuoteLang.Enabled = enable;
-        }
-
         private void ClearTabCode()
         {
             tbCode.Text = string.Empty;
             tbCodeSeq.Text = string.Empty;
-        }
-
-        private void TabCodeFields(bool enable)
-        {
-            tbCode.Enabled = enable;
-            tbCodeSeq.Enabled = enable;
-            cbCodeStatus.Enabled = enable;
-            cbCodeLanguage.Enabled = enable;
         }
 
         // ---------------------------------------------------------------------------
@@ -878,6 +846,8 @@ namespace Blogs
                 tbHeadPrev.Text = listTabHead[10];
                 tbHeadTime.Text = listTabHead[11];
                 tbHeadWords.Text = listTabHead[12];
+
+                tbHeadTitle.Text = Gdata.Lang == Language.CASTELLA ? tbTitle.Text : tbTitleCA.Text;
             }
         }
 
@@ -1166,6 +1136,16 @@ namespace Blogs
 
             Singleton Gdata = Singleton.GetInstance();
             Gdata.Lang = Gdata.Lang == Language.CASTELLA ? Language.CATALA : Language.CASTELLA;
+            if (Gdata.Lang == Language.CASTELLA)
+            {
+                tbES.BackColor = Color.LightYellow;
+                tbCA.BackColor = Color.FromArgb(238, 238, 238);
+            }
+            else
+            {
+                tbES.BackColor = Color.FromArgb(238, 238, 238);
+                tbCA.BackColor = Color.LightYellow;
+            }
             ClearDoneArray();
             LoadArticlesGrid();
         }
@@ -1312,12 +1292,12 @@ namespace Blogs
 
         private void btnHeadSave_Click(object sender, EventArgs e)
         {
+            if (AnyMissingFieldIn(Tabs.HEADER))
+            {
+                return;
+            }
             if (Gdata.maintMode == Modes.Status.INSERT)
             {
-                if (AnyMissingFieldIn(Tabs.HEADER))
-                {
-                    return;
-                }
                 AddHeader();
             }
             else
@@ -1371,6 +1351,7 @@ namespace Blogs
             changes = changes || dtpHeadPub.Value.ToString("dd/MM/yyyy") != listTabHead[2].Substring(0, 10);
             changes = changes || dtpHeadUpdate.Value.ToString("dd/MM/yyyy") != listTabHead[3].Substring(0, 10);
 
+            changes = changes || tbHeadTitle.Text != listTabHead[4];
             changes = changes || tbHeadExcerpt.Text != listTabHead[5];
 
             changes = changes || cbHeadStatus.SelectedValue.ToString() != listTabHead[6];
@@ -1402,6 +1383,7 @@ namespace Blogs
                          ", date        = '" + dtpHeadDate.Value.ToString("yyyy/MM/dd") + "'" +
                          ", publish     = '" + dtpHeadPub.Value.ToString("yyyy/MM/dd") + "'" +
                          ", updated     = '" + dtpHeadUpdate.Value.ToString("yyyy/MM/dd") + "'" +
+                         ", title       = '" + tbHeadTitle.Text + "'" + 
                          ", excerpt     = '" + tbHeadExcerpt.Text + "'" +
                          ", status      = '" + val[1] + "'" +
                          ", IDauthor    =  " + val[2] +
@@ -1735,10 +1717,7 @@ namespace Blogs
 
         private bool CheckRequiredTextFields(Control ctab)
         {
-            bool emptyField = true;
-
-            // Include the title in the upper header section
-            emptyField = emptyField || tbHeadTitle.Text == string.Empty;
+            bool emptyField = false;
 
             foreach (Control c in ctab.Controls)
             {
@@ -1750,8 +1729,11 @@ namespace Blogs
                 {
                     if (c is TextBox)
                     {
-                        emptyField = emptyField || c.Text == string.Empty;
-                        c.BackColor = Color.LightPink;
+                        if (c.Text == string.Empty)
+                        {
+                            c.BackColor = Color.LightPink;
+                            emptyField = true;
+                        }
                     }
                 }
             }
@@ -2068,6 +2050,16 @@ namespace Blogs
         private void btnNewCode_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+
+        }
+
+        private void btnTabTime_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTagChain_Click(object sender, EventArgs e)
+        {
 
         }
     }
