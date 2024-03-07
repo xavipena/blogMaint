@@ -47,6 +47,12 @@
             this.lblRowCount = new System.Windows.Forms.Label();
             this.dgvSelector = new System.Windows.Forms.DataGridView();
             this.tabHeader = new System.Windows.Forms.TabPage();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tbLast = new System.Windows.Forms.TextBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.tbFirst = new System.Windows.Forms.TextBox();
             this.tbHeadTitle = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -200,12 +206,9 @@
             this.tbES = new System.Windows.Forms.TextBox();
             this.tbTitleCA = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label58 = new System.Windows.Forms.Label();
-            this.tbLast = new System.Windows.Forms.TextBox();
-            this.label59 = new System.Windows.Forms.Label();
-            this.tbFirst = new System.Windows.Forms.TextBox();
+            this.lblDescription = new System.Windows.Forms.Label();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.lblMode = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticles)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -213,6 +216,7 @@
             this.tabSelector.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelector)).BeginInit();
             this.tabHeader.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabTexts.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -232,15 +236,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).BeginInit();
             this.tabViewer.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox10.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(1007, 713);
+            this.btnExit.Location = new System.Drawing.Point(32, 419);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(83, 30);
+            this.btnExit.Size = new System.Drawing.Size(129, 33);
             this.btnExit.TabIndex = 0;
             this.btnExit.Text = "Surt";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -271,7 +275,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(123, 103);
+            this.pictureBox1.Size = new System.Drawing.Size(132, 109);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;
@@ -400,7 +404,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1077, 484);
+            this.tabControl1.Size = new System.Drawing.Size(1076, 484);
             this.tabControl1.TabIndex = 11;
             // 
             // tabSelector
@@ -470,10 +474,68 @@
             this.tabHeader.Location = new System.Drawing.Point(4, 25);
             this.tabHeader.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabHeader.Name = "tabHeader";
-            this.tabHeader.Size = new System.Drawing.Size(1069, 455);
+            this.tabHeader.Size = new System.Drawing.Size(1068, 455);
             this.tabHeader.TabIndex = 2;
             this.tabHeader.Text = "Capçalera";
             this.tabHeader.UseVisualStyleBackColor = true;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.label58);
+            this.groupBox10.Controls.Add(this.button1);
+            this.groupBox10.Controls.Add(this.tbLast);
+            this.groupBox10.Controls.Add(this.label59);
+            this.groupBox10.Controls.Add(this.tbFirst);
+            this.groupBox10.Location = new System.Drawing.Point(606, 303);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(446, 131);
+            this.groupBox10.TabIndex = 43;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Enllaçament";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(141, 39);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(45, 16);
+            this.label58.TabIndex = 47;
+            this.label58.Text = "Darrer";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(277, 83);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(163, 33);
+            this.button1.TabIndex = 42;
+            this.button1.Text = "Enllaça";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // tbLast
+            // 
+            this.tbLast.Location = new System.Drawing.Point(192, 36);
+            this.tbLast.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbLast.Name = "tbLast";
+            this.tbLast.Size = new System.Drawing.Size(63, 22);
+            this.tbLast.TabIndex = 46;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(18, 39);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(46, 16);
+            this.label59.TabIndex = 45;
+            this.label59.Text = "Primer";
+            // 
+            // tbFirst
+            // 
+            this.tbFirst.Location = new System.Drawing.Point(68, 35);
+            this.tbFirst.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbFirst.Name = "tbFirst";
+            this.tbFirst.Size = new System.Drawing.Size(63, 22);
+            this.tbFirst.TabIndex = 44;
             // 
             // tbHeadTitle
             // 
@@ -495,7 +557,6 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnHeadDiscard);
-            this.groupBox3.Controls.Add(this.btnNewArticle);
             this.groupBox3.Controls.Add(this.btnHeadSave);
             this.groupBox3.Location = new System.Drawing.Point(15, 299);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -518,10 +579,10 @@
             // 
             // btnNewArticle
             // 
-            this.btnNewArticle.Location = new System.Drawing.Point(24, 71);
+            this.btnNewArticle.Location = new System.Drawing.Point(32, 63);
             this.btnNewArticle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNewArticle.Name = "btnNewArticle";
-            this.btnNewArticle.Size = new System.Drawing.Size(163, 33);
+            this.btnNewArticle.Size = new System.Drawing.Size(129, 33);
             this.btnNewArticle.TabIndex = 40;
             this.btnNewArticle.Text = "Nou article";
             this.btnNewArticle.UseVisualStyleBackColor = true;
@@ -1847,6 +1908,7 @@
             // 
             // tabViewer
             // 
+            this.tabViewer.Controls.Add(this.lblDescription);
             this.tabViewer.Controls.Add(this.lbTabs);
             this.tabViewer.Controls.Add(this.lbControls);
             this.tabViewer.Controls.Add(this.chkTestMode);
@@ -1857,7 +1919,7 @@
             this.tabViewer.Location = new System.Drawing.Point(4, 25);
             this.tabViewer.Margin = new System.Windows.Forms.Padding(4);
             this.tabViewer.Name = "tabViewer";
-            this.tabViewer.Size = new System.Drawing.Size(1069, 455);
+            this.tabViewer.Size = new System.Drawing.Size(1068, 455);
             this.tabViewer.TabIndex = 10;
             this.tabViewer.Text = "Visor";
             this.tabViewer.UseVisualStyleBackColor = true;
@@ -1936,7 +1998,7 @@
             // 
             // btnChangeLang
             // 
-            this.btnChangeLang.Location = new System.Drawing.Point(12, 170);
+            this.btnChangeLang.Location = new System.Drawing.Point(32, 26);
             this.btnChangeLang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeLang.Name = "btnChangeLang";
             this.btnChangeLang.Size = new System.Drawing.Size(129, 33);
@@ -2034,78 +2096,52 @@
             this.label53.TabIndex = 26;
             this.label53.Text = "Títol";
             // 
-            // groupBox10
+            // lblDescription
             // 
-            this.groupBox10.Controls.Add(this.label58);
-            this.groupBox10.Controls.Add(this.button1);
-            this.groupBox10.Controls.Add(this.tbLast);
-            this.groupBox10.Controls.Add(this.label59);
-            this.groupBox10.Controls.Add(this.tbFirst);
-            this.groupBox10.Location = new System.Drawing.Point(606, 303);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(446, 131);
-            this.groupBox10.TabIndex = 43;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Enllaçament";
+            this.lblDescription.AutoSize = true;
+            this.lblDescription.Location = new System.Drawing.Point(12, 92);
+            this.lblDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblDescription.Name = "lblDescription";
+            this.lblDescription.Size = new System.Drawing.Size(75, 16);
+            this.lblDescription.TabIndex = 17;
+            this.lblDescription.Text = "Description";
             // 
-            // button1
+            // groupBox11
             // 
-            this.button1.Location = new System.Drawing.Point(277, 83);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(163, 33);
-            this.button1.TabIndex = 42;
-            this.button1.Text = "Enllaça";
-            this.button1.UseVisualStyleBackColor = true;
+            this.groupBox11.Controls.Add(this.btnChangeLang);
+            this.groupBox11.Controls.Add(this.btnNewArticle);
+            this.groupBox11.Controls.Add(this.btnExit);
+            this.groupBox11.Location = new System.Drawing.Point(1095, 249);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(192, 459);
+            this.groupBox11.TabIndex = 13;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Accions generals";
             // 
-            // label58
+            // lblMode
             // 
-            this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(141, 39);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(45, 16);
-            this.label58.TabIndex = 47;
-            this.label58.Text = "Darrer";
-            // 
-            // tbLast
-            // 
-            this.tbLast.Location = new System.Drawing.Point(192, 36);
-            this.tbLast.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbLast.Name = "tbLast";
-            this.tbLast.Size = new System.Drawing.Size(63, 22);
-            this.tbLast.TabIndex = 46;
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(18, 39);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(46, 16);
-            this.label59.TabIndex = 45;
-            this.label59.Text = "Primer";
-            // 
-            // tbFirst
-            // 
-            this.tbFirst.Location = new System.Drawing.Point(68, 35);
-            this.tbFirst.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbFirst.Name = "tbFirst";
-            this.tbFirst.Size = new System.Drawing.Size(63, 22);
-            this.tbFirst.TabIndex = 44;
+            this.lblMode.AutoSize = true;
+            this.lblMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMode.Location = new System.Drawing.Point(1096, 180);
+            this.lblMode.Name = "lblMode";
+            this.lblMode.Size = new System.Drawing.Size(66, 25);
+            this.lblMode.TabIndex = 14;
+            this.lblMode.Text = "Mode";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1107, 750);
-            this.Controls.Add(this.btnChangeLang);
+            this.ClientSize = new System.Drawing.Size(1299, 750);
+            this.Controls.Add(this.lblMode);
+            this.Controls.Add(this.groupBox11);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.btnExit);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Blocs";
@@ -2119,6 +2155,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvSelector)).EndInit();
             this.tabHeader.ResumeLayout(false);
             this.tabHeader.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.tabTexts.ResumeLayout(false);
             this.tabTexts.PerformLayout();
@@ -2146,8 +2184,7 @@
             this.tabViewer.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2333,6 +2370,9 @@
         private System.Windows.Forms.TextBox tbLast;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.TextBox tbFirst;
+        private System.Windows.Forms.Label lblDescription;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Label lblMode;
     }
 }
 

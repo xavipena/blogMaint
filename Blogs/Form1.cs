@@ -53,6 +53,9 @@ namespace Blogs
             tbCA.Text = Language.CATALA;
             lblMessage.Text = Messages.READY;
             lblDesc.Text = Readers.GetBlogDescription();
+            lblDescription.Text = Texts.DESCRIPTION;
+            lblMode.Text = Modes.Text.EMPTY;
+            Gdata.maintMode = Modes.Status.EMPTY;
             loading = false;
             Cursor.Current = Cursors.Default;
         }
@@ -494,7 +497,7 @@ namespace Blogs
             for (int i = 0; i < Constants.NUM_TABS; i++) NeedSave = NeedSave || NeedToSave[i];
             if (NeedSave)
             {
-                if (MessageBox.Show("No estan gravats els canvis." + Environment.NewLine + "Sortir?", "Confirma",
+                if (MessageBox.Show("No estan gravats els canvis." + Environment.NewLine + "Continua?", "Confirma",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) == DialogResult.No)
                 {
@@ -1144,6 +1147,7 @@ namespace Blogs
             int IDarticle = Int32.Parse(dgvSelector.Rows[e.RowIndex].Cells[0].Value.ToString());
             Singleton Gdata = Singleton.GetInstance();
             Gdata.IDarticle = IDarticle;
+            SetMode(Modes.Status.QUERY);
 
             tbArticle.Text = IDarticle.ToString();
             tbTitle.Text = Readers.GetTitle(Language.CASTELLA);
@@ -1308,7 +1312,18 @@ namespace Blogs
 
         private void btnHeadSave_Click(object sender, EventArgs e)
         {
-            UpdateTheTab(Tabs.HEADER);
+            if (Gdata.maintMode == Modes.Status.INSERT)
+            {
+                if (AnyMissingFieldIn(Tabs.HEADER))
+                {
+                    return;
+                }
+                AddHeader();
+            }
+            else
+            {
+                UpdateTheTab(Tabs.HEADER);
+            }
         }
 
         private void btnTextSave_Click(object sender, EventArgs e)
@@ -1736,6 +1751,7 @@ namespace Blogs
                     if (c is TextBox)
                     {
                         emptyField = emptyField || c.Text == string.Empty;
+                        c.BackColor = Color.LightPink;
                     }
                 }
             }
@@ -1875,6 +1891,21 @@ namespace Blogs
             return result;
         }
 
+        private void SetMode(int mode)
+        {
+            switch (mode)
+            {
+                case Modes.Status.INSERT:
+                    Gdata.maintMode = mode;
+                    lblMode.Text = Modes.Text.INSERT;
+                    break;
+
+                case Modes.Status.QUERY:
+                    Gdata.maintMode = mode;
+                    lblMode.Text = Modes.Text.QUERY;
+                    break;
+            }
+        }
 
         // ---------------------------------------------------------------------------
         // list the controls in a Control (tab) and apply action
@@ -1988,11 +2019,20 @@ namespace Blogs
 
         private void btnNewArticle_Click(object sender, EventArgs e)
         {
-            if (AnyMissingFieldIn(Tabs.HEADER))
+            if (ForgotToSave()) return;
+
+            if (GetNewNumber())
             {
-                return;
+                SetMode(Modes.Status.INSERT);
+                // Clear all tabls
+                loading = true;
+                Cursor.Current = Cursors.WaitCursor;
+                ClearHeaders();
+                ClearDoneArray();
+                loading = false;
+                tabControl1.SelectedIndex = Tabs.SELECTOR;
+                Cursor.Current = Cursors.Default;
             }
-            if (GetNewNumber()) AddHeader();
         }
 
         private void btnNewText_Click(object sender, EventArgs e)

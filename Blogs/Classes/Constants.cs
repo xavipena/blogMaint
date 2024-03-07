@@ -14,6 +14,10 @@ namespace Blogs.Classes
         public const string SAY_NO = "No";
         public const int NUM_TABS = 11;
     }
+    public class Texts
+    {
+        public const string DESCRIPTION = @"Manteniment dels blocs ubicats a DiariDigital.net";
+    }
     public class Paths
     {
         public const string DOWNLOAD = @"c:\temp\";
@@ -86,5 +90,22 @@ namespace Blogs.Classes
         public const int CLEAR = 1;
         public const int ENABLE = 3;
         public const int DISABLE = 4;
+    }
+    public class Modes
+    {
+        public class Status
+        {
+            public const int EMPTY = 0;
+            public const int QUERY = 1;
+            public const int MODIFY = 3;
+            public const int INSERT = 4;
+        }
+        public class Text
+        {
+            public const string EMPTY = "Res seleccionat";
+            public const string QUERY = "Consulta";
+            public const string MODIFY = "Modificació";
+            public const string INSERT = "Nou article/post";
+        }
     }
 }

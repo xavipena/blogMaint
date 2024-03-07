@@ -23,14 +23,15 @@ namespace Blogs.Classes
         // Initialize
         public int currentBlog = 0;
         public int IDarticle = 0;
+        public int maintMode = Modes.Status.EMPTY;
         
         // This is current database
         public DBConnection db = null;
         // This is fixed database, for common tables
         public DBConnection dbCommon = null;
+
         public string ErrorText = string.Empty;
         public string url = string.Empty;
-
         // Constructor (protected)
         protected Singleton()
         {
