@@ -15,6 +15,7 @@ using System.Text;
 using Google.Protobuf.WellKnownTypes;
 using MySqlX.XDevAPI.Common;
 using static System.Collections.Specialized.BitVector32;
+using MySqlX.XDevAPI.Relational;
 
 namespace Blogs
 {
@@ -1707,16 +1708,38 @@ namespace Blogs
             switch (tab)
             {
                 case Tabs.HEADER:
-                    missingData = CheckRequiredHeader();
+                    missingData = CheckRequiredTextFields(tabControl1.TabPages[Tabs.HEADER]);
                     break;
-
+            }
+            if (missingData)
+            {
+                lblMessage.Text = "Falta omplir camps obigatoris";
             }
             return missingData;
         }
 
-        private bool CheckRequiredHeader()
+        private bool CheckRequiredTextFields(Control ctab)
         {
-            return false;
+            bool emptyField = true;
+
+            // Include the title in the upper header section
+            emptyField = emptyField || tbHeadTitle.Text == string.Empty;
+
+            foreach (Control c in ctab.Controls)
+            {
+                if (c.HasChildren)
+                {
+                    CheckRequiredTextFields(c);
+                }
+                else
+                {
+                    if (c is TextBox)
+                    {
+                        emptyField = emptyField || c.Text == string.Empty;
+                    }
+                }
+            }
+            return emptyField;
         }
 
         private void AddHeader()

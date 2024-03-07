@@ -47,6 +47,8 @@
             this.lblRowCount = new System.Windows.Forms.Label();
             this.dgvSelector = new System.Windows.Forms.DataGridView();
             this.tabHeader = new System.Windows.Forms.TabPage();
+            this.tbHeadTitle = new System.Windows.Forms.TextBox();
+            this.label57 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnHeadDiscard = new System.Windows.Forms.Button();
             this.btnNewArticle = new System.Windows.Forms.Button();
@@ -79,6 +81,7 @@
             this.label56 = new System.Windows.Forms.Label();
             this.tbTextSection = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnNewText = new System.Windows.Forms.Button();
             this.btnTextSave = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
             this.tbTextPos = new System.Windows.Forms.TextBox();
@@ -96,6 +99,7 @@
             this.label54 = new System.Windows.Forms.Label();
             this.lbImageSeqs = new System.Windows.Forms.ListBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.btnNewImage = new System.Windows.Forms.Button();
             this.btnImageSave = new System.Windows.Forms.Button();
             this.label35 = new System.Windows.Forms.Label();
             this.tbImageSeq = new System.Windows.Forms.TextBox();
@@ -119,6 +123,7 @@
             this.lbImageSections = new System.Windows.Forms.ListBox();
             this.tabLinks = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnNewLink = new System.Windows.Forms.Button();
             this.btnLinkSave = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.cbLinkLang = new System.Windows.Forms.ComboBox();
@@ -132,6 +137,7 @@
             this.lbLinkSections = new System.Windows.Forms.ListBox();
             this.tabReference = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.btnNewRef = new System.Windows.Forms.Button();
             this.btnRefSave = new System.Windows.Forms.Button();
             this.label37 = new System.Windows.Forms.Label();
             this.tbRefSeq = new System.Windows.Forms.TextBox();
@@ -145,6 +151,7 @@
             this.lbRefSections = new System.Windows.Forms.ListBox();
             this.tabQuotes = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.btnNewQuote = new System.Windows.Forms.Button();
             this.btnQuoteSave = new System.Windows.Forms.Button();
             this.label45 = new System.Windows.Forms.Label();
             this.tbQuoteText = new System.Windows.Forms.TextBox();
@@ -160,6 +167,7 @@
             this.label55 = new System.Windows.Forms.Label();
             this.lbCodeSeqs = new System.Windows.Forms.ListBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.btnNewCode = new System.Windows.Forms.Button();
             this.btnCodeSave = new System.Windows.Forms.Button();
             this.label51 = new System.Windows.Forms.Label();
             this.cbCodeLanguage = new System.Windows.Forms.ComboBox();
@@ -192,14 +200,12 @@
             this.tbES = new System.Windows.Forms.TextBox();
             this.tbTitleCA = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
-            this.btnNewText = new System.Windows.Forms.Button();
-            this.btnNewImage = new System.Windows.Forms.Button();
-            this.btnNewLink = new System.Windows.Forms.Button();
-            this.btnNewRef = new System.Windows.Forms.Button();
-            this.btnNewQuote = new System.Windows.Forms.Button();
-            this.btnNewCode = new System.Windows.Forms.Button();
-            this.tbHeadTitle = new System.Windows.Forms.TextBox();
-            this.label57 = new System.Windows.Forms.Label();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label58 = new System.Windows.Forms.Label();
+            this.tbLast = new System.Windows.Forms.TextBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.tbFirst = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticles)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -226,6 +232,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).BeginInit();
             this.tabViewer.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExit
@@ -432,6 +439,7 @@
             // 
             // tabHeader
             // 
+            this.tabHeader.Controls.Add(this.groupBox10);
             this.tabHeader.Controls.Add(this.tbHeadTitle);
             this.tabHeader.Controls.Add(this.label57);
             this.tabHeader.Controls.Add(this.groupBox3);
@@ -467,12 +475,29 @@
             this.tabHeader.Text = "Capçalera";
             this.tabHeader.UseVisualStyleBackColor = true;
             // 
+            // tbHeadTitle
+            // 
+            this.tbHeadTitle.Location = new System.Drawing.Point(427, 26);
+            this.tbHeadTitle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbHeadTitle.Name = "tbHeadTitle";
+            this.tbHeadTitle.Size = new System.Drawing.Size(626, 22);
+            this.tbHeadTitle.TabIndex = 41;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(384, 29);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(33, 16);
+            this.label57.TabIndex = 42;
+            this.label57.Text = "Títol";
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnHeadDiscard);
             this.groupBox3.Controls.Add(this.btnNewArticle);
             this.groupBox3.Controls.Add(this.btnHeadSave);
-            this.groupBox3.Location = new System.Drawing.Point(92, 295);
+            this.groupBox3.Location = new System.Drawing.Point(15, 299);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -584,7 +609,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(369, 210);
+            this.label11.Location = new System.Drawing.Point(369, 195);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(48, 16);
             this.label11.TabIndex = 30;
@@ -593,7 +618,7 @@
             // cbHeadLang
             // 
             this.cbHeadLang.FormattingEnabled = true;
-            this.cbHeadLang.Location = new System.Drawing.Point(427, 208);
+            this.cbHeadLang.Location = new System.Drawing.Point(427, 193);
             this.cbHeadLang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbHeadLang.Name = "cbHeadLang";
             this.cbHeadLang.Size = new System.Drawing.Size(121, 24);
@@ -602,7 +627,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(380, 181);
+            this.label10.Location = new System.Drawing.Point(380, 166);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(38, 16);
             this.label10.TabIndex = 28;
@@ -611,7 +636,7 @@
             // cbHeadAuthor
             // 
             this.cbHeadAuthor.FormattingEnabled = true;
-            this.cbHeadAuthor.Location = new System.Drawing.Point(427, 177);
+            this.cbHeadAuthor.Location = new System.Drawing.Point(427, 162);
             this.cbHeadAuthor.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbHeadAuthor.Name = "cbHeadAuthor";
             this.cbHeadAuthor.Size = new System.Drawing.Size(121, 24);
@@ -620,7 +645,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(380, 150);
+            this.label9.Location = new System.Drawing.Point(380, 135);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(37, 16);
             this.label9.TabIndex = 26;
@@ -629,7 +654,7 @@
             // cbHeadStatus
             // 
             this.cbHeadStatus.FormattingEnabled = true;
-            this.cbHeadStatus.Location = new System.Drawing.Point(427, 148);
+            this.cbHeadStatus.Location = new System.Drawing.Point(427, 133);
             this.cbHeadStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbHeadStatus.Name = "cbHeadStatus";
             this.cbHeadStatus.Size = new System.Drawing.Size(121, 24);
@@ -776,6 +801,17 @@
             this.groupBox4.TabIndex = 41;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Actualització";
+            // 
+            // btnNewText
+            // 
+            this.btnNewText.Location = new System.Drawing.Point(24, 71);
+            this.btnNewText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnNewText.Name = "btnNewText";
+            this.btnNewText.Size = new System.Drawing.Size(163, 33);
+            this.btnNewText.TabIndex = 40;
+            this.btnNewText.Text = "Nou text";
+            this.btnNewText.UseVisualStyleBackColor = true;
+            this.btnNewText.Click += new System.EventHandler(this.btnNewText_Click);
             // 
             // btnTextSave
             // 
@@ -962,6 +998,17 @@
             this.groupBox5.TabIndex = 51;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Actualització";
+            // 
+            // btnNewImage
+            // 
+            this.btnNewImage.Location = new System.Drawing.Point(193, 34);
+            this.btnNewImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnNewImage.Name = "btnNewImage";
+            this.btnNewImage.Size = new System.Drawing.Size(163, 33);
+            this.btnNewImage.TabIndex = 40;
+            this.btnNewImage.Text = "Nova imatge";
+            this.btnNewImage.UseVisualStyleBackColor = true;
+            this.btnNewImage.Click += new System.EventHandler(this.btnNewImage_Click);
             // 
             // btnImageSave
             // 
@@ -1187,6 +1234,17 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Actualització";
             // 
+            // btnNewLink
+            // 
+            this.btnNewLink.Location = new System.Drawing.Point(24, 71);
+            this.btnNewLink.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnNewLink.Name = "btnNewLink";
+            this.btnNewLink.Size = new System.Drawing.Size(163, 33);
+            this.btnNewLink.TabIndex = 40;
+            this.btnNewLink.Text = "Nou enllàç";
+            this.btnNewLink.UseVisualStyleBackColor = true;
+            this.btnNewLink.Click += new System.EventHandler(this.btnNewLink_Click);
+            // 
             // btnLinkSave
             // 
             this.btnLinkSave.Location = new System.Drawing.Point(24, 34);
@@ -1323,6 +1381,17 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Actualització";
             // 
+            // btnNewRef
+            // 
+            this.btnNewRef.Location = new System.Drawing.Point(24, 71);
+            this.btnNewRef.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnNewRef.Name = "btnNewRef";
+            this.btnNewRef.Size = new System.Drawing.Size(163, 33);
+            this.btnNewRef.TabIndex = 40;
+            this.btnNewRef.Text = "Nova referència";
+            this.btnNewRef.UseVisualStyleBackColor = true;
+            this.btnNewRef.Click += new System.EventHandler(this.btnNewRef_Click);
+            // 
             // btnRefSave
             // 
             this.btnRefSave.Location = new System.Drawing.Point(24, 34);
@@ -1457,6 +1526,17 @@
             this.groupBox8.TabIndex = 63;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Actualització";
+            // 
+            // btnNewQuote
+            // 
+            this.btnNewQuote.Location = new System.Drawing.Point(24, 71);
+            this.btnNewQuote.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnNewQuote.Name = "btnNewQuote";
+            this.btnNewQuote.Size = new System.Drawing.Size(163, 33);
+            this.btnNewQuote.TabIndex = 40;
+            this.btnNewQuote.Text = "Nova cita";
+            this.btnNewQuote.UseVisualStyleBackColor = true;
+            this.btnNewQuote.Click += new System.EventHandler(this.btnNewQuote_Click);
             // 
             // btnQuoteSave
             // 
@@ -1614,6 +1694,17 @@
             this.groupBox9.TabIndex = 69;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Actualització";
+            // 
+            // btnNewCode
+            // 
+            this.btnNewCode.Location = new System.Drawing.Point(193, 34);
+            this.btnNewCode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnNewCode.Name = "btnNewCode";
+            this.btnNewCode.Size = new System.Drawing.Size(163, 33);
+            this.btnNewCode.TabIndex = 40;
+            this.btnNewCode.Text = "Nou snippet";
+            this.btnNewCode.UseVisualStyleBackColor = true;
+            this.btnNewCode.Click += new System.EventHandler(this.btnNewCode_Click);
             // 
             // btnCodeSave
             // 
@@ -1943,88 +2034,63 @@
             this.label53.TabIndex = 26;
             this.label53.Text = "Títol";
             // 
-            // btnNewText
+            // groupBox10
             // 
-            this.btnNewText.Location = new System.Drawing.Point(24, 71);
-            this.btnNewText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnNewText.Name = "btnNewText";
-            this.btnNewText.Size = new System.Drawing.Size(163, 33);
-            this.btnNewText.TabIndex = 40;
-            this.btnNewText.Text = "Nou text";
-            this.btnNewText.UseVisualStyleBackColor = true;
-            this.btnNewText.Click += new System.EventHandler(this.btnNewText_Click);
+            this.groupBox10.Controls.Add(this.label58);
+            this.groupBox10.Controls.Add(this.button1);
+            this.groupBox10.Controls.Add(this.tbLast);
+            this.groupBox10.Controls.Add(this.label59);
+            this.groupBox10.Controls.Add(this.tbFirst);
+            this.groupBox10.Location = new System.Drawing.Point(606, 303);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(446, 131);
+            this.groupBox10.TabIndex = 43;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Enllaçament";
             // 
-            // btnNewImage
+            // button1
             // 
-            this.btnNewImage.Location = new System.Drawing.Point(193, 34);
-            this.btnNewImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnNewImage.Name = "btnNewImage";
-            this.btnNewImage.Size = new System.Drawing.Size(163, 33);
-            this.btnNewImage.TabIndex = 40;
-            this.btnNewImage.Text = "Nova imatge";
-            this.btnNewImage.UseVisualStyleBackColor = true;
-            this.btnNewImage.Click += new System.EventHandler(this.btnNewImage_Click);
+            this.button1.Location = new System.Drawing.Point(277, 83);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(163, 33);
+            this.button1.TabIndex = 42;
+            this.button1.Text = "Enllaça";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // btnNewLink
+            // label58
             // 
-            this.btnNewLink.Location = new System.Drawing.Point(24, 71);
-            this.btnNewLink.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnNewLink.Name = "btnNewLink";
-            this.btnNewLink.Size = new System.Drawing.Size(163, 33);
-            this.btnNewLink.TabIndex = 40;
-            this.btnNewLink.Text = "Nou enllàç";
-            this.btnNewLink.UseVisualStyleBackColor = true;
-            this.btnNewLink.Click += new System.EventHandler(this.btnNewLink_Click);
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(141, 39);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(45, 16);
+            this.label58.TabIndex = 47;
+            this.label58.Text = "Darrer";
             // 
-            // btnNewRef
+            // tbLast
             // 
-            this.btnNewRef.Location = new System.Drawing.Point(24, 71);
-            this.btnNewRef.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnNewRef.Name = "btnNewRef";
-            this.btnNewRef.Size = new System.Drawing.Size(163, 33);
-            this.btnNewRef.TabIndex = 40;
-            this.btnNewRef.Text = "Nova referència";
-            this.btnNewRef.UseVisualStyleBackColor = true;
-            this.btnNewRef.Click += new System.EventHandler(this.btnNewRef_Click);
+            this.tbLast.Location = new System.Drawing.Point(192, 36);
+            this.tbLast.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbLast.Name = "tbLast";
+            this.tbLast.Size = new System.Drawing.Size(63, 22);
+            this.tbLast.TabIndex = 46;
             // 
-            // btnNewQuote
+            // label59
             // 
-            this.btnNewQuote.Location = new System.Drawing.Point(24, 71);
-            this.btnNewQuote.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnNewQuote.Name = "btnNewQuote";
-            this.btnNewQuote.Size = new System.Drawing.Size(163, 33);
-            this.btnNewQuote.TabIndex = 40;
-            this.btnNewQuote.Text = "Nova cita";
-            this.btnNewQuote.UseVisualStyleBackColor = true;
-            this.btnNewQuote.Click += new System.EventHandler(this.btnNewQuote_Click);
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(18, 39);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(46, 16);
+            this.label59.TabIndex = 45;
+            this.label59.Text = "Primer";
             // 
-            // btnNewCode
+            // tbFirst
             // 
-            this.btnNewCode.Location = new System.Drawing.Point(193, 34);
-            this.btnNewCode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnNewCode.Name = "btnNewCode";
-            this.btnNewCode.Size = new System.Drawing.Size(163, 33);
-            this.btnNewCode.TabIndex = 40;
-            this.btnNewCode.Text = "Nou snippet";
-            this.btnNewCode.UseVisualStyleBackColor = true;
-            this.btnNewCode.Click += new System.EventHandler(this.btnNewCode_Click);
-            // 
-            // tbHeadTitle
-            // 
-            this.tbHeadTitle.Location = new System.Drawing.Point(427, 26);
-            this.tbHeadTitle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbHeadTitle.Name = "tbHeadTitle";
-            this.tbHeadTitle.Size = new System.Drawing.Size(626, 22);
-            this.tbHeadTitle.TabIndex = 41;
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(384, 29);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(33, 16);
-            this.label57.TabIndex = 42;
-            this.label57.Text = "Títol";
+            this.tbFirst.Location = new System.Drawing.Point(68, 35);
+            this.tbFirst.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbFirst.Name = "tbFirst";
+            this.tbFirst.Size = new System.Drawing.Size(63, 22);
+            this.tbFirst.TabIndex = 44;
             // 
             // Form1
             // 
@@ -2080,6 +2146,8 @@
             this.tabViewer.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2259,6 +2327,12 @@
         private System.Windows.Forms.Button btnNewCode;
         private System.Windows.Forms.TextBox tbHeadTitle;
         private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox tbLast;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.TextBox tbFirst;
     }
 }
 
