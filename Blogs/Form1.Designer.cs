@@ -178,9 +178,10 @@
             this.cbCodeStatus = new System.Windows.Forms.ComboBox();
             this.label47 = new System.Windows.Forms.Label();
             this.lbCodeSections = new System.Windows.Forms.ListBox();
-            this.tabTime = new System.Windows.Forms.TabPage();
             this.tabMetadata = new System.Windows.Forms.TabPage();
             this.dgvMetadata = new System.Windows.Forms.DataGridView();
+            this.tabTime = new System.Windows.Forms.TabPage();
+            this.tabChain = new System.Windows.Forms.TabPage();
             this.tabViewer = new System.Windows.Forms.TabPage();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lbTabs = new System.Windows.Forms.ListBox();
@@ -202,10 +203,9 @@
             this.tbTitleCA = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.lblMode = new System.Windows.Forms.Label();
-            this.tabChain = new System.Windows.Forms.TabPage();
-            this.btnTagChain = new System.Windows.Forms.Button();
             this.btnTabTime = new System.Windows.Forms.Button();
+            this.btnTagChain = new System.Windows.Forms.Button();
+            this.lblMode = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticles)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -227,9 +227,9 @@
             this.groupBox8.SuspendLayout();
             this.tabCode.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            this.tabTime.SuspendLayout();
             this.tabMetadata.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).BeginInit();
+            this.tabTime.SuspendLayout();
             this.tabViewer.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox11.SuspendLayout();
@@ -1796,21 +1796,6 @@
             this.lbCodeSections.TabIndex = 55;
             this.lbCodeSections.SelectedIndexChanged += new System.EventHandler(this.lbCodeSections_SelectedIndexChanged);
             // 
-            // tabTime
-            // 
-            this.tabTime.Controls.Add(this.dgvArticles);
-            this.tabTime.Controls.Add(this.btnSaveChanges);
-            this.tabTime.Controls.Add(this.btnWordsAll);
-            this.tabTime.Controls.Add(this.btnWords);
-            this.tabTime.Location = new System.Drawing.Point(4, 25);
-            this.tabTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabTime.Name = "tabTime";
-            this.tabTime.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabTime.Size = new System.Drawing.Size(1068, 455);
-            this.tabTime.TabIndex = 0;
-            this.tabTime.Text = "Temps";
-            this.tabTime.UseVisualStyleBackColor = true;
-            // 
             // tabMetadata
             // 
             this.tabMetadata.Controls.Add(this.dgvMetadata);
@@ -1832,6 +1817,30 @@
             this.dgvMetadata.RowTemplate.Height = 24;
             this.dgvMetadata.Size = new System.Drawing.Size(1047, 412);
             this.dgvMetadata.TabIndex = 0;
+            // 
+            // tabTime
+            // 
+            this.tabTime.Controls.Add(this.dgvArticles);
+            this.tabTime.Controls.Add(this.btnSaveChanges);
+            this.tabTime.Controls.Add(this.btnWordsAll);
+            this.tabTime.Controls.Add(this.btnWords);
+            this.tabTime.Location = new System.Drawing.Point(4, 25);
+            this.tabTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabTime.Name = "tabTime";
+            this.tabTime.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabTime.Size = new System.Drawing.Size(1068, 455);
+            this.tabTime.TabIndex = 0;
+            this.tabTime.Text = "Temps";
+            this.tabTime.UseVisualStyleBackColor = true;
+            // 
+            // tabChain
+            // 
+            this.tabChain.Location = new System.Drawing.Point(4, 25);
+            this.tabChain.Name = "tabChain";
+            this.tabChain.Size = new System.Drawing.Size(1068, 455);
+            this.tabChain.TabIndex = 11;
+            this.tabChain.Text = "Enllàç";
+            this.tabChain.UseVisualStyleBackColor = true;
             // 
             // tabViewer
             // 
@@ -1892,6 +1901,7 @@
             this.chkTestMode.TabIndex = 14;
             this.chkTestMode.Text = "Modus de test";
             this.chkTestMode.UseVisualStyleBackColor = true;
+            this.chkTestMode.CheckedChanged += new System.EventHandler(this.chkTestMode_CheckedChanged);
             // 
             // lblDatabase
             // 
@@ -2058,24 +2068,16 @@
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Accions generals";
             // 
-            // lblMode
+            // btnTabTime
             // 
-            this.lblMode.AutoSize = true;
-            this.lblMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMode.Location = new System.Drawing.Point(1096, 180);
-            this.lblMode.Name = "lblMode";
-            this.lblMode.Size = new System.Drawing.Size(66, 25);
-            this.lblMode.TabIndex = 14;
-            this.lblMode.Text = "Mode";
-            // 
-            // tabChain
-            // 
-            this.tabChain.Location = new System.Drawing.Point(4, 25);
-            this.tabChain.Name = "tabChain";
-            this.tabChain.Size = new System.Drawing.Size(1068, 455);
-            this.tabChain.TabIndex = 11;
-            this.tabChain.Text = "Enllàç";
-            this.tabChain.UseVisualStyleBackColor = true;
+            this.btnTabTime.Location = new System.Drawing.Point(32, 100);
+            this.btnTabTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnTabTime.Name = "btnTabTime";
+            this.btnTabTime.Size = new System.Drawing.Size(129, 33);
+            this.btnTabTime.TabIndex = 42;
+            this.btnTabTime.Text = "Temps de lectura";
+            this.btnTabTime.UseVisualStyleBackColor = true;
+            this.btnTabTime.Click += new System.EventHandler(this.btnTabTime_Click);
             // 
             // btnTagChain
             // 
@@ -2088,16 +2090,15 @@
             this.btnTagChain.UseVisualStyleBackColor = true;
             this.btnTagChain.Click += new System.EventHandler(this.btnTagChain_Click);
             // 
-            // btnTabTime
+            // lblMode
             // 
-            this.btnTabTime.Location = new System.Drawing.Point(32, 100);
-            this.btnTabTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnTabTime.Name = "btnTabTime";
-            this.btnTabTime.Size = new System.Drawing.Size(129, 33);
-            this.btnTabTime.TabIndex = 42;
-            this.btnTabTime.Text = "Temps de lectura";
-            this.btnTabTime.UseVisualStyleBackColor = true;
-            this.btnTabTime.Click += new System.EventHandler(this.btnTabTime_Click);
+            this.lblMode.AutoSize = true;
+            this.lblMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMode.Location = new System.Drawing.Point(1096, 180);
+            this.lblMode.Name = "lblMode";
+            this.lblMode.Size = new System.Drawing.Size(66, 25);
+            this.lblMode.TabIndex = 14;
+            this.lblMode.Text = "Mode";
             // 
             // Form1
             // 
@@ -2146,9 +2147,9 @@
             this.tabCode.ResumeLayout(false);
             this.tabCode.PerformLayout();
             this.groupBox9.ResumeLayout(false);
-            this.tabTime.ResumeLayout(false);
             this.tabMetadata.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).EndInit();
+            this.tabTime.ResumeLayout(false);
             this.tabViewer.ResumeLayout(false);
             this.tabViewer.PerformLayout();
             this.groupBox2.ResumeLayout(false);

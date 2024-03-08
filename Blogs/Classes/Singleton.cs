@@ -24,6 +24,7 @@ namespace Blogs.Classes
         public int currentBlog = 0;
         public int IDarticle = 0;
         public int maintMode = Modes.Status.EMPTY;
+        public bool testMode = false;
         
         // This is current database
         public DBConnection db = null;

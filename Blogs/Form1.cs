@@ -1298,7 +1298,11 @@ namespace Blogs
             }
             if (Gdata.maintMode == Modes.Status.INSERT)
             {
-                AddHeader();
+                if (UpdateHeader(cmd))
+                {
+                    NeedToSave[Tabs.HEADER] = false;
+                    FillTabHead();
+                }
             }
             else
             {
@@ -1371,34 +1375,30 @@ namespace Blogs
             string[] val = { "", "", "", "" };
             cbOption op = cbHeadType.SelectedItem as cbOption;
             val[0] = op.entityValue;
-                     op = cbHeadStatus.SelectedItem as cbOption;
+            op = cbHeadStatus.SelectedItem as cbOption;
             val[1] = op.entityValue;
-                     op = cbHeadAuthor.SelectedItem as cbOption;
+            op = cbHeadAuthor.SelectedItem as cbOption;
             val[2] = op.entityValue;
-                     op = cbHeadLang.SelectedItem as cbOption;
+            op = cbHeadLang.SelectedItem as cbOption;
             val[3] = op.entityValue;
 
-            string sql = "update articles set " +
-                         ", type        = '" + val[0] + "'" +
-                         ", date        = '" + dtpHeadDate.Value.ToString("yyyy/MM/dd") + "'" +
-                         ", publish     = '" + dtpHeadPub.Value.ToString("yyyy/MM/dd") + "'" +
-                         ", updated     = '" + dtpHeadUpdate.Value.ToString("yyyy/MM/dd") + "'" +
-                         ", title       = '" + tbHeadTitle.Text + "'" + 
-                         ", excerpt     = '" + tbHeadExcerpt.Text + "'" +
-                         ", status      = '" + val[1] + "'" +
-                         ", IDauthor    =  " + val[2] +
-                         ", lang        = '" + val[3] + "'" +
-                         ", next        =  " + tbHeadNext.Text +
-                         ", prev        =  " + tbHeadPrev.Text +
-                         ", readTime    =  " + tbHeadTime.Text.Replace(',', '.') +
-                         ", wordCount   =  " + tbHeadWords.Text +
-                         " where IDblog = @par1 and IDarticle = @par2";
+            List<string> list = new List<string>();
 
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            cmd.Parameters.AddWithValue("@par1", Gdata.currentBlog);
-            cmd.Parameters.AddWithValue("@par2", Gdata.IDarticle);
+            list[0] = val[0];
+            list[0] = dtpHeadDate.Value.ToString("yyyy/MM/dd");
+            list[0] = dtpHeadPub.Value.ToString("yyyy/MM/dd");
+            list[0] = dtpHeadUpdate.Value.ToString("yyyy/MM/dd");
+            list[0] = tbHeadTitle.Text;
+            list[0] = tbHeadExcerpt.Text;
+            list[0] = val[1];
+            list[0] = val[2];
+            list[0] = val[3];
+            list[0] = tbHeadNext.Text;
+            list[0] = tbHeadPrev.Text;
+            list[0] = tbHeadTime.Text.Replace(',', '.');
+            list[0] = tbHeadWords.Text;
 
-            if (RunUpdate(cmd))
+            if (Writers.UpdateHeader(list))
             {
                 NeedToSave[Tabs.HEADER] = false;
                 FillTabHead();
@@ -1422,6 +1422,7 @@ namespace Blogs
 
             return changes;
         }
+
 
         private void SaveTextChanges()
         {
@@ -1740,41 +1741,7 @@ namespace Blogs
             return emptyField;
         }
 
-        private void AddHeader()
-        {
-            string[] val = { "", "", "", "" };
-            cbOption op = cbHeadType.SelectedItem as cbOption;
-            val[0] = op.entityValue;
-            op = cbHeadStatus.SelectedItem as cbOption;
-            val[1] = op.entityValue;
-            op = cbHeadAuthor.SelectedItem as cbOption;
-            val[2] = op.entityValue;
-            op = cbHeadLang.SelectedItem as cbOption;
-            val[3] = op.entityValue;
 
-            string sql = "insert into articles set " +
-                         ", IDblog      = " + Gdata.currentBlog +
-                         ", IDarticle   = " + Gdata.IDarticle +
-                         ", type        = '" + val[0] + "'" +
-                         ", date        = '" + dtpHeadDate.Value.ToString("yyyy/MM/dd") + "'" +
-                         ", publish     = '" + dtpHeadPub.Value.ToString("yyyy/MM/dd") + "'" +
-                         ", updated     = '" + dtpHeadUpdate.Value.ToString("yyyy/MM/dd") + "'" +
-                         ", excerpt     = '" + tbHeadExcerpt.Text + "'" +
-                         ", status      = 'I'" +
-                         ", IDauthor    =  " + val[2] +
-                         ", lang        = '" + val[3] + "'" +
-                         ", next        =  " + tbHeadNext.Text +
-                         ", prev        =  " + tbHeadPrev.Text +
-                         ", readTime    =  " + tbHeadTime.Text.Replace(',', '.') +
-                         ", wordCount   =  " + tbHeadWords.Text;
-
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            if (RunUpdate(cmd))
-            {
-                NeedToSave[Tabs.HEADER] = false;
-                FillTabHead();
-            }
-        }
 
         // ---------------------------------------------------------------------------
         // Helpers
@@ -1846,32 +1813,7 @@ namespace Blogs
             else lblMessage.Text = "No hi ha canvis";
         }
 
-        private bool RunUpdate(MySqlCommand cmd)
-        {
-            bool result = false;
-            try
-            {
-                if (chkTestMode.Checked)
-                {
-                    string sql = cmd.CommandText;
-                    foreach (MySqlParameter p in cmd.Parameters)
-                    {
-                        sql = sql.Replace(p.ParameterName.ToString(), p.Value.ToString());
-                    }
-                    MessageBox.Show(sql);
-                }
-                else
-                {
-                    cmd.ExecuteNonQuery();
-                }
-                result = true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            return result;
-        }
+
 
         private void SetMode(int mode)
         {
@@ -2055,12 +1997,18 @@ namespace Blogs
 
         private void btnTabTime_Click(object sender, EventArgs e)
         {
-
+            tabControl1.SelectedIndex = Tabs.READ_TIME;
         }
 
         private void btnTagChain_Click(object sender, EventArgs e)
         {
+            tabControl1.SelectedIndex = Tabs.CHAIN;
+        }
 
+        private void chkTestMode_CheckedChanged(object sender, EventArgs e)
+        {
+            // Save status into singleton
+            Gdata.testMode = chkTestMode.Checked;
         }
     }
 }
