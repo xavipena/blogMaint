@@ -23,9 +23,10 @@ namespace Blogs.Classes
 
             bool response = true;
             string sql = string.Empty;
-            if (RowExistsIn("articles"))
+            string table = "articles";
+            if (RowExistsIn(table))
             {
-                sql = "update articles set " +
+                sql = "update " + table + " set " +
                       "type       ='@val01'," +
                       "date       ='@val02'," +
                       "published  ='@val03'," +
@@ -43,7 +44,7 @@ namespace Blogs.Classes
             }
             else
             {
-                sql = "insert into articles set " +
+                sql = "insert into " + table + " set " +
                       ", IDblog      = @par1 " +
                       ", IDarticle   = @par2 " +
                       ", type        ='@val01' " +
@@ -93,10 +94,11 @@ namespace Blogs.Classes
 
             bool response = true;
             string sql = string.Empty;
+            string table = "article_details";
             Gdata.AuxKey = Int32.Parse(DataList[0]);
-            if (RowExistsIn("article_details"))
+            if (RowExistsIn(table))
             {
-                sql = "update article_details set " +
+                sql = "update " + table + " set " +
                       " section = '@val01'" +
                       ",type    = '@val02'" +
                       ",text    = '@val03'" +
@@ -105,7 +107,242 @@ namespace Blogs.Classes
             }
             else
             {
-                sql = "insert into articles set " +
+                sql = "insert into " + table + " set " +
+                      " IDarticle   = @par1" +
+                      ",position    = @par2" +
+                      " section     = '@val01'" +
+                      ",type        = '@val02'" +
+                      ",text        = '@val03'" +
+                      ",status      = '@val04'" +
+                      ",lang        = '@par3'";
+            }
+            Gdata.db.DBOpen();
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            // Key
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            cmd.Parameters.AddWithValue("@par2", DataList[0]);
+            cmd.Parameters.AddWithValue("@par3", DataList[5]);
+            // Values
+            cmd.Parameters.AddWithValue("@val01", DataList[1]);
+            cmd.Parameters.AddWithValue("@val02", DataList[2]);
+            cmd.Parameters.AddWithValue("@val03", DataList[3]);
+            cmd.Parameters.AddWithValue("@val04", DataList[4]);
+            // Run
+            response = RunUpdate(cmd);
+            Gdata.db.DBClose();
+            return response;
+        }
+
+        public static bool UpdateImage(List<string> DataList)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            if (Gdata.IDarticle == 0) return false;
+
+            bool response = true;
+            string sql = string.Empty;
+            string table = "article_images";
+            Gdata.AuxKey = Int32.Parse(DataList[0]);
+            if (RowExistsIn(table))
+            {
+                sql = "update " + table + " set " +
+                      " section = '@val01'" +
+                      ",type    = '@val02'" +
+                      ",text    = '@val03'" +
+                      ",status  = '@val04'" +
+                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+            }
+            else
+            {
+                sql = "insert into " + table + " set " +
+                      " IDarticle   = @par1" +
+                      ",position    = @par2" +
+                      " section     = '@val01'" +
+                      ",type        = '@val02'" +
+                      ",text        = '@val03'" +
+                      ",status      = '@val04'" +
+                      ",lang        = '@par3'";
+            }
+            Gdata.db.DBOpen();
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            // Key
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            cmd.Parameters.AddWithValue("@par2", DataList[0]);
+            cmd.Parameters.AddWithValue("@par3", DataList[5]);
+            // Values
+            cmd.Parameters.AddWithValue("@val01", DataList[1]);
+            cmd.Parameters.AddWithValue("@val02", DataList[2]);
+            cmd.Parameters.AddWithValue("@val03", DataList[3]);
+            cmd.Parameters.AddWithValue("@val04", DataList[4]);
+            // Run
+            response = RunUpdate(cmd);
+            Gdata.db.DBClose();
+            return response;
+        }
+
+        public static bool UpdateLinks(List<string> DataList)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            if (Gdata.IDarticle == 0) return false;
+
+            bool response = true;
+            string sql = string.Empty;
+            string table = "article_links";
+            Gdata.AuxKey = Int32.Parse(DataList[0]);
+            if (RowExistsIn(table))
+            {
+                sql = "update " + table + " set " +
+                      " section = '@val01'" +
+                      ",type    = '@val02'" +
+                      ",text    = '@val03'" +
+                      ",status  = '@val04'" +
+                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+            }
+            else
+            {
+                sql = "insert into " + table + " set " +
+                      " IDarticle   = @par1" +
+                      ",position    = @par2" +
+                      " section     = '@val01'" +
+                      ",type        = '@val02'" +
+                      ",text        = '@val03'" +
+                      ",status      = '@val04'" +
+                      ",lang        = '@par3'";
+            }
+            Gdata.db.DBOpen();
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            // Key
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            cmd.Parameters.AddWithValue("@par2", DataList[0]);
+            cmd.Parameters.AddWithValue("@par3", DataList[5]);
+            // Values
+            cmd.Parameters.AddWithValue("@val01", DataList[1]);
+            cmd.Parameters.AddWithValue("@val02", DataList[2]);
+            cmd.Parameters.AddWithValue("@val03", DataList[3]);
+            cmd.Parameters.AddWithValue("@val04", DataList[4]);
+            // Run
+            response = RunUpdate(cmd);
+            Gdata.db.DBClose();
+            return response;
+        }
+
+        public static bool UpdateRefs(List<string> DataList)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            if (Gdata.IDarticle == 0) return false;
+
+            bool response = true;
+            string sql = string.Empty;
+            string table = "article_related";
+            Gdata.AuxKey = Int32.Parse(DataList[0]);
+            if (RowExistsIn(table))
+            {
+                sql = "update " + table + " set " +
+                      " section = '@val01'" +
+                      ",type    = '@val02'" +
+                      ",text    = '@val03'" +
+                      ",status  = '@val04'" +
+                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+            }
+            else
+            {
+                sql = "insert into " + table + " set " +
+                      " IDarticle   = @par1" +
+                      ",position    = @par2" +
+                      " section     = '@val01'" +
+                      ",type        = '@val02'" +
+                      ",text        = '@val03'" +
+                      ",status      = '@val04'" +
+                      ",lang        = '@par3'";
+            }
+            Gdata.db.DBOpen();
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            // Key
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            cmd.Parameters.AddWithValue("@par2", DataList[0]);
+            cmd.Parameters.AddWithValue("@par3", DataList[5]);
+            // Values
+            cmd.Parameters.AddWithValue("@val01", DataList[1]);
+            cmd.Parameters.AddWithValue("@val02", DataList[2]);
+            cmd.Parameters.AddWithValue("@val03", DataList[3]);
+            cmd.Parameters.AddWithValue("@val04", DataList[4]);
+            // Run
+            response = RunUpdate(cmd);
+            Gdata.db.DBClose();
+            return response;
+        }
+
+        public static bool UpdateQuote(List<string> DataList)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            if (Gdata.IDarticle == 0) return false;
+
+            bool response = true;
+            string sql = string.Empty;
+            string table = "article_quotes";
+            Gdata.AuxKey = Int32.Parse(DataList[0]);
+            if (RowExistsIn(table))
+            {
+                sql = "update " + table + " set " +
+                      " section = '@val01'" +
+                      ",type    = '@val02'" +
+                      ",text    = '@val03'" +
+                      ",status  = '@val04'" +
+                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+            }
+            else
+            {
+                sql = "insert into " + table + " set " +
+                      " IDarticle   = @par1" +
+                      ",position    = @par2" +
+                      " section     = '@val01'" +
+                      ",type        = '@val02'" +
+                      ",text        = '@val03'" +
+                      ",status      = '@val04'" +
+                      ",lang        = '@par3'";
+            }
+            Gdata.db.DBOpen();
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            // Key
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            cmd.Parameters.AddWithValue("@par2", DataList[0]);
+            cmd.Parameters.AddWithValue("@par3", DataList[5]);
+            // Values
+            cmd.Parameters.AddWithValue("@val01", DataList[1]);
+            cmd.Parameters.AddWithValue("@val02", DataList[2]);
+            cmd.Parameters.AddWithValue("@val03", DataList[3]);
+            cmd.Parameters.AddWithValue("@val04", DataList[4]);
+            // Run
+            response = RunUpdate(cmd);
+            Gdata.db.DBClose();
+            return response;
+        }
+
+        public static bool UpdateCode(List<string> DataList)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            if (Gdata.IDarticle == 0) return false;
+
+            bool response = true;
+            string sql = string.Empty;
+            string table = "article_code";
+            Gdata.AuxKey = Int32.Parse(DataList[0]);
+            if (RowExistsIn(table))
+            {
+                sql = "update " + table + " set " +
+                      " section = '@val01'" +
+                      ",type    = '@val02'" +
+                      ",text    = '@val03'" +
+                      ",status  = '@val04'" +
+                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+            }
+            else
+            {
+                sql = "insert into " + table + " set " +
                       " IDarticle   = @par1" +
                       ",position    = @par2" +
                       " section     = '@val01'" +
