@@ -23,6 +23,7 @@ namespace Blogs.Classes
         // Initialize
         public int currentBlog = 0;
         public int IDarticle = 0;
+        public int AuxKey = 0;
         public int maintMode = Modes.Status.EMPTY;
         public bool testMode = false;
         

@@ -12,6 +12,10 @@ namespace Blogs.Classes
 {
     internal class Writers
     {
+        // ---------------------------------------------------------------------------
+        // Updates/inserts to database
+        // ---------------------------------------------------------------------------
+
         public static bool UpdateHeader(List<string> DataList)
         {
             Singleton Gdata = Singleton.GetInstance();
@@ -22,38 +26,39 @@ namespace Blogs.Classes
             if (RowExistsIn("articles"))
             {
                 sql = "update articles set " +
-                      "type       = @val01," +
-                      "date       = @val02," +
-                      "published  = @val03," +
-                      "updated    = @val04," +
-                      "title      = @val05," +
-                      "excerpt    = @val06," +
-                      "status     = @val07," +
+                      "type       ='@val01'," +
+                      "date       ='@val02'," +
+                      "published  ='@val03'," +
+                      "updated    ='@val04'," +
+                      "title      ='@val05'," +
+                      "excerpt    ='@val06'," +
+                      "status     ='@val07'," +
                       "IDauthor   = @val08," +
-                      "lang       = @val09," +
+                      "lang       ='@val09'," +
                       "next       = @val10," +
                       "prev       = @val11," +
                       "readTime   = @val12," +
                       "wordCount  = @val13 " +
-                      "where IDblog = @par1 and IDarticle = @par2";
+                      "where IDblog = @par1 and IDarticle = @par2"; 
             }
             else
             {
                 sql = "insert into articles set " +
-                      ", IDblog      =@val " +
-                      ", IDarticle   =@val " +
-                      ", type        =@val " +
-                      ", date        =@val " +
-                      ", publish     =@val " +
-                      ", updated     =@val " +
-                      ", excerpt     =@val " +
-                      ", status      =@val " +
-                      ", IDauthor    =@val " +
-                      ", lang        =@val " +
-                      ", next        =@val " +
-                      ", prev        =@val " +
-                      ", readTime    =@val " +
-                      ", wordCount   =@val ";
+                      ", IDblog      = @par1 " +
+                      ", IDarticle   = @par2 " +
+                      ", type        ='@val01' " +
+                      ", date        ='@val02' " +
+                      ", published   ='@val03' " +
+                      ", updated     ='@val04' " +
+                      ", title       ='@val05' " +
+                      ", excerpt     ='@val06' " +
+                      ", status      ='@val07' " +
+                      ", IDauthor    = @val08 " +
+                      ", lang        ='@val09' " +
+                      ", next        = @val10 " +
+                      ", prev        = @val11 " +
+                      ", readTime    = @val12 " +
+                      ", wordCount   = @val13 ";
             }
             Gdata.db.DBOpen();
 
@@ -81,51 +86,81 @@ namespace Blogs.Classes
             return response;
         }
 
+        public static bool UpdateText(List<string> DataList)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            if (Gdata.IDarticle == 0) return false;
+
+            bool response = true;
+            string sql = string.Empty;
+            Gdata.AuxKey = Int32.Parse(DataList[0]);
+            if (RowExistsIn("article_details"))
+            {
+                sql = "update article_details set " +
+                      " section = '@val01'" +
+                      ",type    = '@val02'" +
+                      ",text    = '@val03'" +
+                      ",status  = '@val04'" +
+                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+            }
+            else
+            {
+                sql = "insert into articles set " +
+                      " IDarticle   = @par1" +
+                      ",position    = @par2" +
+                      " section     = '@val01'" +
+                      ",type        = '@val02'" +
+                      ",text        = '@val03'" +
+                      ",status      = '@val04'" +
+                      ",lang        = '@par3'";
+            }
+            Gdata.db.DBOpen();
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            // Key
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            cmd.Parameters.AddWithValue("@par2", DataList[0]);
+            cmd.Parameters.AddWithValue("@par3", DataList[5]);
+            // Values
+            cmd.Parameters.AddWithValue("@val01", DataList[1]);
+            cmd.Parameters.AddWithValue("@val02", DataList[2]);
+            cmd.Parameters.AddWithValue("@val03", DataList[3]);
+            cmd.Parameters.AddWithValue("@val04", DataList[4]);
+            // Run
+            response = RunUpdate(cmd);
+            Gdata.db.DBClose();
+            return response;
+        }
+
+        // ---------------------------------------------------------------------------
+        // Common methods
+        // ---------------------------------------------------------------------------
+
+        /// <summary>
+        /// Check if current row exists
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
         private static bool RowExistsIn(string table)
         {
             bool exists = false;
             Singleton Gdata = Singleton.GetInstance();
             Gdata.db.DBOpen();
-            string sql = "select * from " + table + " where IDarticle = " + Gdata.IDarticle + " and lang = '" + Gdata.Lang + "'";
+            string sql = "select * from " + table + " where ";
+            switch(table)
+            {
+                case "article":
+                    sql += "IDarticle = " + Gdata.IDarticle + " and lang = '" + Gdata.Lang + "'";
+                    break;
+                case "article_details":
+                    sql += "IDarticle = " + Gdata.IDarticle + " and position = " + Gdata.AuxKey + " and lang = '" + Gdata.Lang + "'";
+                    break;
+            }
             var cmd = new MySqlCommand(sql, Gdata.db.Connection);
             var reader = cmd.ExecuteReader();
             exists = reader.HasRows;
             Gdata.db.DBClose();
             return exists;
-        }
-
-        private static void AddHeader()
-        {
-            Singleton Gdata = Singleton.GetInstance();
-
-            string[] val = { "", "", "", "" };
-            cbOption op = cbHeadType.SelectedItem as cbOption;
-            val[0] = op.entityValue;
-            op = cbHeadStatus.SelectedItem as cbOption;
-            val[1] = op.entityValue;
-            op = cbHeadAuthor.SelectedItem as cbOption;
-            val[2] = op.entityValue;
-            op = cbHeadLang.SelectedItem as cbOption;
-            val[3] = op.entityValue;
-
-            string sql = "insert into articles set " +
-                         ", IDblog      = " + Gdata.currentBlog +
-                         ", IDarticle   = " + Gdata.IDarticle +
-                         ", type        = '" + val[0] + "'" +
-                         ", date        = '" + dtpHeadDate.Value.ToString("yyyy/MM/dd") + "'" +
-                         ", publish     = '" + dtpHeadPub.Value.ToString("yyyy/MM/dd") + "'" +
-                         ", updated     = '" + dtpHeadUpdate.Value.ToString("yyyy/MM/dd") + "'" +
-                         ", excerpt     = '" + tbHeadExcerpt.Text + "'" +
-                         ", status      = 'I'" +
-                         ", IDauthor    =  " + val[2] +
-                         ", lang        = '" + val[3] + "'" +
-                         ", next        =  " + tbHeadNext.Text +
-                         ", prev        =  " + tbHeadPrev.Text +
-                         ", readTime    =  " + tbHeadTime.Text.Replace(',', '.') +
-                         ", wordCount   =  " + tbHeadWords.Text;
-
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-
         }
 
         /// <summary>
@@ -139,9 +174,9 @@ namespace Blogs.Classes
             bool result = false;
             try
             {
+                string sql = cmd.CommandText;
                 if (Gdata.testMode)
                 {
-                    string sql = cmd.CommandText;
                     foreach (MySqlParameter p in cmd.Parameters)
                     {
                         sql = sql.Replace(p.ParameterName.ToString(), p.Value.ToString());

@@ -10,12 +10,6 @@ using System.Net;
 using System.Net.Http;
 using System.Drawing;
 using System.ComponentModel;
-using Org.BouncyCastle.Crmf;
-using System.Text;
-using Google.Protobuf.WellKnownTypes;
-using MySqlX.XDevAPI.Common;
-using static System.Collections.Specialized.BitVector32;
-using MySqlX.XDevAPI.Relational;
 
 namespace Blogs
 {
@@ -48,16 +42,7 @@ namespace Blogs
             Loaders.LoadCombo(cbSet, Combos.BLOG_SET);
             LoadCombos();
             SetButtonStatus();
-
-            tbES.Text = Language.CASTELLA;
-            tbCA.Text = Language.CATALA;
-            tbES.BackColor = Color.LightYellow;
-            lblMessage.Text = Messages.READY;
-            lblDesc.Text = Readers.GetBlogDescription();
-            lblDescription.Text = Texts.DESCRIPTION;
-            lblMode.Text = Modes.Text.EMPTY;
-            Gdata.maintMode = Modes.Status.EMPTY;
-            loading = false;
+            SetDefaultValues();
             Cursor.Current = Cursors.Default;
         }
 
@@ -85,6 +70,24 @@ namespace Blogs
             this.StartPosition = FormStartPosition.CenterScreen;
 
             tabControl1.Click += new EventHandler(tabControl_Click);
+        }
+
+        /// <summary>
+        /// Default form values for initialization
+        /// </summary>
+        private void SetDefaultValues()
+        {
+            tbES.Text = Language.CASTELLA;
+            tbCA.Text = Language.CATALA;
+            tbES.BackColor = Color.LightYellow;
+            lblMessage.Text = Messages.READY;
+            lblDesc.Text = Readers.GetBlogDescription();
+            lblDescription.Text = Texts.DESCRIPTION;
+            lblMode.Text = Modes.Text.EMPTY;
+            Gdata.maintMode = Modes.Status.EMPTY;
+            chkTestMode.Checked = true;
+            Gdata.testMode = chkTestMode.Checked;
+            loading = false;
         }
 
         /// <summary>
@@ -782,10 +785,13 @@ namespace Blogs
 
             tbHeadExcerpt.Text = string.Empty;
             tbHeadNext.Text = string.Empty;
-            tbHeadPrev.Text = string.Empty; 
+            tbHeadPrev.Text = string.Empty;
             tbHeadTime.Text = string.Empty;
             tbHeadWords.Text = string.Empty;
+        }
 
+        private void ClearGrids()
+        { 
             dgvSelector.Rows.Clear();
             dgvArticles.Rows.Clear();
             dgvMetadata.Rows.Clear();
@@ -823,6 +829,8 @@ namespace Blogs
         // ---------------------------------------------------------------------------
         // Fill tabs
         // ---------------------------------------------------------------------------
+
+        #region fillTabls
 
         private void FillTabHead()
         {
@@ -1029,6 +1037,8 @@ namespace Blogs
             lbTabs.DataSource = tList;
         }
 
+        #endregion fillTabls
+
         // ---------------------------------------------------------------------------
         // Browser
         // ---------------------------------------------------------------------------
@@ -1177,6 +1187,7 @@ namespace Blogs
             loading = true;
             Cursor.Current = Cursors.WaitCursor;
             ClearHeaders();
+            ClearGrids();
             ClearAllBoxes();
             ClearDoneArray();
             LoadCombos();
@@ -1296,23 +1307,29 @@ namespace Blogs
             {
                 return;
             }
-            if (Gdata.maintMode == Modes.Status.INSERT)
-            {
-                if (UpdateHeader(cmd))
-                {
-                    NeedToSave[Tabs.HEADER] = false;
-                    FillTabHead();
-                }
-            }
-            else
+            if (Gdata.maintMode != Modes.Status.INSERT)
             {
                 UpdateTheTab(Tabs.HEADER);
             }
+            else
+            {
+                SaveHeadChanges();
+            }
         }
-
         private void btnTextSave_Click(object sender, EventArgs e)
         {
-            UpdateTheTab(Tabs.SECTIONS);
+            if (AnyMissingFieldIn(Tabs.SECTIONS))
+            {
+                return;
+            }
+            if (Gdata.maintMode != Modes.Status.INSERT)
+            {
+                UpdateTheTab(Tabs.SECTIONS);
+            }
+            else
+            {
+                SaveTextChanges();
+            }
         }
 
         private void btnImageSave_Click(object sender, EventArgs e)
@@ -1384,19 +1401,19 @@ namespace Blogs
 
             List<string> list = new List<string>();
 
-            list[0] = val[0];
-            list[0] = dtpHeadDate.Value.ToString("yyyy/MM/dd");
-            list[0] = dtpHeadPub.Value.ToString("yyyy/MM/dd");
-            list[0] = dtpHeadUpdate.Value.ToString("yyyy/MM/dd");
-            list[0] = tbHeadTitle.Text;
-            list[0] = tbHeadExcerpt.Text;
-            list[0] = val[1];
-            list[0] = val[2];
-            list[0] = val[3];
-            list[0] = tbHeadNext.Text;
-            list[0] = tbHeadPrev.Text;
-            list[0] = tbHeadTime.Text.Replace(',', '.');
-            list[0] = tbHeadWords.Text;
+            list.Add(val[0]);
+            list.Add(dtpHeadDate.Value.ToString("yyyy/MM/dd"));
+            list.Add(dtpHeadPub.Value.ToString("yyyy/MM/dd"));
+            list.Add(dtpHeadUpdate.Value.ToString("yyyy/MM/dd"));
+            list.Add(tbHeadTitle.Text);
+            list.Add(tbHeadExcerpt.Text);
+            list.Add(val[1]);
+            list.Add(val[2]);
+            list.Add(val[3]);
+            list.Add(tbHeadNext.Text);
+            list.Add(tbHeadPrev.Text);
+            list.Add(tbHeadTime.Text.Replace(',', '.'));
+            list.Add(tbHeadWords.Text);
 
             if (Writers.UpdateHeader(list))
             {
@@ -1423,7 +1440,6 @@ namespace Blogs
             return changes;
         }
 
-
         private void SaveTextChanges()
         {
             string[] val = { "", "", "" };
@@ -1434,23 +1450,19 @@ namespace Blogs
                      op = cbTextLang.SelectedItem as cbOption;
             val[2] = op.entityValue;
 
-            string sql = "update article_details set " +
-                         " section     = '" + tbTextSection.Text + "'" +
-                         ",type        = '" + val[0] + "'" +
-                         ",text        = '" + tbTextDetail.Text + "'" +
-                         ",status      = '" + val[1] + "'" +
-                         ",lang        = '" + val[2] + "'" +
-                         " where IDarticle = @par1 and position = @par2";
+            List<string> list = new List<string>();
 
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
-            cmd.Parameters.AddWithValue("@par2", tbTextPos.Text);
+            list.Add(tbTextPos.Text);
+            list.Add(tbTextSection.Text);
+            list.Add(val[0]);
+            list.Add(tbTextDetail.Text);
+            list.Add(val[2]);
+            list.Add(val[1]);
 
-            if (RunUpdate(cmd))
+            if (Writers.UpdateText(list))
             {
                 NeedToSave[Tabs.SECTIONS] = false;
-                op = lbTextSections.SelectedItem as cbOption;
-                FillTabTexts(Int32.Parse(op.entityValue));
+                FillTabTexts(Int32.Parse(tbTextPos.Text));
             }
         }
 
@@ -1498,7 +1510,7 @@ namespace Blogs
             cmd.Parameters.AddWithValue("@par2", op.entityValue);
             cmd.Parameters.AddWithValue("@par2", tbImageSeq.Text);
 
-            if (RunUpdate(cmd))
+            if (Writers.RunUpdate(cmd))
             {
                 NeedToSave[Tabs.IMAGES] = false;
                 FillTabImages(Int32.Parse(op.entityValue), Int32.Parse(tbImageSeq.Text));
@@ -1541,7 +1553,7 @@ namespace Blogs
             op = lbLinkSections.SelectedItem as cbOption;
             cmd.Parameters.AddWithValue("@par2", op.entityValue);
 
-            if (RunUpdate(cmd))
+            if (Writers.RunUpdate(cmd))
             {
                 NeedToSave[Tabs.LINKS] = false;
                 FillTabLinks(Int32.Parse(op.entityValue));
@@ -1583,7 +1595,7 @@ namespace Blogs
             cmd.Parameters.AddWithValue("@par2", tokens[0]);
             cmd.Parameters.AddWithValue("@par3", tokens[1]);
 
-            if (RunUpdate(cmd))
+            if (Writers.RunUpdate(cmd))
             {
                 NeedToSave[Tabs.REFERENCE] = false;
                 string key = tokens[0] + "-" + tokens[1];
@@ -1627,7 +1639,7 @@ namespace Blogs
             op = lbQuoteSections.SelectedItem as cbOption;
             cmd.Parameters.AddWithValue("@par2", op.entityValue);
 
-            if (RunUpdate(cmd))
+            if (Writers.RunUpdate(cmd))
             {
                 NeedToSave[Tabs.QUOTES] = false;
                 FillTabQuotes(Int32.Parse(op.entityValue));
@@ -1670,7 +1682,7 @@ namespace Blogs
             op = lbCodeSeqs.SelectedItem as cbOption;
             cmd.Parameters.AddWithValue("@par3", op.entityValue);
 
-            if (RunUpdate(cmd))
+            if (Writers.RunUpdate(cmd))
             {
                 NeedToSave[Tabs.CODE] = false;
                 op = lbCodeSections.SelectedItem as cbOption;
@@ -1954,7 +1966,7 @@ namespace Blogs
                 ClearHeaders();
                 ClearDoneArray();
                 loading = false;
-                tabControl1.SelectedIndex = Tabs.SELECTOR;
+                tabControl1.SelectedIndex = Tabs.HEADER;
                 Cursor.Current = Cursors.Default;
             }
         }
