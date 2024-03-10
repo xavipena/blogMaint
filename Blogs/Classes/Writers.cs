@@ -1,6 +1,8 @@
 ﻿using MySql.Data.MySqlClient;
+using Mysqlx;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -27,39 +29,39 @@ namespace Blogs.Classes
             if (RowExistsIn(table))
             {
                 sql = "update " + table + " set " +
-                      "type       ='@val01'," +
-                      "date       ='@val02'," +
-                      "published  ='@val03'," +
-                      "updated    ='@val04'," +
-                      "title      ='@val05'," +
-                      "excerpt    ='@val06'," +
-                      "status     ='@val07'," +
-                      "IDauthor   = @val08," +
-                      "lang       ='@val09'," +
-                      "next       = @val10," +
-                      "prev       = @val11," +
-                      "readTime   = @val12," +
-                      "wordCount  = @val13 " +
+                      " type       = @val01 " +
+                      ",date       = @val02 " +
+                      ",published  = @val03 " +
+                      ",updated    = @val04 " +
+                      ",title      = @val05 " +
+                      ",excerpt    = @val06 " +
+                      ",status     = @val07 " +
+                      ",IDauthor   = @val08 " +
+                      ",lang       = @val09 " +
+                      ",next       = @val10 " +
+                      ",prev       = @val11 " +
+                      ",readTime   = @val12 " +
+                      ",wordCount  = @val13 " +
                       "where IDblog = @par1 and IDarticle = @par2"; 
             }
             else
             {
                 sql = "insert into " + table + " set " +
-                      ", IDblog      = @par1 " +
-                      ", IDarticle   = @par2 " +
-                      ", type        ='@val01' " +
-                      ", date        ='@val02' " +
-                      ", published   ='@val03' " +
-                      ", updated     ='@val04' " +
-                      ", title       ='@val05' " +
-                      ", excerpt     ='@val06' " +
-                      ", status      ='@val07' " +
-                      ", IDauthor    = @val08 " +
-                      ", lang        ='@val09' " +
-                      ", next        = @val10 " +
-                      ", prev        = @val11 " +
-                      ", readTime    = @val12 " +
-                      ", wordCount   = @val13 ";
+                      " IDblog      = @par1 " +
+                      ",IDarticle   = @par2 " +
+                      ",type        = @val01 " +
+                      ",date        = @val02 " +
+                      ",published   = @val03 " +
+                      ",updated     = @val04 " +
+                      ",title       = @val05 " +
+                      ",excerpt     = @val06 " +
+                      ",status      = @val07 " +
+                      ",IDauthor    = @val08 " +
+                      ",lang        = @val09 " +
+                      ",next        = @val10 " +
+                      ",prev        = @val11 " +
+                      ",readTime    = @val12 " +
+                      ",wordCount   = @val13 ";
             }
             Gdata.db.DBOpen();
 
@@ -99,22 +101,22 @@ namespace Blogs.Classes
             if (RowExistsIn(table))
             {
                 sql = "update " + table + " set " +
-                      " section = '@val01'" +
-                      ",type    = '@val02'" +
-                      ",text    = '@val03'" +
-                      ",status  = '@val04'" +
-                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+                      " section = @val01" +
+                      ",type    = @val02" +
+                      ",text    = @val03" +
+                      ",status  = @val04" +
+                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
                 sql = "insert into " + table + " set " +
                       " IDarticle   = @par1" +
                       ",position    = @par2" +
-                      " section     = '@val01'" +
-                      ",type        = '@val02'" +
-                      ",text        = '@val03'" +
-                      ",status      = '@val04'" +
-                      ",lang        = '@par3'";
+                      ",section     = @val01" +
+                      ",type        = @val02" +
+                      ",text        = @val03" +
+                      ",status      = @val04" +
+                      ",lang        = @par3";
             }
             Gdata.db.DBOpen();
 
@@ -146,22 +148,22 @@ namespace Blogs.Classes
             if (RowExistsIn(table))
             {
                 sql = "update " + table + " set " +
-                      " section = '@val01'" +
-                      ",type    = '@val02'" +
-                      ",text    = '@val03'" +
-                      ",status  = '@val04'" +
-                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+                      " section = @val01" +
+                      ",type    = @val02" +
+                      ",text    = @val03" +
+                      ",status  = @val04" +
+                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
                 sql = "insert into " + table + " set " +
                       " IDarticle   = @par1" +
                       ",position    = @par2" +
-                      " section     = '@val01'" +
-                      ",type        = '@val02'" +
-                      ",text        = '@val03'" +
-                      ",status      = '@val04'" +
-                      ",lang        = '@par3'";
+                      ",section     = @val01" +
+                      ",type        = @val02" +
+                      ",text        = @val03" +
+                      ",status      = @val04" +
+                      ",lang        = @par3";
             }
             Gdata.db.DBOpen();
 
@@ -193,22 +195,22 @@ namespace Blogs.Classes
             if (RowExistsIn(table))
             {
                 sql = "update " + table + " set " +
-                      " section = '@val01'" +
-                      ",type    = '@val02'" +
-                      ",text    = '@val03'" +
-                      ",status  = '@val04'" +
-                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+                      " section = @val01" +
+                      ",type    = @val02" +
+                      ",text    = @val03" +
+                      ",status  = @val04" +
+                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
                 sql = "insert into " + table + " set " +
                       " IDarticle   = @par1" +
                       ",position    = @par2" +
-                      " section     = '@val01'" +
-                      ",type        = '@val02'" +
-                      ",text        = '@val03'" +
-                      ",status      = '@val04'" +
-                      ",lang        = '@par3'";
+                      ",section     = @val01" +
+                      ",type        = @val02" +
+                      ",text        = @val03" +
+                      ",status      = @val04" +
+                      ",lang        = @par3";
             }
             Gdata.db.DBOpen();
 
@@ -240,22 +242,22 @@ namespace Blogs.Classes
             if (RowExistsIn(table))
             {
                 sql = "update " + table + " set " +
-                      " section = '@val01'" +
-                      ",type    = '@val02'" +
-                      ",text    = '@val03'" +
-                      ",status  = '@val04'" +
-                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+                      " section = @val01" +
+                      ",type    = @val02" +
+                      ",text    = @val03" +
+                      ",status  = @val04" +
+                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
                 sql = "insert into " + table + " set " +
                       " IDarticle   = @par1" +
                       ",position    = @par2" +
-                      " section     = '@val01'" +
-                      ",type        = '@val02'" +
-                      ",text        = '@val03'" +
-                      ",status      = '@val04'" +
-                      ",lang        = '@par3'";
+                      ",section     = @val01" +
+                      ",type        = @val02" +
+                      ",text        = @val03" +
+                      ",status      = @val04" +
+                      ",lang        = @par3";
             }
             Gdata.db.DBOpen();
 
@@ -287,22 +289,22 @@ namespace Blogs.Classes
             if (RowExistsIn(table))
             {
                 sql = "update " + table + " set " +
-                      " section = '@val01'" +
-                      ",type    = '@val02'" +
-                      ",text    = '@val03'" +
-                      ",status  = '@val04'" +
-                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+                      " section = @val01" +
+                      ",type    = @val02" +
+                      ",text    = @val03" +
+                      ",status  = @val04" +
+                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
                 sql = "insert into " + table + " set " +
                       " IDarticle   = @par1" +
                       ",position    = @par2" +
-                      " section     = '@val01'" +
-                      ",type        = '@val02'" +
-                      ",text        = '@val03'" +
-                      ",status      = '@val04'" +
-                      ",lang        = '@par3'";
+                      ",section     = @val01" +
+                      ",type        = @val02" +
+                      ",text        = @val03" +
+                      ",status      = @val04" +
+                      ",lang        = @par3";
             }
             Gdata.db.DBOpen();
 
@@ -334,22 +336,22 @@ namespace Blogs.Classes
             if (RowExistsIn(table))
             {
                 sql = "update " + table + " set " +
-                      " section = '@val01'" +
-                      ",type    = '@val02'" +
-                      ",text    = '@val03'" +
-                      ",status  = '@val04'" +
-                      "where IDarticle = @par1 and position = @par2 and lang = '@par3'";
+                      " section = @val01" +
+                      ",type    = @val02" +
+                      ",text    = @val03" +
+                      ",status  = @val04" +
+                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
                 sql = "insert into " + table + " set " +
                       " IDarticle   = @par1" +
                       ",position    = @par2" +
-                      " section     = '@val01'" +
-                      ",type        = '@val02'" +
-                      ",text        = '@val03'" +
-                      ",status      = '@val04'" +
-                      ",lang        = '@par3'";
+                      ",section     = @val01" +
+                      ",type        = @val02" +
+                      ",text        = @val03" +
+                      ",status      = @val04" +
+                      ",lang        = @par3";
             }
             Gdata.db.DBOpen();
 
@@ -367,6 +369,54 @@ namespace Blogs.Classes
             response = RunUpdate(cmd);
             Gdata.db.DBClose();
             return response;
+        }
+
+        public static bool UpdateMetadata(DataGridView dgv)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            if (Gdata.IDarticle == 0) return false;
+            bool ok = false;
+
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (dgvr.Cells[2].Value != null)
+                {
+                    string sql = string.Empty;
+                    string table = "article_metadata";
+                    Gdata.AuxKey = Int32.Parse(dgvr.Cells[0].Value.ToString());
+                    if (RowExistsIn(table))
+                    {
+                        sql = "update " + table + " set " +
+                              " value   = @val01 " +
+                              "where IDarticle = @par1 and IDmeta = @par2 and lang = @par3";
+                    }
+                    else
+                    {
+                        sql = "insert into " + table + " set " +
+                              " IDarticle   = @par1" +
+                              ",IDmeta      = @par2" +
+                              ",value       = @val01" +
+                              ",lang        = @par3";
+                    }
+                    Gdata.db.DBOpen();
+                    using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+                    {
+                        // Key
+                        cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+                        cmd.Parameters.AddWithValue("@par2", dgvr.Cells[0].Value.ToString());
+                        cmd.Parameters.AddWithValue("@par3", Gdata.Lang);
+                        // Values
+                        cmd.Parameters.AddWithValue("@val01", dgvr.Cells[2].Value.ToString());
+                        // Run
+                        ok = RunUpdate(cmd);
+                        if (!ok)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            return ok;
         }
 
         // ---------------------------------------------------------------------------
@@ -392,6 +442,9 @@ namespace Blogs.Classes
                 case "article_details":
                     sql += "IDarticle = " + Gdata.IDarticle + " and position = " + Gdata.AuxKey + " and lang = '" + Gdata.Lang + "'";
                     break;
+                case "article_metadata":
+                    sql += "IDarticle = " + Gdata.IDarticle + " and IDmeta = " + Gdata.AuxKey + " and lang = '" + Gdata.Lang + "'";
+                    break;
             }
             var cmd = new MySqlCommand(sql, Gdata.db.Connection);
             var reader = cmd.ExecuteReader();
@@ -409,9 +462,10 @@ namespace Blogs.Classes
         {
             Singleton Gdata = Singleton.GetInstance();
             bool result = false;
+            string sql = string.Empty;
             try
             {
-                string sql = cmd.CommandText;
+                sql = cmd.CommandText;
                 if (Gdata.testMode)
                 {
                     foreach (MySqlParameter p in cmd.Parameters)
@@ -428,7 +482,11 @@ namespace Blogs.Classes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                foreach (MySqlParameter p in cmd.Parameters)
+                {
+                    sql = sql.Replace(p.ParameterName.ToString(), p.Value.ToString());
+                }
+                MessageBox.Show(ex.Message + Environment.NewLine + sql);
             }
             return result;
         }

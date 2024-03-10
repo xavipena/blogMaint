@@ -69,6 +69,7 @@ namespace Blogs
         }
         public void DBOpen()
         {
+            if (IsOpen) return;
             Connection.Open();
             IsOpen = true;
         }

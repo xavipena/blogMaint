@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO.Pipelines;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Blogs.Classes
 {
@@ -16,21 +17,22 @@ namespace Blogs.Classes
         {
             string desc = string.Empty;
             Singleton Gdata = Singleton.GetInstance();
-            Gdata.dbCommon.DBOpen();
+            Gdata.db.DBOpen();
 
             string sql = "select description, url " +
                          "from project_blogs " +
                          "where IDblog = " + Gdata.currentBlog + " and status = 'A' " +
                          "  and lang = '" + Gdata.Lang + "' and ga4 = '" + Gdata.currentSet + "'";
-            var cmd = new MySqlCommand(sql, Gdata.dbCommon.Connection);
-            var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            
+            using (var cmd = new MySqlCommand(sql, Gdata.dbCommon.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                desc = reader.GetString(0);
-                Gdata.url = reader.GetString(1);
+                if (reader.Read())
+                {
+                    desc = reader.GetString(0);
+                    Gdata.url = reader.GetString(1);
+                }
             }
-
-            Gdata.dbCommon.DBClose();
             return desc;
         }
 
@@ -41,32 +43,32 @@ namespace Blogs.Classes
         public static List<string> GetTabHeader()
         {
             Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
             int IDarticle = Gdata.IDarticle;
             if (IDarticle == 0) return null;
             List<string> list = new List<string>();
-            Gdata.db.DBOpen();
 
             string sql = "select * from articles where IDblog = " + Gdata.currentBlog + " and IDarticle = " + IDarticle + " and lang = '" + Gdata.Lang + "'";
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                list.Add(reader.GetString(2));
-                list.Add(reader.GetDateTime(3).ToString());
-                list.Add(reader.GetDateTime(4).ToString());
-                list.Add(reader.GetDateTime(5).ToString());
-                list.Add(reader.GetString(6));
-                list.Add(reader.GetString(7));
-                list.Add(reader.GetString(8));
-                list.Add(reader.GetInt32(9).ToString());
-                list.Add(reader.GetString(10));
-                list.Add(reader.GetInt32(11).ToString());
-                list.Add(reader.GetInt32(12).ToString());
-                list.Add(reader.GetDecimal(13).ToString());
-                list.Add(reader.GetInt32(14).ToString());
+                if (reader.Read())
+                {
+                    list.Add(reader.GetString(2));
+                    list.Add(reader.GetDateTime(3).ToString());
+                    list.Add(reader.GetDateTime(4).ToString());
+                    list.Add(reader.GetDateTime(5).ToString());
+                    list.Add(reader.GetString(6));
+                    list.Add(reader.GetString(7));
+                    list.Add(reader.GetString(8));
+                    list.Add(reader.GetInt32(9).ToString());
+                    list.Add(reader.GetString(10));
+                    list.Add(reader.GetInt32(11).ToString());
+                    list.Add(reader.GetInt32(12).ToString());
+                    list.Add(reader.GetDecimal(13).ToString());
+                    list.Add(reader.GetInt32(14).ToString());
+                }
             }
-
-            Gdata.db.DBClose();
             return list;
         }
 
@@ -78,27 +80,27 @@ namespace Blogs.Classes
         public static List<string> GetTabTexts(int section)
         {
             Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
             int IDarticle = Gdata.IDarticle;
             if (IDarticle == 0) return null;
             List<string> list = new List<string>();
-            Gdata.db.DBOpen();
 
             string sql = "select section, position, type, text, status, lang " +
                          "from article_details " +
                          "where IDarticle = " + IDarticle + " and position = " + section + " and lang = '" + Gdata.Lang + "'";
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                list.Add(reader.GetString(0));
-                list.Add(reader.GetInt32(1).ToString());
-                list.Add(reader.GetString(2));
-                list.Add(reader.GetString(3));
-                list.Add(reader.GetString(4));
-                list.Add(reader.GetString(5));
+                if (reader.Read())
+                {
+                    list.Add(reader.GetString(0));
+                    list.Add(reader.GetInt32(1).ToString());
+                    list.Add(reader.GetString(2));
+                    list.Add(reader.GetString(3));
+                    list.Add(reader.GetString(4));
+                    list.Add(reader.GetString(5));
+                }
             }
-
-            Gdata.db.DBClose();
             return list;
         }
 
@@ -111,10 +113,10 @@ namespace Blogs.Classes
         public static List<string> GetTabImages(int section, int sequence)
         {
             Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
             int IDarticle = Gdata.IDarticle;
             if (IDarticle == 0) return null;
             List<string> list = new List<string>();
-            Gdata.db.DBOpen();
 
             string sql = "select sequence, image, caption, captionLong, alternate, credit, status, lang from article_images " +
                          "where IDarticle = " + IDarticle +
@@ -127,21 +129,21 @@ namespace Blogs.Classes
             }            
             sql += "  and lang = '" + Gdata.Lang + "'";
 
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                list.Add(reader.GetInt32(0).ToString());
-                list.Add(reader.GetString(1));
-                list.Add(reader.GetString(2));
-                list.Add(reader.GetString(3));
-                list.Add(reader.GetString(4));
-                list.Add(reader.GetString(5));
-                list.Add(reader.GetString(6));
-                list.Add(reader.GetString(7));
+                if (reader.Read())
+                {
+                    list.Add(reader.GetInt32(0).ToString());
+                    list.Add(reader.GetString(1));
+                    list.Add(reader.GetString(2));
+                    list.Add(reader.GetString(3));
+                    list.Add(reader.GetString(4));
+                    list.Add(reader.GetString(5));
+                    list.Add(reader.GetString(6));
+                    list.Add(reader.GetString(7));
+                }
             }
-
-            Gdata.db.DBClose();
             return list;
         }
 
@@ -153,24 +155,24 @@ namespace Blogs.Classes
         public static List<string> GetTabLinks(int section)
         {
             Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
             int IDarticle = Gdata.IDarticle;
             if (IDarticle == 0) return null;
             List<string> list = new List<string>();
-            Gdata.db.DBOpen();
 
             string sql = "select name, url, status, lang from article_links " +
                          "where IDarticle = " + IDarticle + " and section = " + section + " and lang = '" + Gdata.Lang + "'";
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                list.Add(reader.GetString(0));
-                list.Add(reader.GetString(1));
-                list.Add(reader.GetString(2));
-                list.Add(reader.GetString(3));
+                if (reader.Read())
+                {
+                    list.Add(reader.GetString(0));
+                    list.Add(reader.GetString(1));
+                    list.Add(reader.GetString(2));
+                    list.Add(reader.GetString(3));
+                }
             }
-
-            Gdata.db.DBClose();
             return list;
         }
 
@@ -182,24 +184,24 @@ namespace Blogs.Classes
         public static List<string> GetTabReferences(string key)
         {
             Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
             int IDarticle = Gdata.IDarticle;
             if (IDarticle == 0) return null;
             List<string> list = new List<string>();
-            Gdata.db.DBOpen();
 
             string sql = "select sequence, name, url, status from article_related " +
                          "where IDarticle = " + IDarticle + " and concat(section, '-', sequence) = '" + key +"'";
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                list.Add(reader.GetInt32(0).ToString());
-                list.Add(reader.GetString(1));
-                list.Add(reader.GetString(2));
-                list.Add(reader.GetString(3));
+                if (reader.Read())
+                {
+                    list.Add(reader.GetInt32(0).ToString());
+                    list.Add(reader.GetString(1));
+                    list.Add(reader.GetString(2));
+                    list.Add(reader.GetString(3));
+                }
             }
-
-            Gdata.db.DBClose();
             return list;
         }
 
@@ -211,24 +213,24 @@ namespace Blogs.Classes
         public static List<string> GetTabQuotes(int section)
         {
             Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
             int IDarticle = Gdata.IDarticle;
             if (IDarticle == 0) return null;
             List<string> list = new List<string>();
-            Gdata.db.DBOpen();
 
             string sql = "select embed, status, lang, author from article_quotes " +
                          "where IDarticle = " + IDarticle + " and section = " + section + " and lang = '" + Gdata.Lang + "' ";
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                list.Add(reader.GetString(1));
-                list.Add(reader.GetString(2));
-                list.Add(reader.GetString(3));
-                list.Add(reader.GetString(4));
+                if (reader.Read())
+                {
+                    list.Add(reader.GetString(1));
+                    list.Add(reader.GetString(2));
+                    list.Add(reader.GetString(3));
+                    list.Add(reader.GetString(4));
+                }
             }
-
-            Gdata.db.DBClose();
             return list;
         }
 
@@ -242,11 +244,11 @@ namespace Blogs.Classes
         {
             Singleton Gdata = Singleton.GetInstance();
             if (Gdata.currentSet == BlogSet.PERSONAL) return null;
+            Gdata.db.DBOpen();
 
             int IDarticle = Gdata.IDarticle;
             if (IDarticle == 0) return null;
             List<string> list = new List<string>();
-            Gdata.db.DBOpen();
 
             string sql = "select sequence, os, code, status from article_code " +
                          "where IDarticle = " + IDarticle + " and section = " + section;
@@ -257,17 +259,17 @@ namespace Blogs.Classes
                 sql += "  and sequence = '" + sequence + "' ";
             }
 
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                list.Add(reader.GetInt32(0).ToString());
-                list.Add(reader.GetString(1));
-                list.Add(reader.GetString(2));
-                list.Add(reader.GetString(3));
+                if (reader.Read())
+                {
+                    list.Add(reader.GetInt32(0).ToString());
+                    list.Add(reader.GetString(1));
+                    list.Add(reader.GetString(2));
+                    list.Add(reader.GetString(3));
+                }
             }
-
-            Gdata.db.DBClose();
             return list;
         }
 
@@ -280,29 +282,80 @@ namespace Blogs.Classes
             Singleton Gdata = Singleton.GetInstance();
             int IDarticle = Gdata.IDarticle;
             if (IDarticle == 0) return null;
-            List<string[]> list = new List<string[]>();
             Gdata.db.DBOpen();
+            List<string[]> list = new List<string[]>();
 
             string sql = "select article_metadata.IDmeta, article_metadata.value, metadata.property, metadata.description " +
                          "from article_metadata " +
                          "join metadata " +
                          "   on metadata.IDmeta = article_metadata.IDmeta " +
-                         "where IDarticle = " + IDarticle + " and lang = '" + Gdata.Lang + "'";
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
+                         "where IDarticle = " + IDarticle + " and lang = '" + Gdata.Lang + "' " +
+                         "order by article_metadata.IDmeta";
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                string[] aRow = new string[]
+                while (reader.Read())
                 {
+                    string[] aRow = new string[]
+                    {
                     reader.GetInt32(0).ToString(),
                     reader.GetString(2),
                     reader.GetString(1),
                     reader.GetString(3)
-                };
-                list.Add(aRow);
+                    };
+                    list.Add(aRow);
+                }
+            }
+            return list;
+        }
+
+        public static List<string[]> GetCleanMetadata()
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            int IDarticle = Gdata.IDarticle;
+            if (IDarticle == 0) return null;
+            int PrevArticle = IDarticle - 1;
+            if (PrevArticle == 0) return null;
+
+            // Read metadata in a dictionary
+            Gdata.db.DBOpen();
+            Dictionary<int, string> mlist = new Dictionary<int, string>();
+
+            string sql = "select IDmeta, value from article_metadata " +
+                         "where IDarticle = " + PrevArticle + " and lang = '" + Gdata.Lang + "' " +
+                         "order by IDmeta";
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    mlist.Add(reader.GetInt32(0), reader.GetString(1));
+                }
             }
 
-            Gdata.db.DBClose();
+            Gdata.db.DBOpen();
+            List<string[]> list = new List<string[]>();
+
+            sql = "select IDmeta, DefaultValue, property, description " +
+                         "from metadata " +
+                         "order by protocol, section";
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    string mValue = string.Empty;
+                    mlist.TryGetValue(reader.GetInt32(0), out mValue);
+                    string[] aRow = new string[]
+                    {
+                        reader.GetInt32(0).ToString(),
+                        reader.GetString(2),
+                        mValue,
+                        reader.GetString(3)
+                    };
+                    list.Add(aRow);
+                }
+            }
             return list;
         }
 
@@ -315,19 +368,19 @@ namespace Blogs.Classes
         {
             Singleton Gdata = Singleton.GetInstance();
             if (Gdata.IDarticle == 0) return null;
+            Gdata.db.DBOpen();
             if (lang == string.Empty) lang = Gdata.Lang;
             string title = string.Empty;
-            Gdata.db.DBOpen();
 
             string sql = "select title from articles where IDblog = " + Gdata.currentBlog + " and IDarticle = " + Gdata.IDarticle + " and lang = '" + lang + "'";
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            if (reader.Read())
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                title = reader.GetString(0);
+                if (reader.Read())
+                {
+                    title = reader.GetString(0);
+                }
             }
-
-            Gdata.db.DBClose();
             return title;
         }
 
@@ -339,25 +392,24 @@ namespace Blogs.Classes
         /// <returns></returns>
         public static List<cbOption> LoadList(string sql, DBConnection db)
         {
-            Singleton Gdata = Singleton.GetInstance();
             if (db == null) return null;
             if (!db.IsConnected) return null;
             db.DBOpen();
 
             var list = new List<cbOption>();
-            var cmd = new MySqlCommand(sql, db.Connection);
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            using (var cmd = new MySqlCommand(sql, db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                cbOption op = new cbOption()
+                while (reader.Read())
                 {
-                    entityValue = reader.GetInt32(0).ToString(),
-                    entityName = "> " + reader.GetString(1)
-                };
-                list.Add(op);
+                    cbOption op = new cbOption()
+                    {
+                        entityValue = reader.GetInt32(0).ToString(),
+                        entityName = "> " + reader.GetString(1)
+                    };
+                    list.Add(op);
+                }
             }
-
-            db.DBClose();
             return list;
         }
 
@@ -373,19 +425,19 @@ namespace Blogs.Classes
             var list = new List<cbOption>();
             string sql = "select * from article_code_types order by name";
 
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                cbOption op = new cbOption()
+                while (reader.Read())
                 {
-                    entityValue = reader.GetString(0),
-                    entityName = reader.GetString(1)
-                };
-                list.Add(op);
+                    cbOption op = new cbOption()
+                    {
+                        entityValue = reader.GetString(0),
+                        entityName = reader.GetString(1)
+                    };
+                    list.Add(op);
+                }
             }
-
-            Gdata.db.DBClose();
             return list;
         }
 
@@ -401,20 +453,19 @@ namespace Blogs.Classes
             string sql = "select section, sequence, name from article_related " +
                          "where IDarticle = " + Gdata.IDarticle + " order by section, sequence";
             var list = new List<cbOption>();
-
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                cbOption op = new cbOption()
+                while (reader.Read())
                 {
-                    entityValue = reader.GetInt32(0).ToString() + "-" + reader.GetInt32(1).ToString(),
-                    entityName = reader.GetString(2)
-                };
-                list.Add(op);
+                    cbOption op = new cbOption()
+                    {
+                        entityValue = reader.GetInt32(0).ToString() + "-" + reader.GetInt32(1).ToString(),
+                        entityName = reader.GetString(2)
+                    };
+                    list.Add(op);
+                }
             }
-
-            Gdata.db.DBClose();
             return list;
         }
 
@@ -426,16 +477,18 @@ namespace Blogs.Classes
         {
             Singleton Gdata = Singleton.GetInstance();
             Gdata.db.DBOpen();
+
             int num = 0;
             string sql = "select IDarticle from articles " +
                          "where IDblog = " + Gdata.currentBlog + " order by IDarticle desc limit 1";
-            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
-            var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
             {
-                num = reader.GetInt32(0) + 1;
+                while (reader.Read())
+                {
+                    num = reader.GetInt32(0) + 1;
+                }
             }
-            Gdata.db.DBClose();
             return num;
         }
     }

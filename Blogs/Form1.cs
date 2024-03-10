@@ -10,6 +10,8 @@ using System.Net;
 using System.Net.Http;
 using System.Drawing;
 using System.ComponentModel;
+using System.IO.Pipelines;
+using Mysqlx;
 
 namespace Blogs
 {
@@ -132,9 +134,9 @@ namespace Blogs
             dgvMetadata.Columns[0].Name = "ID";
             dgvMetadata.Columns[0].Width = 40;
             dgvMetadata.Columns[1].Name = "Propietat";
-            dgvMetadata.Columns[1].Width = 100;
+            dgvMetadata.Columns[1].Width = 80;
             dgvMetadata.Columns[2].Name = "Valor";
-            dgvMetadata.Columns[2].Width = 200;
+            dgvMetadata.Columns[2].Width = 240;
             dgvMetadata.Columns[3].Name = "Descripció";
             dgvMetadata.Columns[3].Width = 350;
         }
@@ -323,7 +325,7 @@ namespace Blogs
         /// </summary>
         /// <param name="combobox"></param>
         /// <param name="sql"></param>
-        private void LoadComboBox(System.Windows.Forms.ComboBox combobox, string sql)
+        private void LoadComboBox(ComboBox combobox, string sql)
         {
             if (combobox == null) return;
             if (sql == string.Empty) return;
@@ -462,12 +464,24 @@ namespace Blogs
                         "set readTime = @val1, wordCount = @val2 " +
                         "where IDblog = @par1 and IDarticle = @par2";
 
+            Gdata.db.DBOpen();
             var cmd = new MySqlCommand(sql, Gdata.db.Connection);
             cmd.Parameters.AddWithValue("@par1", Gdata.currentBlog);
             cmd.Parameters.AddWithValue("@par2", row.Cells[0].Value);
             cmd.Parameters.AddWithValue("@val1", row.Cells[2].Value);
             cmd.Parameters.AddWithValue("@val2", row.Cells[3].Value);
-            cmd.ExecuteNonQuery();
+            try
+            {
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+            finally
+            {
+                Gdata.db.DBClose();
+            }
         }
 
         /// <summary>
@@ -772,9 +786,9 @@ namespace Blogs
             ListControlsInTab(tabControl1.TabPages[Tabs.SECTIONS], Actions.CLEAR);
             ListControlsInTab(tabControl1.TabPages[Tabs.IMAGES], Actions.CLEAR);
             ListControlsInTab(tabControl1.TabPages[Tabs.LINKS], Actions.CLEAR);
-            ClearTabReferences();
-            ClearTabQuotes();
-            ClearTabCode();
+            ListControlsInTab(tabControl1.TabPages[Tabs.REFERENCE], Actions.CLEAR);
+            ListControlsInTab(tabControl1.TabPages[Tabs.QUOTES], Actions.CLEAR);
+            ListControlsInTab(tabControl1.TabPages[Tabs.CODE], Actions.CLEAR);
         }
 
         private void ClearHeaders()
@@ -806,26 +820,7 @@ namespace Blogs
             lbCodeSections.DataSource = null;
             lbRefSections.DataSource = null;
         }
-
-        private void ClearTabReferences()
-        {
-            tbRefSeq.Text = string.Empty;
-            tbRefName.Text = string.Empty;
-            tbRefURL.Text = string.Empty;
-        }
-
-        private void ClearTabQuotes()
-        {
-            tbQuoteText.Text = string.Empty;
-            tbQuoteAuthor.Text = string.Empty;
-        }
-
-        private void ClearTabCode()
-        {
-            tbCode.Text = string.Empty;
-            tbCodeSeq.Text = string.Empty;
-        }
-
+        
         // ---------------------------------------------------------------------------
         // Fill tabs
         // ---------------------------------------------------------------------------
@@ -1013,7 +1008,11 @@ namespace Blogs
             dgvMetadata.Rows.Clear();
             List<string[]> list = new List<string[]>();
             list = Readers.GetTabMetadata();
-            if (list == null || list.Count == 0) return; 
+            if (list == null || list.Count == 0) 
+            {
+                list = Readers.GetCleanMetadata();
+                if (list == null || list.Count == 0) return;
+            }; 
             foreach (string[] sa in list)
             {
                 dgvMetadata.Rows.Add(sa);
@@ -2021,6 +2020,19 @@ namespace Blogs
         {
             // Save status into singleton
             Gdata.testMode = chkTestMode.Checked;
+        }
+
+        private void btnSaveMeta_Click(object sender, EventArgs e)
+        {
+            if (dgvMetadata.Rows.Count > 0)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                if (Writers.UpdateMetadata(dgvMetadata))
+                {
+                    lblMessage.Text = "Actualització correcta";
+                }
+                Cursor.Current = Cursors.Default;
+            }
         }
     }
 }
