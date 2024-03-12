@@ -406,7 +406,8 @@ namespace Blogs.Classes
                         cmd.Parameters.AddWithValue("@par2", dgvr.Cells[0].Value.ToString());
                         cmd.Parameters.AddWithValue("@par3", Gdata.Lang);
                         // Values
-                        cmd.Parameters.AddWithValue("@val01", dgvr.Cells[2].Value.ToString());
+                        string cellValue = dgvr.Cells[3].Value == null ? " " : dgvr.Cells[3].Value.ToString();
+                        cmd.Parameters.AddWithValue("@val01", cellValue);
                         // Run
                         ok = RunUpdate(cmd);
                         if (!ok)
@@ -436,7 +437,7 @@ namespace Blogs.Classes
             string sql = "select * from " + table + " where ";
             switch(table)
             {
-                case "article":
+                case "articles":
                     sql += "IDarticle = " + Gdata.IDarticle + " and lang = '" + Gdata.Lang + "'";
                     break;
                 case "article_details":

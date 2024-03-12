@@ -128,17 +128,19 @@ namespace Blogs
 
 
             dgvMetadata.Rows.Clear();
-            dgvMetadata.ColumnCount = 4;
+            dgvMetadata.ColumnCount = 5;
             dgvMetadata.AllowUserToAddRows = false;
 
             dgvMetadata.Columns[0].Name = "ID";
             dgvMetadata.Columns[0].Width = 40;
-            dgvMetadata.Columns[1].Name = "Propietat";
-            dgvMetadata.Columns[1].Width = 80;
-            dgvMetadata.Columns[2].Name = "Valor";
-            dgvMetadata.Columns[2].Width = 240;
-            dgvMetadata.Columns[3].Name = "Descripció";
-            dgvMetadata.Columns[3].Width = 350;
+            dgvMetadata.Columns[1].Name = "Pcol.";
+            dgvMetadata.Columns[1].Width = 40;
+            dgvMetadata.Columns[2].Name = "Propietat";
+            dgvMetadata.Columns[2].Width = 80;
+            dgvMetadata.Columns[3].Name = "Valor";
+            dgvMetadata.Columns[3].Width = 250;
+            dgvMetadata.Columns[4].Name = "Descripció";
+            dgvMetadata.Columns[4].Width = 360;
         }
 
         /// <summary>
@@ -564,7 +566,7 @@ namespace Blogs
         private void tabControl_Click(object sender, EventArgs e)
         {
             lblMessage.Text = string.Empty;
-            if (Gdata.IDarticle == 0 && tabControl1.SelectedIndex > 0)
+            if (Gdata.IDarticle == 0 && tabControl1.SelectedIndex < 9)
             {
                 lblMessage.Text = "Selecciona un article per mostrar els detalls";
             }
@@ -646,6 +648,14 @@ namespace Blogs
 
                     case Tabs.METADATA:
                         FillTabMetadata();
+                        break;
+
+                    case Tabs.CHAIN:
+                        FillTabChained();
+                        break;
+
+                    case Tabs.TRANSLATE:
+                        FillTabTranslate();
                         break;
 
                     case Tabs.CREDITS:
@@ -1017,6 +1027,15 @@ namespace Blogs
             {
                 dgvMetadata.Rows.Add(sa);
             }
+        }
+
+        private void FillTabChained()
+        {
+            dgvChains.DataSource = Readers.GetChained();
+        }
+
+        private void FillTabTranslate()
+        {
         }
 
         private void FillTabCredits()
@@ -2033,6 +2052,11 @@ namespace Blogs
                 }
                 Cursor.Current = Cursors.Default;
             }
+        }
+
+        private void btnTranslate_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = Tabs.TRANSLATE;
         }
     }
 }

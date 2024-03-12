@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO.Pipelines;
+using System.Runtime.Remoting.Messaging;
+using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Blogs.Classes
@@ -285,7 +287,7 @@ namespace Blogs.Classes
             Gdata.db.DBOpen();
             List<string[]> list = new List<string[]>();
 
-            string sql = "select article_metadata.IDmeta, article_metadata.value, metadata.property, metadata.description " +
+            string sql = "select article_metadata.IDmeta, metadata.protocol, article_metadata.value, metadata.property, metadata.description " +
                          "from article_metadata " +
                          "join metadata " +
                          "   on metadata.IDmeta = article_metadata.IDmeta " +
@@ -299,9 +301,10 @@ namespace Blogs.Classes
                     string[] aRow = new string[]
                     {
                     reader.GetInt32(0).ToString(),
-                    reader.GetString(2),
                     reader.GetString(1),
-                    reader.GetString(3)
+                    reader.GetString(3),
+                    reader.GetString(2),
+                    reader.GetString(4)
                     };
                     list.Add(aRow);
                 }
@@ -314,29 +317,61 @@ namespace Blogs.Classes
             Singleton Gdata = Singleton.GetInstance();
             int IDarticle = Gdata.IDarticle;
             if (IDarticle == 0) return null;
-            int PrevArticle = IDarticle - 1;
-            if (PrevArticle == 0) return null;
 
             // Read metadata in a dictionary
-            Gdata.db.DBOpen();
             Dictionary<int, string> mlist = new Dictionary<int, string>();
+            Gdata.db.DBOpen();
+            string sql = string.Empty;
 
-            string sql = "select IDmeta, value from article_metadata " +
-                         "where IDarticle = " + PrevArticle + " and lang = '" + Gdata.Lang + "' " +
-                         "order by IDmeta";
-            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
-            using (var reader = cmd.ExecuteReader())
+            // First, if ca then get es version
+            if (Gdata.Lang == Language.CATALA)
             {
-                while (reader.Read())
+                sql = "select IDmeta, value from article_metadata " +
+                             "where IDarticle = " + IDarticle + " and lang = '" + Language.CASTELLA + "' " +
+                             "order by IDmeta";
+                using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+                using (var reader = cmd.ExecuteReader())
                 {
-                    mlist.Add(reader.GetInt32(0), reader.GetString(1));
+                    while (reader.Read())
+                    {
+                        mlist.Add(reader.GetInt32(0), reader.GetString(1));
+                    }
+                }
+            }
+            else
+            {
+                int PrevArticle = 0;
+                // Search article to copy from
+                sql = "select IDarticle from articles " +
+                             "where IDblog = " + Gdata.currentBlog + " and lang = '" + Gdata.Lang + "' order by IDarticle desc limit 1,1";
+                using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        PrevArticle = reader.GetInt32(0);
+                    }
+                }
+                if (PrevArticle == 0) return null;
+
+                Gdata.db.DBOpen();
+                sql = "select IDmeta, value from article_metadata " +
+                             "where IDarticle = " + PrevArticle + " and lang = '" + Gdata.Lang + "' " +
+                             "order by IDmeta";
+                using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        mlist.Add(reader.GetInt32(0), reader.GetString(1));
+                    }
                 }
             }
 
             Gdata.db.DBOpen();
             List<string[]> list = new List<string[]>();
 
-            sql = "select IDmeta, DefaultValue, property, description " +
+            sql = "select IDmeta, DefaultValue, property, protocol, description " +
                          "from metadata " +
                          "order by protocol, section";
             using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
@@ -349,14 +384,42 @@ namespace Blogs.Classes
                     string[] aRow = new string[]
                     {
                         reader.GetInt32(0).ToString(),
+                        reader.GetString(3),
                         reader.GetString(2),
                         mValue,
-                        reader.GetString(3)
+                        reader.GetString(4)
                     };
                     list.Add(aRow);
                 }
             }
             return list;
+        }
+
+        public static List<string[]> GetChained()
+        {
+            List<string[]> mList = new List<string[]>();
+            Singleton Gdata = Singleton.GetInstance();
+
+            Gdata.db.DBOpen();
+            string sql = "select IDarticle, date, prev, title, next from articles " +
+                         "where IDblog = " + Gdata.currentBlog + " and lang = '" + Gdata.Lang + " order by next";
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    string[] row = new string[]
+                    {
+                        reader.GetInt32(0).ToString(),
+                        reader.GetDateTime(1).ToString(),
+                        reader.GetInt32(2).ToString(),
+                        reader.GetString(3),
+                        reader.GetInt32(4).ToString()
+                    };
+                    mList.Add(row);
+                }
+            }
+            return mList;
         }
 
         /// <summary>
