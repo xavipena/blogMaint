@@ -402,7 +402,7 @@ namespace Blogs.Classes
 
             Gdata.db.DBOpen();
             string sql = "select IDarticle, date, prev, title, next from articles " +
-                         "where IDblog = " + Gdata.currentBlog + " and lang = '" + Gdata.Lang + " order by next";
+                         "where IDblog = " + Gdata.currentBlog + " and lang = '" + Gdata.Lang + "' order by next";
             using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
             using (var reader = cmd.ExecuteReader())
             {

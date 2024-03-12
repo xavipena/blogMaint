@@ -141,6 +141,23 @@ namespace Blogs
             dgvMetadata.Columns[3].Width = 250;
             dgvMetadata.Columns[4].Name = "Descripció";
             dgvMetadata.Columns[4].Width = 360;
+
+            dgvChains.Rows.Clear();
+            dgvChains.ColumnCount = 5;
+            dgvChains.AllowUserToAddRows = false;
+
+            // IDarticle, date, prev, title, next
+
+            dgvChains.Columns[0].Name = "ID";
+            dgvChains.Columns[0].Width = 40;
+            dgvChains.Columns[1].Name = "Data.";
+            dgvChains.Columns[1].Width = 100;
+            dgvChains.Columns[2].Name = "Previ";
+            dgvChains.Columns[2].Width = 40;
+            dgvChains.Columns[3].Name = "Títol";
+            dgvChains.Columns[3].Width = 300;
+            dgvChains.Columns[4].Name = "Següent";
+            dgvChains.Columns[4].Width = 40;
         }
 
         /// <summary>
@@ -1032,6 +1049,23 @@ namespace Blogs
         private void FillTabChained()
         {
             dgvChains.DataSource = Readers.GetChained();
+            for (int i = 0; i < dgvChains.Rows.Count; i++)
+            {
+                if (dgvChains.Rows[i].Cells[2].Value != null)
+                {
+                    if (dgvChains.Rows[i].Cells[2].Value.ToString() == "0")
+                    {
+                        dgvChains.Rows[i].Cells[2].Style.BackColor = Color.LightPink;
+                    }
+                }
+                if (dgvChains.Rows[i].Cells[4].Value != null)
+                {
+                    if (dgvChains.Rows[i].Cells[4].Value.ToString() == "0")
+                    {
+                        dgvChains.Rows[i].Cells[4].Style.BackColor = Color.LightPink;
+                    }
+                }
+            }
         }
 
         private void FillTabTranslate()

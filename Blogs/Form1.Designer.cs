@@ -183,6 +183,7 @@
             this.dgvMetadata = new System.Windows.Forms.DataGridView();
             this.tabTime = new System.Windows.Forms.TabPage();
             this.tabChain = new System.Windows.Forms.TabPage();
+            this.dgvChains = new System.Windows.Forms.DataGridView();
             this.tabTranslate = new System.Windows.Forms.TabPage();
             this.tabViewer = new System.Windows.Forms.TabPage();
             this.lblDescription = new System.Windows.Forms.Label();
@@ -209,7 +210,6 @@
             this.btnTabTime = new System.Windows.Forms.Button();
             this.btnTagChain = new System.Windows.Forms.Button();
             this.lblMode = new System.Windows.Forms.Label();
-            this.dgvChains = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticles)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -235,10 +235,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).BeginInit();
             this.tabTime.SuspendLayout();
             this.tabChain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChains)).BeginInit();
             this.tabViewer.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvChains)).BeginInit();
             this.SuspendLayout();
             // 
             // btnExit
@@ -1863,6 +1863,16 @@
             this.tabChain.Text = "Enllaçament";
             this.tabChain.UseVisualStyleBackColor = true;
             // 
+            // dgvChains
+            // 
+            this.dgvChains.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvChains.Location = new System.Drawing.Point(189, 6);
+            this.dgvChains.Name = "dgvChains";
+            this.dgvChains.RowHeadersWidth = 51;
+            this.dgvChains.RowTemplate.Height = 24;
+            this.dgvChains.Size = new System.Drawing.Size(875, 443);
+            this.dgvChains.TabIndex = 0;
+            // 
             // tabTranslate
             // 
             this.tabTranslate.Location = new System.Drawing.Point(4, 25);
@@ -2147,16 +2157,6 @@
             this.lblMode.TabIndex = 14;
             this.lblMode.Text = "Mode";
             // 
-            // dgvChains
-            // 
-            this.dgvChains.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvChains.Location = new System.Drawing.Point(238, 63);
-            this.dgvChains.Name = "dgvChains";
-            this.dgvChains.RowHeadersWidth = 51;
-            this.dgvChains.RowTemplate.Height = 24;
-            this.dgvChains.Size = new System.Drawing.Size(775, 150);
-            this.dgvChains.TabIndex = 0;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2208,12 +2208,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvMetadata)).EndInit();
             this.tabTime.ResumeLayout(false);
             this.tabChain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChains)).EndInit();
             this.tabViewer.ResumeLayout(false);
             this.tabViewer.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvChains)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
