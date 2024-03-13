@@ -379,7 +379,7 @@ namespace Blogs.Classes
 
             foreach (DataGridViewRow dgvr in dgv.Rows)
             {
-                if (dgvr.Cells[2].Value != null)
+                if (dgvr.Cells[GridCells.MetadataCell.VALUE].Value != null)
                 {
                     string sql = string.Empty;
                     string table = "article_metadata";
@@ -403,11 +403,50 @@ namespace Blogs.Classes
                     {
                         // Key
                         cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
-                        cmd.Parameters.AddWithValue("@par2", dgvr.Cells[0].Value.ToString());
+                        cmd.Parameters.AddWithValue("@par2", dgvr.Cells[GridCells.MetadataCell.ID].Value.ToString());
                         cmd.Parameters.AddWithValue("@par3", Gdata.Lang);
                         // Values
-                        string cellValue = dgvr.Cells[3].Value == null ? " " : dgvr.Cells[3].Value.ToString();
+                        string cellValue = dgvr.Cells[GridCells.MetadataCell.VALUE].Value == null ? " " : dgvr.Cells[3].Value.ToString();
                         cmd.Parameters.AddWithValue("@val01", cellValue);
+                        // Run
+                        ok = RunUpdate(cmd);
+                        if (!ok)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            return ok;
+        }
+
+        public static bool UpdateChains(DataGridView dgv)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            bool ok = false;
+            string cellValue = string.Empty;
+
+            foreach (DataGridViewRow dgvr in dgv.Rows)
+            {
+                if (dgvr.Cells[GridCells.ChainsCell.MARK].Value.ToString() == Marks.MODIFIED)
+                {
+                    string sql = "update articles set " +
+                                 " prev   = @val01 " +
+                                 ",next   = @val02 " +
+                                 "where IDarticle = @par1 and lang = @par2";
+                    
+                    Gdata.db.DBOpen();
+                    using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+                    {
+                        // Key
+                        cmd.Parameters.AddWithValue("@par1", dgvr.Cells[GridCells.ChainsCell.ID].Value);
+                        cmd.Parameters.AddWithValue("@par2", Gdata.Lang);
+                        // Values
+                        cellValue = dgvr.Cells[GridCells.ChainsCell.VALUE_PREV].Value == null ? string.Empty : dgvr.Cells[GridCells.ChainsCell.VALUE_PREV].Value.ToString();
+                        cmd.Parameters.AddWithValue("@val01", cellValue);
+                            
+                        cellValue = dgvr.Cells[GridCells.ChainsCell.VALUE_NEXT].Value == null ? string.Empty : dgvr.Cells[GridCells.ChainsCell.VALUE_NEXT].Value.ToString();
+                        cmd.Parameters.AddWithValue("@val02", cellValue);
                         // Run
                         ok = RunUpdate(cmd);
                         if (!ok)

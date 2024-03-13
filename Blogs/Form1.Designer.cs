@@ -183,6 +183,7 @@
             this.dgvMetadata = new System.Windows.Forms.DataGridView();
             this.tabTime = new System.Windows.Forms.TabPage();
             this.tabChain = new System.Windows.Forms.TabPage();
+            this.btnChainSave = new System.Windows.Forms.Button();
             this.dgvChains = new System.Windows.Forms.DataGridView();
             this.tabTranslate = new System.Windows.Forms.TabPage();
             this.tabViewer = new System.Windows.Forms.TabPage();
@@ -380,12 +381,12 @@
             // 
             // btnSaveChanges
             // 
-            this.btnSaveChanges.Location = new System.Drawing.Point(13, 166);
+            this.btnSaveChanges.Location = new System.Drawing.Point(17, 165);
             this.btnSaveChanges.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSaveChanges.Name = "btnSaveChanges";
             this.btnSaveChanges.Size = new System.Drawing.Size(147, 33);
             this.btnSaveChanges.TabIndex = 10;
-            this.btnSaveChanges.Text = "Grava els canvis";
+            this.btnSaveChanges.Text = "Desa els canvis";
             this.btnSaveChanges.UseVisualStyleBackColor = true;
             this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
             // 
@@ -1854,6 +1855,7 @@
             // 
             // tabChain
             // 
+            this.tabChain.Controls.Add(this.btnChainSave);
             this.tabChain.Controls.Add(this.dgvChains);
             this.tabChain.Location = new System.Drawing.Point(4, 25);
             this.tabChain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -1862,6 +1864,17 @@
             this.tabChain.TabIndex = 11;
             this.tabChain.Text = "Enllaçament";
             this.tabChain.UseVisualStyleBackColor = true;
+            // 
+            // btnChainSave
+            // 
+            this.btnChainSave.Location = new System.Drawing.Point(26, 63);
+            this.btnChainSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnChainSave.Name = "btnChainSave";
+            this.btnChainSave.Size = new System.Drawing.Size(129, 33);
+            this.btnChainSave.TabIndex = 45;
+            this.btnChainSave.Text = "Desa els canvis";
+            this.btnChainSave.UseVisualStyleBackColor = true;
+            this.btnChainSave.Click += new System.EventHandler(this.btnChainSave_Click);
             // 
             // dgvChains
             // 
@@ -1872,6 +1885,7 @@
             this.dgvChains.RowTemplate.Height = 24;
             this.dgvChains.Size = new System.Drawing.Size(875, 443);
             this.dgvChains.TabIndex = 0;
+            this.dgvChains.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChain_CellClick);
             // 
             // tabTranslate
             // 
@@ -2403,6 +2417,7 @@
         private System.Windows.Forms.TabPage tabTranslate;
         private System.Windows.Forms.Button btnTranslate;
         private System.Windows.Forms.DataGridView dgvChains;
+        private System.Windows.Forms.Button btnChainSave;
     }
 }
 

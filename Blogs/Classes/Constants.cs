@@ -111,4 +111,20 @@ namespace Blogs.Classes
             public const string INSERT = "Nou article/post";
         }
     }
+
+    public class GridCells
+    {
+        public class MetadataCell
+        {
+            public const int ID = 0;
+            public const int VALUE = 3;
+        }
+        public class ChainsCell
+        {
+            public const int ID = 0;
+            public const int VALUE_PREV = 2;
+            public const int VALUE_NEXT = 4;
+            public const int MARK = 5;
+        }
+    }
 }

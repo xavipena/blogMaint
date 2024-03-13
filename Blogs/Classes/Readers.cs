@@ -402,7 +402,7 @@ namespace Blogs.Classes
 
             Gdata.db.DBOpen();
             string sql = "select IDarticle, date, prev, title, next from articles " +
-                         "where IDblog = " + Gdata.currentBlog + " and lang = '" + Gdata.Lang + "' order by next";
+                         "where IDblog = " + Gdata.currentBlog + " and lang = '" + Gdata.Lang + "' order by type, date desc";
             using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
             using (var reader = cmd.ExecuteReader())
             {
@@ -411,10 +411,11 @@ namespace Blogs.Classes
                     string[] row = new string[]
                     {
                         reader.GetInt32(0).ToString(),
-                        reader.GetDateTime(1).ToString(),
+                        reader.GetDateTime(1).ToString().Substring(1,10),
                         reader.GetInt32(2).ToString(),
                         reader.GetString(3),
-                        reader.GetInt32(4).ToString()
+                        reader.GetInt32(4).ToString(),
+                        Marks.UNMARKED
                     };
                     mList.Add(row);
                 }

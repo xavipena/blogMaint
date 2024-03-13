@@ -143,7 +143,7 @@ namespace Blogs
             dgvMetadata.Columns[4].Width = 360;
 
             dgvChains.Rows.Clear();
-            dgvChains.ColumnCount = 5;
+            dgvChains.ColumnCount = 6;
             dgvChains.AllowUserToAddRows = false;
 
             // IDarticle, date, prev, title, next
@@ -158,6 +158,8 @@ namespace Blogs
             dgvChains.Columns[3].Width = 300;
             dgvChains.Columns[4].Name = "Següent";
             dgvChains.Columns[4].Width = 40;
+            dgvChains.Columns[5].Name = "Mod";
+            dgvChains.Columns[5].Width = 40;
         }
 
         /// <summary>
@@ -695,7 +697,7 @@ namespace Blogs
 
         private void DownloadImage(string url)
         {
-            if (url == string.Empty) return; 
+            if (url == string.Empty) return;
             if (tabControl1.SelectedIndex != Tabs.IMAGES) return;
 
             string imageRequested = string.Empty;
@@ -709,7 +711,7 @@ namespace Blogs
             }
 
             tokens = imageRequested.Split('.');
-            if (tokens.Last() == "webp") 
+            if (tokens.Last() == "webp")
             {
                 // Discard Task
                 _ = DownloadWebp(imageRequested);
@@ -772,7 +774,8 @@ namespace Blogs
             }
             if (lblMessage.InvokeRequired)
             {
-                lblMessage.BeginInvoke((MethodInvoker)delegate () {
+                lblMessage.BeginInvoke((MethodInvoker)delegate ()
+                {
 
                     pbImage.Image = DownloadedImage;
                 });
@@ -792,7 +795,8 @@ namespace Blogs
         {
             if (lblMessage.InvokeRequired)
             {
-                lblMessage.BeginInvoke((MethodInvoker)delegate () {
+                lblMessage.BeginInvoke((MethodInvoker)delegate ()
+                {
 
                     lblMessage.Text = message;
                 });
@@ -832,7 +836,7 @@ namespace Blogs
         }
 
         private void ClearGrids()
-        { 
+        {
             dgvSelector.Rows.Clear();
             dgvArticles.Rows.Clear();
             dgvMetadata.Rows.Clear();
@@ -847,7 +851,7 @@ namespace Blogs
             lbCodeSections.DataSource = null;
             lbRefSections.DataSource = null;
         }
-        
+
         // ---------------------------------------------------------------------------
         // Fill tabs
         // ---------------------------------------------------------------------------
@@ -885,7 +889,7 @@ namespace Blogs
         {
             if (NeedToSave[Tabs.SECTIONS])
             {
-                MessageBox.Show("Hi ha canvis sense desar."); 
+                MessageBox.Show("Hi ha canvis sense desar.");
                 return;
             }
             listTabText = Readers.GetTabTexts(section);
@@ -992,7 +996,7 @@ namespace Blogs
             if (listTabQuote != null && listTabQuote.Count > 0)
             {
                 ListControlsInTab(tabControl1.TabPages[Tabs.QUOTES], Actions.ENABLE);
-                
+
                 tbQuoteText.Text = listTabQuote[1];
                 cbQuoteStatus.Text = listTabQuote[2];
                 cbQuoteLang.Text = listTabQuote[3];
@@ -1018,10 +1022,10 @@ namespace Blogs
             {
                 ListControlsInTab(tabControl1.TabPages[Tabs.CODE], Actions.ENABLE);
 
-                tbCodeSeq.Text      = listTabCode[0];
+                tbCodeSeq.Text = listTabCode[0];
                 cbCodeLanguage.Text = listTabCode[1];
-                tbCode.Text         = listTabCode[2];
-                cbCodeStatus.Text   = listTabCode[3];
+                tbCode.Text = listTabCode[2];
+                cbCodeStatus.Text = listTabCode[3];
             }
             else
             {
@@ -1035,11 +1039,11 @@ namespace Blogs
             dgvMetadata.Rows.Clear();
             List<string[]> list = new List<string[]>();
             list = Readers.GetTabMetadata();
-            if (list == null || list.Count == 0) 
+            if (list == null || list.Count == 0)
             {
                 list = Readers.GetCleanMetadata();
                 if (list == null || list.Count == 0) return;
-            }; 
+            };
             foreach (string[] sa in list)
             {
                 dgvMetadata.Rows.Add(sa);
@@ -1048,23 +1052,23 @@ namespace Blogs
 
         private void FillTabChained()
         {
-            dgvChains.DataSource = Readers.GetChained();
-            for (int i = 0; i < dgvChains.Rows.Count; i++)
+            dgvChains.Rows.Clear();
+            List<string[]> list = Readers.GetChained();
+            if (list == null || list.Count == 0) return;
+
+            int i = 0;
+            foreach (string[] sa in list)
             {
-                if (dgvChains.Rows[i].Cells[2].Value != null)
+                dgvChains.Rows.Add(sa);
+                if (dgvChains.Rows[i].Cells[2].Value.ToString() == "0")
                 {
-                    if (dgvChains.Rows[i].Cells[2].Value.ToString() == "0")
-                    {
-                        dgvChains.Rows[i].Cells[2].Style.BackColor = Color.LightPink;
-                    }
+                    dgvChains.Rows[i].Cells[2].Style.BackColor = Color.LightPink;
                 }
-                if (dgvChains.Rows[i].Cells[4].Value != null)
+                if (dgvChains.Rows[i].Cells[4].Value.ToString() == "0")
                 {
-                    if (dgvChains.Rows[i].Cells[4].Value.ToString() == "0")
-                    {
-                        dgvChains.Rows[i].Cells[4].Style.BackColor = Color.LightPink;
-                    }
+                    dgvChains.Rows[i].Cells[4].Style.BackColor = Color.LightPink;
                 }
+                i += 1;
             }
         }
 
@@ -1078,7 +1082,7 @@ namespace Blogs
             lblVersion.Text = "Versió " + version.Major + "." + version.Minor + " (build " + version.Build + ")";
 
             lblCreditsDesc.Text = "Manteniment de la base de dades dels blocs publicats a Diari Digital";
-            lblCopyright.Text = "© " + DateTime.Today.Year +  " Xavier Peña";
+            lblCopyright.Text = "© " + DateTime.Today.Year + " Xavier Peña";
 
             List<string> tList = new List<string>();
             foreach (TabPage tp in tabControl1.TabPages)
@@ -1170,6 +1174,11 @@ namespace Blogs
             LoadArticlesGrid();
         }
 
+        // ---------------------------------------------------------------------------
+        // Events
+        // on grid cell click
+        // ---------------------------------------------------------------------------
+
         private void dgvSelector_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // ???
@@ -1189,6 +1198,17 @@ namespace Blogs
             ClearAllBoxes();
             ClearDoneArray();
             LoadArticleSections();
+            SetButtonStatus();
+        }
+
+        private void dgvChain_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // ???
+            if (e.RowIndex < 0) return;
+
+            // Get the article selected and fill the header
+            int IDarticle = Int32.Parse(dgvChains.Rows[e.RowIndex].Cells[0].Value.ToString());
+            dgvChains.Rows[e.RowIndex].Cells[5].Value = Marks.MODIFIED;
             SetButtonStatus();
         }
 
@@ -1497,9 +1517,9 @@ namespace Blogs
             string[] val = { "", "", "" };
             cbOption op = cbTextType.SelectedItem as cbOption;
             val[0] = op.entityValue;
-                     op = cbTextStatus.SelectedItem as cbOption;
+            op = cbTextStatus.SelectedItem as cbOption;
             val[1] = op.entityValue;
-                     op = cbTextLang.SelectedItem as cbOption;
+            op = cbTextLang.SelectedItem as cbOption;
             val[2] = op.entityValue;
 
             List<string> list = new List<string>();
@@ -1543,7 +1563,7 @@ namespace Blogs
             string[] val = { "", "" };
             cbOption op = cbImageStatus.SelectedItem as cbOption;
             val[0] = op.entityValue;
-                     op = cbImageLang.SelectedItem as cbOption;
+            op = cbImageLang.SelectedItem as cbOption;
             val[1] = op.entityValue;
 
             string sql = "update article_images set " +
@@ -1590,7 +1610,7 @@ namespace Blogs
             string[] val = { "", "" };
             cbOption op = cbLinkStatus.SelectedItem as cbOption;
             val[0] = op.entityValue;
-                     op = cbLinkLang.SelectedItem as cbOption;
+            op = cbLinkLang.SelectedItem as cbOption;
             val[1] = op.entityValue;
 
             string sql = "update article_links set " +
@@ -1676,7 +1696,7 @@ namespace Blogs
             string[] val = { "", "" };
             cbOption op = cbQuoteStatus.SelectedItem as cbOption;
             val[0] = op.entityValue;
-                     op = cbQuoteLang.SelectedItem as cbOption;
+            op = cbQuoteLang.SelectedItem as cbOption;
             val[1] = op.entityValue;
 
             string sql = "update article_quotes set " +
@@ -1718,7 +1738,7 @@ namespace Blogs
             string[] val = { "", "" };
             cbOption op = cbCodeLanguage.SelectedItem as cbOption;
             val[0] = op.entityValue;
-                     op = cbCodeStatus.SelectedItem as cbOption;
+            op = cbCodeStatus.SelectedItem as cbOption;
             val[1] = op.entityValue;
 
             string sql = "update article_code set " +
@@ -1972,10 +1992,6 @@ namespace Blogs
             }
         }
 
-        private void DoActionOnControl(Action action, Control ctrl)
-        {
-        }
-
         private void DisableButtonsInTab(Control f, bool status)
         {
             bool enable = !status;
@@ -2067,6 +2083,7 @@ namespace Blogs
         private void btnTagChain_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = Tabs.CHAIN;
+            FillTabChained();
         }
 
         private void chkTestMode_CheckedChanged(object sender, EventArgs e)
@@ -2091,6 +2108,20 @@ namespace Blogs
         private void btnTranslate_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = Tabs.TRANSLATE;
+        }
+
+        private void btnChainSave_Click(object sender, EventArgs e)
+        {
+            if (dgvChains.Rows.Count > 0)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                if (Writers.UpdateChains(dgvChains))
+                {
+                    lblMessage.Text = "Actualització correcta";
+                    FillTabChained();
+                }
+                Cursor.Current = Cursors.Default;
+            }
         }
     }
 }
