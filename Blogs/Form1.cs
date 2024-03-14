@@ -143,7 +143,7 @@ namespace Blogs
             dgvMetadata.Columns[4].Width = 360;
 
             dgvChains.Rows.Clear();
-            dgvChains.ColumnCount = 6;
+            dgvChains.ColumnCount = 7;
             dgvChains.AllowUserToAddRows = false;
 
             // IDarticle, date, prev, title, next
@@ -159,7 +159,9 @@ namespace Blogs
             dgvChains.Columns[4].Name = "Següent";
             dgvChains.Columns[4].Width = 40;
             dgvChains.Columns[5].Name = "Mod";
-            dgvChains.Columns[5].Width = 40;
+            dgvChains.Columns[5].Width = 30;
+            dgvChains.Columns[6].Name = "Section";
+            dgvChains.Columns[6].Width = 60;
         }
 
         /// <summary>
@@ -1209,7 +1211,10 @@ namespace Blogs
             // Get the article selected and fill the header
             int IDarticle = Int32.Parse(dgvChains.Rows[e.RowIndex].Cells[0].Value.ToString());
             dgvChains.Rows[e.RowIndex].Cells[5].Value = Marks.MODIFIED;
-            SetButtonStatus();
+            // local context changes
+            btnChainSave.Enabled = true;
+            SetMode(Modes.Status.MODIFY);
+            NeedToSave[Tabs.CHAIN] = true;
         }
 
         private void btnChangeLang_Click(object sender, EventArgs e)
@@ -1435,7 +1440,7 @@ namespace Blogs
 
         private bool AnyChangeInHead()
         {
-            if (listTabHead == null) return false;
+            if (listTabHead == null || listTabHead.Count == 0) return false;
             bool changes = false;
 
             changes = changes || cbHeadType.Text != listTabHead[0];
@@ -1496,7 +1501,7 @@ namespace Blogs
 
         private bool AnyChangeInText()
         {
-            if (listTabText == null) return false;
+            if (listTabText == null || listTabText.Count == 0) return false;
             bool changes = false;
 
             // section, position, type, text, status, lang
@@ -1540,7 +1545,7 @@ namespace Blogs
 
         private bool AnyChangeInImage()
         {
-            if (listTabImage == null) return false;
+            if (listTabImage == null || listTabImage.Count == 0) return false;
             bool changes = false;
 
             // sequence, image, caption, captionLong, alternate, credit, status, lang
@@ -1591,7 +1596,7 @@ namespace Blogs
 
         private bool AnyChangeInLink()
         {
-            if (listTabLink == null) return false;
+            if (listTabLink == null || listTabLink.Count == 0) return false;
             bool changes = false;
 
             // name, url, status, lang
@@ -1634,7 +1639,7 @@ namespace Blogs
 
         private bool AnyChangeInRefs()
         {
-            if (listTabRefs == null) return false;
+            if (listTabRefs == null || listTabRefs.Count == 0) return false;
             bool changes = false;
 
             // sequence, name, url, status
@@ -1677,7 +1682,7 @@ namespace Blogs
 
         private bool AnyChangeInQuote()
         {
-            if (listTabQuote == null) return false;
+            if (listTabQuote == null || listTabQuote.Count == 0) return false;
             bool changes = false;
 
             // embed, status, lang, author
@@ -1824,8 +1829,6 @@ namespace Blogs
             }
             return emptyField;
         }
-
-
 
         // ---------------------------------------------------------------------------
         // Helpers
@@ -2041,37 +2044,54 @@ namespace Blogs
 
         private void btnNewText_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "Encara no";
-
+            lblMessage.Text = "En procès";
+            ListControlsInTab(tabControl1.TabPages[Tabs.SECTIONS], Actions.CLEAR);
+            tbTextPos.Text = Readers.GetNextTextSection().ToString();
+            lbTextSections.Enabled = false;
+            SetMode(Modes.Status.INSERT);
         }
 
         private void btnNewImage_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
-
+            ListControlsInTab(tabControl1.TabPages[Tabs.IMAGES], Actions.CLEAR);
+            ListControlsInTab(tabControl1.TabPages[Tabs.IMAGES], Actions.ENABLE);
+            SetMode(Modes.Status.INSERT);
         }
 
         private void btnNewLink_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+            ListControlsInTab(tabControl1.TabPages[Tabs.LINKS], Actions.CLEAR);
+            ListControlsInTab(tabControl1.TabPages[Tabs.LINKS], Actions.ENABLE);
+            SetMode(Modes.Status.INSERT);
 
         }
 
         private void btnNewRef_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+            ListControlsInTab(tabControl1.TabPages[Tabs.REFERENCE], Actions.CLEAR);
+             sequence
+            SetMode(Modes.Status.INSERT);
 
         }
 
         private void btnNewQuote_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+            ListControlsInTab(tabControl1.TabPages[Tabs.QUOTES], Actions.CLEAR);
+            ListControlsInTab(tabControl1.TabPages[Tabs.QUOTES], Actions.ENABLE);
+            SetMode(Modes.Status.INSERT);
 
         }
 
         private void btnNewCode_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+            ListControlsInTab(tabControl1.TabPages[Tabs.CODE], Actions.CLEAR);
+            ListControlsInTab(tabControl1.TabPages[Tabs.CODE], Actions.ENABLE);
+            SetMode(Modes.Status.INSERT);
 
         }
 
@@ -2119,6 +2139,7 @@ namespace Blogs
                 {
                     lblMessage.Text = "Actualització correcta";
                     FillTabChained();
+                    btnChainSave.Enabled = false;
                 }
                 Cursor.Current = Cursors.Default;
             }

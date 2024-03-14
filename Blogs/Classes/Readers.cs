@@ -401,7 +401,7 @@ namespace Blogs.Classes
             Singleton Gdata = Singleton.GetInstance();
 
             Gdata.db.DBOpen();
-            string sql = "select IDarticle, date, prev, title, next from articles " +
+            string sql = "select IDarticle, date, prev, title, next, type from articles " +
                          "where IDblog = " + Gdata.currentBlog + " and lang = '" + Gdata.Lang + "' order by type, date desc";
             using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
             using (var reader = cmd.ExecuteReader())
@@ -415,7 +415,8 @@ namespace Blogs.Classes
                         reader.GetInt32(2).ToString(),
                         reader.GetString(3),
                         reader.GetInt32(4).ToString(),
-                        Marks.UNMARKED
+                        Marks.UNMARKED,
+                        reader.GetString(5)
                     };
                     mList.Add(row);
                 }
@@ -551,6 +552,25 @@ namespace Blogs.Classes
                 while (reader.Read())
                 {
                     num = reader.GetInt32(0) + 1;
+                }
+            }
+            return num;
+        }
+
+        public static int GetNextTextSection()
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
+
+            int num = 10;
+            string sql = "select position from article_details " +
+                         "where IDarticle = " + Gdata.IDarticle + " order by position desc limit 1";
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    num = reader.GetInt32(0) + 10;
                 }
             }
             return num;

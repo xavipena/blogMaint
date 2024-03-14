@@ -1867,7 +1867,8 @@
             // 
             // btnChainSave
             // 
-            this.btnChainSave.Location = new System.Drawing.Point(26, 63);
+            this.btnChainSave.Enabled = false;
+            this.btnChainSave.Location = new System.Drawing.Point(13, 26);
             this.btnChainSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChainSave.Name = "btnChainSave";
             this.btnChainSave.Size = new System.Drawing.Size(129, 33);
@@ -1879,11 +1880,11 @@
             // dgvChains
             // 
             this.dgvChains.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvChains.Location = new System.Drawing.Point(189, 6);
+            this.dgvChains.Location = new System.Drawing.Point(155, 6);
             this.dgvChains.Name = "dgvChains";
             this.dgvChains.RowHeadersWidth = 51;
             this.dgvChains.RowTemplate.Height = 24;
-            this.dgvChains.Size = new System.Drawing.Size(875, 443);
+            this.dgvChains.Size = new System.Drawing.Size(909, 443);
             this.dgvChains.TabIndex = 0;
             this.dgvChains.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChain_CellClick);
             // 
