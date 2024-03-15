@@ -162,6 +162,17 @@ namespace Blogs
             dgvChains.Columns[5].Width = 30;
             dgvChains.Columns[6].Name = "Section";
             dgvChains.Columns[6].Width = 60;
+
+            dgvTranslations.Rows.Clear();
+            dgvTranslations.ColumnCount = 3;
+            dgvTranslations.AllowUserToAddRows = false;
+
+            dgvTranslations.Columns[0].Name = "ID";
+            dgvTranslations.Columns[0].Width = 40;
+            dgvTranslations.Columns[1].Name = "Castellà";
+            dgvTranslations.Columns[1].Width = 360;
+            dgvTranslations.Columns[2].Name = "Català";
+            dgvTranslations.Columns[2].Width = 360;
         }
 
         /// <summary>
@@ -2072,7 +2083,7 @@ namespace Blogs
         {
             lblMessage.Text = "Encara no";
             ListControlsInTab(tabControl1.TabPages[Tabs.REFERENCE], Actions.CLEAR);
-             sequence
+             //get sequence number
             SetMode(Modes.Status.INSERT);
 
         }

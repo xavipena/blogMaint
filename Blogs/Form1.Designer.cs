@@ -211,6 +211,28 @@
             this.btnTabTime = new System.Windows.Forms.Button();
             this.btnTagChain = new System.Windows.Forms.Button();
             this.lblMode = new System.Windows.Forms.Label();
+            this.tabVideo = new System.Windows.Forms.TabPage();
+            this.label58 = new System.Windows.Forms.Label();
+            this.tbVideoSeq = new System.Windows.Forms.TextBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.tbVideoSection = new System.Windows.Forms.TextBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.tbVideoName = new System.Windows.Forms.TextBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.tbVideoEmbed = new System.Windows.Forms.TextBox();
+            this.label62 = new System.Windows.Forms.Label();
+            this.tbVideoCaption = new System.Windows.Forms.TextBox();
+            this.label63 = new System.Windows.Forms.Label();
+            this.tbVideoAlt = new System.Windows.Forms.TextBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.tbVideoCredit = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.cbVideoLang = new System.Windows.Forms.ComboBox();
+            this.label66 = new System.Windows.Forms.Label();
+            this.cbVideoStatus = new System.Windows.Forms.ComboBox();
+            this.dgvTranslations = new System.Windows.Forms.DataGridView();
+            this.btnca_ES = new System.Windows.Forms.Button();
+            this.btnes_ES = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticles)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -237,9 +259,12 @@
             this.tabTime.SuspendLayout();
             this.tabChain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChains)).BeginInit();
+            this.tabTranslate.SuspendLayout();
             this.tabViewer.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox11.SuspendLayout();
+            this.tabVideo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTranslations)).BeginInit();
             this.SuspendLayout();
             // 
             // btnExit
@@ -400,6 +425,7 @@
             this.tabControl1.Controls.Add(this.tabReference);
             this.tabControl1.Controls.Add(this.tabQuotes);
             this.tabControl1.Controls.Add(this.tabCode);
+            this.tabControl1.Controls.Add(this.tabVideo);
             this.tabControl1.Controls.Add(this.tabMetadata);
             this.tabControl1.Controls.Add(this.tabTime);
             this.tabControl1.Controls.Add(this.tabChain);
@@ -1890,6 +1916,9 @@
             // 
             // tabTranslate
             // 
+            this.tabTranslate.Controls.Add(this.btnes_ES);
+            this.tabTranslate.Controls.Add(this.btnca_ES);
+            this.tabTranslate.Controls.Add(this.dgvTranslations);
             this.tabTranslate.Location = new System.Drawing.Point(4, 25);
             this.tabTranslate.Name = "tabTranslate";
             this.tabTranslate.Padding = new System.Windows.Forms.Padding(3);
@@ -2172,6 +2201,218 @@
             this.lblMode.TabIndex = 14;
             this.lblMode.Text = "Mode";
             // 
+            // tabVideo
+            // 
+            this.tabVideo.Controls.Add(this.label65);
+            this.tabVideo.Controls.Add(this.cbVideoLang);
+            this.tabVideo.Controls.Add(this.label66);
+            this.tabVideo.Controls.Add(this.cbVideoStatus);
+            this.tabVideo.Controls.Add(this.label64);
+            this.tabVideo.Controls.Add(this.tbVideoCredit);
+            this.tabVideo.Controls.Add(this.label63);
+            this.tabVideo.Controls.Add(this.tbVideoAlt);
+            this.tabVideo.Controls.Add(this.label62);
+            this.tabVideo.Controls.Add(this.tbVideoCaption);
+            this.tabVideo.Controls.Add(this.label61);
+            this.tabVideo.Controls.Add(this.tbVideoEmbed);
+            this.tabVideo.Controls.Add(this.label60);
+            this.tabVideo.Controls.Add(this.tbVideoName);
+            this.tabVideo.Controls.Add(this.label59);
+            this.tabVideo.Controls.Add(this.tbVideoSection);
+            this.tabVideo.Controls.Add(this.label58);
+            this.tabVideo.Controls.Add(this.tbVideoSeq);
+            this.tabVideo.Location = new System.Drawing.Point(4, 25);
+            this.tabVideo.Name = "tabVideo";
+            this.tabVideo.Size = new System.Drawing.Size(1068, 455);
+            this.tabVideo.TabIndex = 13;
+            this.tabVideo.Text = "Vídeo";
+            this.tabVideo.UseVisualStyleBackColor = true;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(157, 60);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(72, 16);
+            this.label58.TabIndex = 62;
+            this.label58.Text = "Seqüència";
+            // 
+            // tbVideoSeq
+            // 
+            this.tbVideoSeq.Location = new System.Drawing.Point(240, 56);
+            this.tbVideoSeq.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbVideoSeq.Name = "tbVideoSeq";
+            this.tbVideoSeq.Size = new System.Drawing.Size(64, 22);
+            this.tbVideoSeq.TabIndex = 61;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(157, 35);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(49, 16);
+            this.label59.TabIndex = 64;
+            this.label59.Text = "Secció";
+            // 
+            // tbVideoSection
+            // 
+            this.tbVideoSection.Location = new System.Drawing.Point(240, 31);
+            this.tbVideoSection.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbVideoSection.Name = "tbVideoSection";
+            this.tbVideoSection.Size = new System.Drawing.Size(64, 22);
+            this.tbVideoSection.TabIndex = 63;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(129, 88);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(87, 16);
+            this.label60.TabIndex = 66;
+            this.label60.Text = "Nom el vídeo";
+            // 
+            // tbVideoName
+            // 
+            this.tbVideoName.Location = new System.Drawing.Point(240, 85);
+            this.tbVideoName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbVideoName.Name = "tbVideoName";
+            this.tbVideoName.Size = new System.Drawing.Size(64, 22);
+            this.tbVideoName.TabIndex = 65;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(575, 151);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(75, 16);
+            this.label61.TabIndex = 68;
+            this.label61.Text = "Codi HTML";
+            // 
+            // tbVideoEmbed
+            // 
+            this.tbVideoEmbed.Location = new System.Drawing.Point(686, 148);
+            this.tbVideoEmbed.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbVideoEmbed.Multiline = true;
+            this.tbVideoEmbed.Name = "tbVideoEmbed";
+            this.tbVideoEmbed.Size = new System.Drawing.Size(346, 150);
+            this.tbVideoEmbed.TabIndex = 67;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(112, 137);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(31, 16);
+            this.label62.TabIndex = 70;
+            this.label62.Text = "Peu";
+            // 
+            // tbVideoCaption
+            // 
+            this.tbVideoCaption.Location = new System.Drawing.Point(195, 137);
+            this.tbVideoCaption.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbVideoCaption.Multiline = true;
+            this.tbVideoCaption.Name = "tbVideoCaption";
+            this.tbVideoCaption.Size = new System.Drawing.Size(346, 65);
+            this.tbVideoCaption.TabIndex = 69;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(328, 91);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(41, 16);
+            this.label63.TabIndex = 72;
+            this.label63.Text = "Altern";
+            // 
+            // tbVideoAlt
+            // 
+            this.tbVideoAlt.Location = new System.Drawing.Point(439, 88);
+            this.tbVideoAlt.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbVideoAlt.Name = "tbVideoAlt";
+            this.tbVideoAlt.Size = new System.Drawing.Size(64, 22);
+            this.tbVideoAlt.TabIndex = 71;
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(683, 108);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(49, 16);
+            this.label64.TabIndex = 74;
+            this.label64.Text = "Crèdits";
+            // 
+            // tbVideoCredit
+            // 
+            this.tbVideoCredit.Location = new System.Drawing.Point(794, 105);
+            this.tbVideoCredit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbVideoCredit.Name = "tbVideoCredit";
+            this.tbVideoCredit.Size = new System.Drawing.Size(64, 22);
+            this.tbVideoCredit.TabIndex = 73;
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(182, 259);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(48, 16);
+            this.label65.TabIndex = 78;
+            this.label65.Text = "Idioma";
+            // 
+            // cbVideoLang
+            // 
+            this.cbVideoLang.FormattingEnabled = true;
+            this.cbVideoLang.Location = new System.Drawing.Point(240, 255);
+            this.cbVideoLang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbVideoLang.Name = "cbVideoLang";
+            this.cbVideoLang.Size = new System.Drawing.Size(121, 24);
+            this.cbVideoLang.TabIndex = 77;
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(191, 229);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(37, 16);
+            this.label66.TabIndex = 76;
+            this.label66.Text = "Estat";
+            // 
+            // cbVideoStatus
+            // 
+            this.cbVideoStatus.FormattingEnabled = true;
+            this.cbVideoStatus.Location = new System.Drawing.Point(240, 226);
+            this.cbVideoStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbVideoStatus.Name = "cbVideoStatus";
+            this.cbVideoStatus.Size = new System.Drawing.Size(121, 24);
+            this.cbVideoStatus.TabIndex = 75;
+            // 
+            // dgvTranslations
+            // 
+            this.dgvTranslations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTranslations.Location = new System.Drawing.Point(6, 26);
+            this.dgvTranslations.Name = "dgvTranslations";
+            this.dgvTranslations.RowHeadersWidth = 51;
+            this.dgvTranslations.RowTemplate.Height = 24;
+            this.dgvTranslations.Size = new System.Drawing.Size(1056, 386);
+            this.dgvTranslations.TabIndex = 0;
+            // 
+            // btnca_ES
+            // 
+            this.btnca_ES.Location = new System.Drawing.Point(614, 418);
+            this.btnca_ES.Name = "btnca_ES";
+            this.btnca_ES.Size = new System.Drawing.Size(75, 23);
+            this.btnca_ES.TabIndex = 1;
+            this.btnca_ES.Text = "Català";
+            this.btnca_ES.UseVisualStyleBackColor = true;
+            // 
+            // btnes_ES
+            // 
+            this.btnes_ES.Location = new System.Drawing.Point(252, 418);
+            this.btnes_ES.Name = "btnes_ES";
+            this.btnes_ES.Size = new System.Drawing.Size(75, 23);
+            this.btnes_ES.TabIndex = 2;
+            this.btnes_ES.Text = "Castellà";
+            this.btnes_ES.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2224,11 +2465,15 @@
             this.tabTime.ResumeLayout(false);
             this.tabChain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvChains)).EndInit();
+            this.tabTranslate.ResumeLayout(false);
             this.tabViewer.ResumeLayout(false);
             this.tabViewer.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox11.ResumeLayout(false);
+            this.tabVideo.ResumeLayout(false);
+            this.tabVideo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTranslations)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2419,6 +2664,28 @@
         private System.Windows.Forms.Button btnTranslate;
         private System.Windows.Forms.DataGridView dgvChains;
         private System.Windows.Forms.Button btnChainSave;
+        private System.Windows.Forms.TabPage tabVideo;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.ComboBox cbVideoLang;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.ComboBox cbVideoStatus;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.TextBox tbVideoCredit;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.TextBox tbVideoAlt;
+        private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.TextBox tbVideoCaption;
+        private System.Windows.Forms.Label label61;
+        private System.Windows.Forms.TextBox tbVideoEmbed;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.TextBox tbVideoName;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.TextBox tbVideoSection;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.TextBox tbVideoSeq;
+        private System.Windows.Forms.DataGridView dgvTranslations;
+        private System.Windows.Forms.Button btnes_ES;
+        private System.Windows.Forms.Button btnca_ES;
     }
 }
 

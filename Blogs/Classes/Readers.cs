@@ -424,6 +424,50 @@ namespace Blogs.Classes
             return mList;
         }
 
+        public static List<string[]> GetTabTranslations()
+        {
+            Singleton Gdata = Singleton.GetInstance();
+
+            Gdata.db.DBOpen();
+            List<string[]> list = new List<string[]>();
+
+            string sql = "select IDarticle, title from articles where IDblog = " + Gdata.currentBlog + " and lang = 'es'";
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    string[] aRow = new string[]
+                    {
+                        reader.GetInt32(0).ToString(),
+                        reader.GetString(1)
+                    };
+                    list.Add(aRow);
+                }
+            }
+            List<string[]> list2 = new List<string[]>();
+            foreach (string[] row in list)
+            {
+                sql =   "select title from articles " +
+                        "where IDarticle = " + row[0] + " and lang = 'ca'";
+                using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string[] aRow = new string[]
+                        {
+                            row[0],
+                            row[1],
+                            reader.GetString(0)
+                        };
+                        list.Add(aRow);
+                    }
+                }
+            }
+            return list;
+        }
+
         /// <summary>
         /// Get article title
         /// </summary>
