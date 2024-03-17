@@ -42,7 +42,7 @@ namespace Blogs.Classes
                       ",prev       = @val11 " +
                       ",readTime   = @val12 " +
                       ",wordCount  = @val13 " +
-                      "where IDblog = @par1 and IDarticle = @par2"; 
+                      " where IDblog = @par1 and IDarticle = @par2"; 
             }
             else
             {
@@ -105,7 +105,7 @@ namespace Blogs.Classes
                       ",type    = @val02" +
                       ",text    = @val03" +
                       ",status  = @val04" +
-                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
+                      " where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
@@ -152,7 +152,7 @@ namespace Blogs.Classes
                       ",type    = @val02" +
                       ",text    = @val03" +
                       ",status  = @val04" +
-                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
+                      " where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
@@ -199,7 +199,7 @@ namespace Blogs.Classes
                       ",type    = @val02" +
                       ",text    = @val03" +
                       ",status  = @val04" +
-                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
+                      " where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
@@ -246,7 +246,7 @@ namespace Blogs.Classes
                       ",type    = @val02" +
                       ",text    = @val03" +
                       ",status  = @val04" +
-                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
+                      " where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
@@ -293,7 +293,7 @@ namespace Blogs.Classes
                       ",type    = @val02" +
                       ",text    = @val03" +
                       ",status  = @val04" +
-                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
+                      " where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
@@ -340,7 +340,7 @@ namespace Blogs.Classes
                       ",type    = @val02" +
                       ",text    = @val03" +
                       ",status  = @val04" +
-                      "where IDarticle = @par1 and position = @par2 and lang = @par3";
+                      " where IDarticle = @par1 and position = @par2 and lang = @par3";
             }
             else
             {
@@ -388,7 +388,7 @@ namespace Blogs.Classes
                     {
                         sql = "update " + table + " set " +
                               " value   = @val01 " +
-                              "where IDarticle = @par1 and IDmeta = @par2 and lang = @par3";
+                              " where IDarticle = @par1 and IDmeta = @par2 and lang = @par3";
                     }
                     else
                     {
@@ -433,7 +433,7 @@ namespace Blogs.Classes
                     string sql = "update articles set " +
                                  " prev   = @val01 " +
                                  ",next   = @val02 " +
-                                 "where IDarticle = @par1 and lang = @par2";
+                                 " where IDarticle = @par1 and lang = @par2";
                     
                     Gdata.db.DBOpen();
                     using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
@@ -530,6 +530,5 @@ namespace Blogs.Classes
             }
             return result;
         }
-
     }
 }

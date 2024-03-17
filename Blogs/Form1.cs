@@ -12,6 +12,7 @@ using System.Drawing;
 using System.ComponentModel;
 using System.IO.Pipelines;
 using Mysqlx;
+using System.Xml.Linq;
 
 namespace Blogs
 {
@@ -1049,6 +1050,8 @@ namespace Blogs
 
         private void FillTabMetadata()
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             dgvMetadata.Rows.Clear();
             List<string[]> list = new List<string[]>();
             list = Readers.GetTabMetadata();
@@ -1061,6 +1064,7 @@ namespace Blogs
             {
                 dgvMetadata.Rows.Add(sa);
             }
+            Cursor.Current = Cursors.Default;
         }
 
         private void FillTabChained()
@@ -1087,6 +1091,15 @@ namespace Blogs
 
         private void FillTabTranslate()
         {
+            Cursor.Current = Cursors.WaitCursor;
+
+            List<string[]> tList = Readers.GetTabTranslations();
+            dgvTranslations.Rows.Clear();
+            foreach (string[] sa in tList)
+            {
+                dgvTranslations.Rows.Add(sa);
+            }
+            Cursor.Current = Cursors.Default;
         }
 
         private void FillTabCredits()
@@ -1246,6 +1259,12 @@ namespace Blogs
             }
             ClearDoneArray();
             LoadArticlesGrid();
+            UpdateCurrentTab();
+        }
+
+        private void UpdateCurrentTab()
+        {
+
         }
 
         // ---------------------------------------------------------------------------
@@ -1445,6 +1464,11 @@ namespace Blogs
             UpdateTheTab(Tabs.CODE);
         }
 
+        private void btnVideoSave_Click(object sender, EventArgs e)
+        {
+            UpdateTheTab(Tabs.VIDEO);
+        }
+
         // ---------------------------------------------------------------------------
         // Deal with changes
         // ---------------------------------------------------------------------------
@@ -1544,8 +1568,8 @@ namespace Blogs
             list.Add(tbTextSection.Text);
             list.Add(val[0]);
             list.Add(tbTextDetail.Text);
-            list.Add(val[2]);
             list.Add(val[1]);
+            list.Add(val[2]);
 
             if (Writers.UpdateText(list))
             {
@@ -1781,6 +1805,38 @@ namespace Blogs
             }
         }
 
+        private void SaveVideoChanges()
+        {
+            string[] val = { "", "" };
+            cbOption op = cbCodeLanguage.SelectedItem as cbOption;
+            val[0] = op.entityValue;
+            op = cbCodeStatus.SelectedItem as cbOption;
+            val[1] = op.entityValue;
+
+            string sql = "update article_video set " +
+                         " url        = '" + tbVideoName.Text + "'" +
+                         " embed      = '" + tbVideoEmbed.Text + "'" +
+                         " caption    = '" + tbVideoCaption.Text + "'" +
+                         " alternate  = '" + tbVideoAlt.Text + "'" +
+                         " credit     = '" + tbVideoCredit.Text + "'" +
+                         " lang       = '" + val[0] + "'" +
+                         ",status     = '" + val[1] + "'" +
+                         " where IDarticle = @par1 and section = @par2 and sequence = @par3";
+            
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            cmd.Parameters.AddWithValue("@par2", tbVideoSection.Text);
+            cmd.Parameters.AddWithValue("@par3", tbVideoSeq.Text);
+
+            if (Writers.RunUpdate(cmd))
+            {
+                NeedToSave[Tabs.VIDEO] = false;
+                int section = Int32.Parse(tbVideoSection.Text);
+                int sequence = Int32.Parse(tbVideoSeq.Text);
+                FillTabCode(section, sequence);
+            }
+        }
+
         // ---------------------------------------------------------------------------
         // Insertions
         // ---------------------------------------------------------------------------
@@ -1878,6 +1934,9 @@ namespace Blogs
                     case Tabs.CODE:
                         NeedToSave[tab] = AnyChangeInCode();
                         break;
+                    case Tabs.VIDEO:
+                        NeedToSave[tab] = AnyChangeInVideo();
+                        break;
                 }
             }
             if (NeedToSave[tab])
@@ -1905,6 +1964,9 @@ namespace Blogs
                         break;
                     case Tabs.CODE:
                         SaveCodeChanges();
+                        break;
+                    case Tabs.VIDEO:
+                        SaveVideoChanges();
                         break;
                 }
             }
@@ -2154,6 +2216,38 @@ namespace Blogs
                 }
                 Cursor.Current = Cursors.Default;
             }
+        }
+
+        private void btnes_ES_Click(object sender, EventArgs e)
+        {
+            if (dgvTranslations.Rows.Count == 0) return;
+
+            bool noData = true;
+            foreach (DataGridViewRow row in dgvTranslations.SelectedRows)
+            {
+                noData = false;
+            }
+            if (noData)
+            {
+                lblMessage.Text = "Res seleccionat";
+            }
+
+        }
+
+        private void btnca_ES_Click(object sender, EventArgs e)
+        {
+            if (dgvTranslations.Rows.Count == 0) return;
+
+            bool noData = true;
+            foreach (DataGridViewRow row in dgvTranslations.SelectedRows)
+            {
+                noData = false;
+            }
+            if (noData)
+            {
+                lblMessage.Text = "Res seleccionat";
+            }
+
         }
     }
 }

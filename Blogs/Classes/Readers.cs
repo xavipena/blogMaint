@@ -431,7 +431,9 @@ namespace Blogs.Classes
             Gdata.db.DBOpen();
             List<string[]> list = new List<string[]>();
 
-            string sql = "select IDarticle, title from articles where IDblog = " + Gdata.currentBlog + " and lang = 'es'";
+            string sql = "select IDarticle, title from articles " +
+                         "where IDblog = " + Gdata.currentBlog + " and lang = 'es' " +
+                         "order by IDarticle desc";
             using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
             using (var reader = cmd.ExecuteReader())
             {
@@ -445,11 +447,12 @@ namespace Blogs.Classes
                     list.Add(aRow);
                 }
             }
+            Gdata.db.DBOpen();
             List<string[]> list2 = new List<string[]>();
-            foreach (string[] row in list)
+            foreach (string[] cells in list)
             {
                 sql =   "select title from articles " +
-                        "where IDarticle = " + row[0] + " and lang = 'ca'";
+                        "where IDarticle = " + cells[0] + " and lang = 'ca'";
                 using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -457,15 +460,15 @@ namespace Blogs.Classes
                     {
                         string[] aRow = new string[]
                         {
-                            row[0],
-                            row[1],
+                            cells[0],
+                            cells[1],
                             reader.GetString(0)
                         };
-                        list.Add(aRow);
+                        list2.Add(aRow);
                     }
                 }
             }
-            return list;
+            return list2;
         }
 
         /// <summary>
