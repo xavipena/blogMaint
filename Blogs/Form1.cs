@@ -31,6 +31,7 @@ namespace Blogs
         List<string> listTabRefs;
         List<string> listTabQuote;
         List<string> listTabCode;
+        List<string> listTabVideo;
 
         public Form1()
         {
@@ -1769,6 +1770,27 @@ namespace Blogs
 
             changes = changes || cbCodeLanguage.SelectedValue.ToString() != listTabCode[1];
             changes = changes || cbCodeStatus.SelectedValue.ToString() != listTabCode[3];
+
+            return changes;
+        }
+
+        private bool AnyChangeInVideo()
+        {
+            if (listTabVideo == null) return false;
+            bool changes = false;
+
+            // 
+
+            changes = changes || tbVideoAlt.Text != listTabVideo[0];
+            changes = changes || tbVideoCaption.Text != listTabVideo[0];
+            changes = changes || tbVideoCredit.Text != listTabVideo[0];
+            changes = changes || tbVideoEmbed.Text != listTabVideo[0];
+            changes = changes || tbVideoName.Text != listTabVideo[0];
+            changes = changes || tbVideoSection.Text != listTabVideo[0];
+            changes = changes || tbVideoSeq.Text != listTabVideo[0];
+
+            changes = changes || cbVideoLang.SelectedValue.ToString() != listTabVideo[0];
+            changes = changes || cbVideoStatus.SelectedValue.ToString() != listTabVideo[0];
 
             return changes;
         }
