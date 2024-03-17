@@ -12,7 +12,7 @@ namespace Blogs.Classes
         public const string NO = "N";
         public const string SAY_YES = "Sí";
         public const string SAY_NO = "No";
-        public const int NUM_TABS = 14;
+        public const int NUM_TABS = 15;
     }
     public class Texts
     {
@@ -52,11 +52,12 @@ namespace Blogs.Classes
         public const int QUOTES = 6;
         public const int CODE = 7;
         public const int VIDEO = 8;
-        public const int METADATA = 9;
-        public const int READ_TIME = 10;
-        public const int CHAIN = 11;
-        public const int TRANSLATE = 12;
-        public const int CREDITS = 13;
+        public const int TIPS = 9;
+        public const int METADATA = 10;
+        public const int READ_TIME = 11;
+        public const int CHAIN = 12;
+        public const int TRANSLATE = 13;
+        public const int CREDITS = 14;
         // Update NUM_TABS
     }
     public class Combos

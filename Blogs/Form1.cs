@@ -32,6 +32,7 @@ namespace Blogs
         List<string> listTabQuote;
         List<string> listTabCode;
         List<string> listTabVideo;
+        List<string> listTabTip;
 
         public Form1()
         {
@@ -1049,6 +1050,14 @@ namespace Blogs
             }
         }
 
+        private void FillTabVideo(int section)
+        {
+        }
+
+        private void FillTabTips(int section)
+        {
+        }
+
         private void FillTabMetadata()
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -1470,6 +1479,27 @@ namespace Blogs
             UpdateTheTab(Tabs.VIDEO);
         }
 
+        private void btnTipsSave_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+        }
+
+        private void btnChainSave_Click(object sender, EventArgs e)
+        {
+            if (dgvChains.Rows.Count > 0)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                if (Writers.UpdateChains(dgvChains))
+                {
+                    lblMessage.Text = "Actualització correcta";
+                    FillTabChained();
+                    btnChainSave.Enabled = false;
+                }
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+
         // ---------------------------------------------------------------------------
         // Deal with changes
         // ---------------------------------------------------------------------------
@@ -1795,6 +1825,22 @@ namespace Blogs
             return changes;
         }
 
+        private bool AnyChangeInTip()
+        {
+            if (listTabTip == null) return false;
+            bool changes = false;
+
+            // tipText, IDicon, status, lang
+
+            changes = changes || tbTipsText.Text != listTabVideo[0];
+
+            changes = changes || cbTipsIcon.SelectedValue.ToString() != listTabVideo[0];
+            changes = changes || cbTipsLang.SelectedValue.ToString() != listTabVideo[0];
+            changes = changes || cbTipsStatus.SelectedValue.ToString() != listTabVideo[0];
+
+            return changes;
+        }
+
         private void SaveCodeChanges()
         {
             string[] val = { "", "" };
@@ -1855,7 +1901,37 @@ namespace Blogs
                 NeedToSave[Tabs.VIDEO] = false;
                 int section = Int32.Parse(tbVideoSection.Text);
                 int sequence = Int32.Parse(tbVideoSeq.Text);
-                FillTabCode(section, sequence);
+                FillTabVideo(section);
+            }
+        }
+
+        private void SaveTipChanges()
+        {
+            string[] val = { "", "", "" };
+            cbOption op = cbTipsIcon.SelectedItem as cbOption;
+            val[0] = op.entityValue;
+            op = cbCodeLanguage.SelectedItem as cbOption;
+            val[1] = op.entityValue;
+            op = cbCodeStatus.SelectedItem as cbOption;
+            val[2] = op.entityValue;
+
+            string sql = "update article_tips set " +
+                         " tipText    = '" + tbVideoName.Text + "'" +
+                         " IDicon     = '" + val[0] + "'" +
+                         " lang       = '" + val[1] + "'" +
+                         ",status     = '" + val[2] + "'" +
+                         " where IDarticle = @par1 and section = @par2";
+
+            var cmd = new MySqlCommand(sql, Gdata.db.Connection);
+            cmd.Parameters.AddWithValue("@par1", Gdata.IDarticle);
+            op = lbTipsSections.SelectedItem as cbOption;
+            int section = Int32.Parse(op.entityValue.ToString());
+            cmd.Parameters.AddWithValue("@par2", op.entityValue.ToString());
+¡
+            if (Writers.RunUpdate(cmd))
+            {
+                NeedToSave[Tabs.TIPS] = false;
+                FillTabTips(section);
             }
         }
 
@@ -1959,6 +2035,9 @@ namespace Blogs
                     case Tabs.VIDEO:
                         NeedToSave[tab] = AnyChangeInVideo();
                         break;
+                    case Tabs.TIPS:
+                        NeedToSave[tab] = AnyChangeInTip();
+                        break;
                 }
             }
             if (NeedToSave[tab])
@@ -1989,6 +2068,9 @@ namespace Blogs
                         break;
                     case Tabs.VIDEO:
                         SaveVideoChanges();
+                        break;
+                    case Tabs.TIPS:
+                        SaveTipChanges();
                         break;
                 }
             }
@@ -2190,6 +2272,15 @@ namespace Blogs
 
         }
 
+        private void btnNewTips_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no";
+            ListControlsInTab(tabControl1.TabPages[Tabs.TIPS], Actions.CLEAR);
+            ListControlsInTab(tabControl1.TabPages[Tabs.TIPS], Actions.ENABLE);
+            SetMode(Modes.Status.INSERT);
+
+        }
+
         private void btnTabTime_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedIndex = Tabs.READ_TIME;
@@ -2225,20 +2316,6 @@ namespace Blogs
             tabControl1.SelectedIndex = Tabs.TRANSLATE;
         }
 
-        private void btnChainSave_Click(object sender, EventArgs e)
-        {
-            if (dgvChains.Rows.Count > 0)
-            {
-                Cursor.Current = Cursors.WaitCursor;
-                if (Writers.UpdateChains(dgvChains))
-                {
-                    lblMessage.Text = "Actualització correcta";
-                    FillTabChained();
-                    btnChainSave.Enabled = false;
-                }
-                Cursor.Current = Cursors.Default;
-            }
-        }
 
         private void btnes_ES_Click(object sender, EventArgs e)
         {
@@ -2271,5 +2348,6 @@ namespace Blogs
             }
 
         }
+
     }
 }
