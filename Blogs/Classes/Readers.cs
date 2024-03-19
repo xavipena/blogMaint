@@ -275,6 +275,62 @@ namespace Blogs.Classes
             return list;
         }
 
+        public static List<string> GetTabVideo(int section)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
+
+            int IDarticle = Gdata.IDarticle;
+            if (IDarticle == 0) return null;
+            List<string> list = new List<string>();
+
+            string sql = "select url, embed, caption, alternate, credit, status, lang from article_videos " +
+                         "where IDarticle = " + IDarticle + " and section = " + section + " and sequence = 1";
+
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    list.Add(reader.GetString(0));
+                    list.Add(reader.GetString(1));
+                    list.Add(reader.GetString(2));
+                    list.Add(reader.GetString(3));
+                    list.Add(reader.GetString(4));
+                    list.Add(reader.GetString(5));
+                    list.Add(reader.GetString(6));
+                    list.Add(reader.GetString(7));
+                }
+            }
+            return list;
+        }
+        public static List<string> GetTabTip(int section)
+        {
+            Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
+
+            int IDarticle = Gdata.IDarticle;
+            if (IDarticle == 0) return null;
+            List<string> list = new List<string>();
+
+            string sql = "select tipText, IDicon, status, lang from article_code " +
+                         "where IDarticle = " + IDarticle + " and section = " + section;
+
+            using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+            using (var reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    list.Add(reader.GetString(0));
+                    list.Add(reader.GetString(1));
+                    list.Add(reader.GetInt32(2).ToString());
+                    list.Add(reader.GetString(3));
+                }
+            }
+            return list;
+        }
+
+
         /// <summary>
         /// Get metadata for current article in selected blog
         /// </summary>

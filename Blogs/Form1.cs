@@ -216,7 +216,8 @@ namespace Blogs
         {
             if (!Gdata.db.IsConnected) return;
 
-            LoadComboBox(cbHeadType, "select distinct type, type from articles");
+            Loaders.LoadComboBox(cbHeadType, "select distinct type, type from articles");
+            Loaders.LoadComboBox(cbTipsIcon, "select IDicon, name from article_tip_types");
 
             Loaders.LoadCombo(cbHeadStatus, Combos.STATUS);
             Loaders.LoadCombo(cbHeadLang, Combos.LANGUAGE);
@@ -351,57 +352,6 @@ namespace Blogs
             lbCodeSeqs.DataSource = dataSource;
             lbCodeSeqs.DisplayMember = "entityName";
             lbCodeSeqs.ValueMember = "entityValue";
-        }
-
-        // ---------------------------------------------------------------------------
-        // Generic ComboBox loader
-        // ---------------------------------------------------------------------------
-
-        /// <summary>
-        /// Generic combo loader
-        /// </summary>
-        /// <param name="combobox"></param>
-        /// <param name="sql"></param>
-        private void LoadComboBox(ComboBox combobox, string sql)
-        {
-            if (combobox == null) return;
-            if (sql == string.Empty) return;
-
-            List<cbOption> list = new List<cbOption>();
-            Singleton Gdata = Singleton.GetInstance();
-            Gdata.db.DBOpen();
-            try
-            {
-                using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        cbOption op = new cbOption()
-                        {
-                            entityValue = reader.GetString(0),
-                            entityName = reader.GetString(1)
-                        };
-                        list.Add(op);
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                Gdata.ErrorText = ex.Message;
-                lblMessage.Text = ex.Message;
-            }
-            finally
-            {
-                Gdata.db.DBClose();
-            }
-            combobox.DataSource = null;
-            combobox.DataSource = list;
-            combobox.ValueMember = "entityValue";
-            combobox.DisplayMember = "entityName";
-            // Readonly, not editable
-            combobox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         // ---------------------------------------------------------------------------
@@ -1052,10 +1002,44 @@ namespace Blogs
 
         private void FillTabVideo(int section)
         {
+            listTabVideo = Readers.GetTabVideo(section);
+            if (listTabCode != null && listTabCode.Count > 0)
+            {
+                ListControlsInTab(tabControl1.TabPages[Tabs.VIDEO], Actions.ENABLE);
+
+                tbCodeSeq.Text = listTabCode[0];
+                cbCodeLanguage.Text = listTabCode[1];
+                tbCode.Text = listTabCode[2];
+                cbCodeStatus.Text = listTabCode[3];
+                cbCodeStatus.Text = listTabCode[3];
+                cbCodeStatus.Text = listTabCode[3];
+                cbCodeStatus.Text = listTabCode[3];
+                cbCodeStatus.Text = listTabCode[3];
+            }
+            else
+            {
+                ListControlsInTab(tabControl1.TabPages[Tabs.VIDEO], Actions.CLEAR);
+                ListControlsInTab(tabControl1.TabPages[Tabs.VIDEO], Actions.DISABLE);
+            }
         }
 
         private void FillTabTips(int section)
         {
+            listTabTip = Readers.GetTabTip(section);
+            if (listTabCode != null && listTabCode.Count > 0)
+            {
+                ListControlsInTab(tabControl1.TabPages[Tabs.TIPS], Actions.ENABLE);
+
+                tbCodeSeq.Text = listTabCode[0];
+                cbCodeLanguage.Text = listTabCode[1];
+                tbCode.Text = listTabCode[2];
+                cbCodeStatus.Text = listTabCode[3];
+            }
+            else
+            {
+                ListControlsInTab(tabControl1.TabPages[Tabs.TIPS], Actions.CLEAR);
+                ListControlsInTab(tabControl1.TabPages[Tabs.TIPS], Actions.DISABLE);
+            }
         }
 
         private void FillTabMetadata()
@@ -1927,7 +1911,7 @@ namespace Blogs
             op = lbTipsSections.SelectedItem as cbOption;
             int section = Int32.Parse(op.entityValue.ToString());
             cmd.Parameters.AddWithValue("@par2", op.entityValue.ToString());
-¡
+
             if (Writers.RunUpdate(cmd))
             {
                 NeedToSave[Tabs.TIPS] = false;

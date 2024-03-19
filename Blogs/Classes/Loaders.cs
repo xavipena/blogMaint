@@ -1,15 +1,69 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Blogs.Classes
 {
     internal class Loaders
     {
+
+        // ---------------------------------------------------------------------------
+        // Generic ComboBox loader
+        // ---------------------------------------------------------------------------
+
+        /// <summary>
+        /// Generic combo loader
+        /// </summary>
+        /// <param name="combobox"></param>
+        /// <param name="sql"></param>
+        public static bool LoadComboBox(ComboBox combobox, string sql)
+        {
+            if (combobox == null) return true; 
+            if (sql == string.Empty) return true;
+
+            bool result = true;
+            List<cbOption> list = new List<cbOption>();
+            Singleton Gdata = Singleton.GetInstance();
+            Gdata.db.DBOpen();
+            try
+            {
+                using (var cmd = new MySqlCommand(sql, Gdata.db.Connection))
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        cbOption op = new cbOption()
+                        {
+                            entityValue = reader.GetString(0),
+                            entityName = reader.GetString(1)
+                        };
+                        list.Add(op);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Gdata.ErrorText = ex.Message;
+                result = false;
+            }
+            finally
+            {
+                Gdata.db.DBClose();
+            }
+            combobox.DataSource = null;
+            combobox.DataSource = list;
+            combobox.ValueMember = "entityValue";
+            combobox.DisplayMember = "entityName";
+            // Readonly, not editable
+            combobox.DropDownStyle = ComboBoxStyle.DropDownList;
+            return result;
+        }
+
         public static void LoadCombo(System.Windows.Forms.ComboBox combobox, int ComboType)
         {
             cbOption op;
