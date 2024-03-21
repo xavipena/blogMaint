@@ -103,6 +103,7 @@ namespace Blogs
             dgvArticles.Rows.Clear();
             dgvArticles.ColumnCount = 5;
             dgvArticles.AllowUserToAddRows = false;
+            dgvArticles.MultiSelect = false;
 
             dgvArticles.Columns[0].Name = "ID";
             dgvArticles.Columns[0].Width = 40;
@@ -119,6 +120,7 @@ namespace Blogs
             dgvSelector.Rows.Clear();
             dgvSelector.ColumnCount = 4;
             dgvSelector.AllowUserToAddRows = false;
+            dgvArticles.MultiSelect = false;
 
             dgvSelector.Columns[0].Name = "ID";
             dgvSelector.Columns[0].Width = 40;
@@ -133,6 +135,7 @@ namespace Blogs
             dgvMetadata.Rows.Clear();
             dgvMetadata.ColumnCount = 5;
             dgvMetadata.AllowUserToAddRows = false;
+            dgvArticles.MultiSelect = false;
 
             dgvMetadata.Columns[0].Name = "ID";
             dgvMetadata.Columns[0].Width = 40;
@@ -148,6 +151,7 @@ namespace Blogs
             dgvChains.Rows.Clear();
             dgvChains.ColumnCount = 7;
             dgvChains.AllowUserToAddRows = false;
+            dgvArticles.MultiSelect = false;
 
             // IDarticle, date, prev, title, next
 
@@ -169,6 +173,7 @@ namespace Blogs
             dgvTranslations.Rows.Clear();
             dgvTranslations.ColumnCount = 3;
             dgvTranslations.AllowUserToAddRows = false;
+            dgvArticles.MultiSelect = false;
 
             dgvTranslations.Columns[0].Name = "ID";
             dgvTranslations.Columns[0].Width = 40;
@@ -217,7 +222,9 @@ namespace Blogs
             if (!Gdata.db.IsConnected) return;
 
             Loaders.LoadComboBox(cbHeadType, "select distinct type, type from articles");
-            Loaders.LoadComboBox(cbTipsIcon, "select IDicon, name from article_tip_types");
+            lblMessage.Text = Gdata.ErrorText;
+            Loaders.LoadComboBox(cbTipsIcon, "select concat(IDicon, ''), name from article_tip_types");
+            lblMessage.Text = Gdata.ErrorText;
 
             Loaders.LoadCombo(cbHeadStatus, Combos.STATUS);
             Loaders.LoadCombo(cbHeadLang, Combos.LANGUAGE);
@@ -240,6 +247,9 @@ namespace Blogs
 
             Loaders.LoadCombo(cbCodeStatus, Combos.STATUS);
             LoadCodeLanguages();
+
+            Loaders.LoadCombo(cbTipsStatus, Combos.STATUS);
+            Loaders.LoadCombo(cbTipsLang, Combos.LANGUAGE);
         }
 
         /// <summary>
@@ -279,7 +289,8 @@ namespace Blogs
         }
 
         /// <summary>
-        /// Load each list of article sections as selector for each tab
+        /// Load each list of article sections as selector for each tab 
+        /// where article content is indexed by section
         /// </summary>
         private void LoadArticleSections()
         {
@@ -298,7 +309,8 @@ namespace Blogs
             dataSource = Readers.LoadList(sql, Gdata.db);
             if (dataSource != null)
             {
-                // Setup data binding
+                // Setup data binding, same datasource for all
+
                 lbTextSections.DataSource = dataSource;
                 lbTextSections.DisplayMember = "entityName";
                 lbTextSections.ValueMember = "entityValue";
@@ -324,12 +336,17 @@ namespace Blogs
 
                 LoadCodeSequences(Int32.Parse(op.entityValue.ToString()));
 
-                // References, get list
-                dataSource = Readers.LoadRefList();
-                lbRefSections.DataSource = dataSource;
-                lbRefSections.DisplayMember = "entityName";
-                lbRefSections.ValueMember = "entityValue";
+                lbTipsSections.DataSource = dataSource;
+                lbTipsSections.DisplayMember = "entityName";
+                lbTipsSections.ValueMember = "entityValue";
+
             }
+            // References, get list
+            dataSource = Readers.LoadRefList();
+            lbRefSections.DataSource = dataSource;
+            lbRefSections.DisplayMember = "entityName";
+            lbRefSections.ValueMember = "entityValue";
+
             loading = false;
             Cursor.Current = Cursors.Default;
         }
@@ -627,6 +644,22 @@ namespace Blogs
                             if (op != null)
                             {
                                 FillTabCode(Int32.Parse(op.entityValue), 0);
+                            }
+                        }
+                        break;
+
+                    case Tabs.VIDEO:
+
+                        FillTabVideo(0);
+                        break;
+
+                    case Tabs.TIPS:
+                        if (lbTipsSections.Items.Count > 0)
+                        {
+                            cbOption op = lbTipsSections.SelectedItem as cbOption;
+                            if (op != null)
+                            {
+                                FillTabTips(Int32.Parse(op.entityValue));
                             }
                         }
                         break;
@@ -1003,18 +1036,19 @@ namespace Blogs
         private void FillTabVideo(int section)
         {
             listTabVideo = Readers.GetTabVideo(section);
-            if (listTabCode != null && listTabCode.Count > 0)
+            if (listTabVideo != null && listTabVideo.Count > 0)
             {
                 ListControlsInTab(tabControl1.TabPages[Tabs.VIDEO], Actions.ENABLE);
 
-                tbCodeSeq.Text = listTabCode[0];
-                cbCodeLanguage.Text = listTabCode[1];
-                tbCode.Text = listTabCode[2];
-                cbCodeStatus.Text = listTabCode[3];
-                cbCodeStatus.Text = listTabCode[3];
-                cbCodeStatus.Text = listTabCode[3];
-                cbCodeStatus.Text = listTabCode[3];
-                cbCodeStatus.Text = listTabCode[3];
+                //  url, embed, caption, alternate, credit, status, lang
+
+                tbVideoName.Text = listTabVideo[0];
+                tbVideoEmbed.Text = listTabVideo[1];
+                tbVideoCaption.Text = listTabVideo[2];
+                tbVideoAlt.Text = listTabVideo[3];
+                tbVideoCredit.Text = listTabVideo[4];
+                cbVideoStatus.Text = listTabVideo[5];
+                cbVideoLang.Text = listTabVideo[6];
             }
             else
             {
@@ -1026,19 +1060,31 @@ namespace Blogs
         private void FillTabTips(int section)
         {
             listTabTip = Readers.GetTabTip(section);
-            if (listTabCode != null && listTabCode.Count > 0)
+            if (listTabTip != null && listTabTip.Count > 0)
             {
                 ListControlsInTab(tabControl1.TabPages[Tabs.TIPS], Actions.ENABLE);
+                EnableDisableButtons(Tabs.TIPS, true);
 
-                tbCodeSeq.Text = listTabCode[0];
-                cbCodeLanguage.Text = listTabCode[1];
-                tbCode.Text = listTabCode[2];
-                cbCodeStatus.Text = listTabCode[3];
+                tbTipsText.Text = listTabTip[0];
+                cbTipsIcon.Text = listTabTip[1];
+                cbTipsStatus.Text = listTabTip[2];
+                cbTipsLang.Text = listTabTip[3];
             }
             else
             {
                 ListControlsInTab(tabControl1.TabPages[Tabs.TIPS], Actions.CLEAR);
                 ListControlsInTab(tabControl1.TabPages[Tabs.TIPS], Actions.DISABLE);
+                EnableDisableButtons(Tabs.TIPS, false);
+            }
+        }
+
+        private void EnableDisableButtons(int tab, bool enable)
+        {
+            switch (tab)
+            {
+                case Tabs.TIPS:
+                    btnTipsSave.Enabled = enable;
+                    break;
             }
         }
 
@@ -1258,7 +1304,7 @@ namespace Blogs
 
         private void UpdateCurrentTab()
         {
-
+            lblMessage.Text = "Falta codi a... UpdateCurrentTab()";
         }
 
         // ---------------------------------------------------------------------------
@@ -1368,6 +1414,15 @@ namespace Blogs
             }
         }
 
+        private void lbTipsSections_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbOption op = lbTipsSections.SelectedItem as cbOption;
+            if (op != null)
+            {
+                FillTabTips(Int32.Parse(op.entityValue));
+            }
+        }
+
         // ---------------------------------------------------------------------------
         // Selected indexes for sequences
         // ---------------------------------------------------------------------------
@@ -1465,7 +1520,7 @@ namespace Blogs
 
         private void btnTipsSave_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "Encara no";
+            UpdateTheTab(Tabs.TIPS);
         }
 
         private void btnChainSave_Click(object sender, EventArgs e)
@@ -1793,18 +1848,16 @@ namespace Blogs
             if (listTabVideo == null) return false;
             bool changes = false;
 
-            // 
+            // url, embed, caption, alternate, credit, status, lang
 
-            changes = changes || tbVideoAlt.Text != listTabVideo[0];
-            changes = changes || tbVideoCaption.Text != listTabVideo[0];
-            changes = changes || tbVideoCredit.Text != listTabVideo[0];
-            changes = changes || tbVideoEmbed.Text != listTabVideo[0];
             changes = changes || tbVideoName.Text != listTabVideo[0];
-            changes = changes || tbVideoSection.Text != listTabVideo[0];
-            changes = changes || tbVideoSeq.Text != listTabVideo[0];
+            changes = changes || tbVideoEmbed.Text != listTabVideo[1];
+            changes = changes || tbVideoCaption.Text != listTabVideo[2];
+            changes = changes || tbVideoAlt.Text != listTabVideo[3];
+            changes = changes || tbVideoCredit.Text != listTabVideo[4];
 
-            changes = changes || cbVideoLang.SelectedValue.ToString() != listTabVideo[0];
-            changes = changes || cbVideoStatus.SelectedValue.ToString() != listTabVideo[0];
+            changes = changes || cbVideoStatus.SelectedValue.ToString() != listTabVideo[5];
+            changes = changes || cbVideoLang.SelectedValue.ToString() != listTabVideo[6];
 
             return changes;
         }
@@ -1816,11 +1869,11 @@ namespace Blogs
 
             // tipText, IDicon, status, lang
 
-            changes = changes || tbTipsText.Text != listTabVideo[0];
+            changes = changes || tbTipsText.Text != listTabTip[0];
 
-            changes = changes || cbTipsIcon.SelectedValue.ToString() != listTabVideo[0];
-            changes = changes || cbTipsLang.SelectedValue.ToString() != listTabVideo[0];
-            changes = changes || cbTipsStatus.SelectedValue.ToString() != listTabVideo[0];
+            changes = changes || cbTipsIcon.SelectedValue.ToString() != listTabTip[1];
+            changes = changes || cbTipsStatus.SelectedValue.ToString() != listTabTip[3];
+            changes = changes || cbTipsLang.SelectedValue.ToString() != listTabTip[3];
 
             return changes;
         }
@@ -1867,11 +1920,11 @@ namespace Blogs
 
             string sql = "update article_video set " +
                          " url        = '" + tbVideoName.Text + "'" +
-                         " embed      = '" + tbVideoEmbed.Text + "'" +
-                         " caption    = '" + tbVideoCaption.Text + "'" +
-                         " alternate  = '" + tbVideoAlt.Text + "'" +
-                         " credit     = '" + tbVideoCredit.Text + "'" +
-                         " lang       = '" + val[0] + "'" +
+                         ",embed      = '" + tbVideoEmbed.Text + "'" +
+                         ",caption    = '" + tbVideoCaption.Text + "'" +
+                         ",alternate  = '" + tbVideoAlt.Text + "'" +
+                         ",credit     = '" + tbVideoCredit.Text + "'" +
+                         ",lang       = '" + val[0] + "'" +
                          ",status     = '" + val[1] + "'" +
                          " where IDarticle = @par1 and section = @par2 and sequence = @par3";
             
@@ -1901,8 +1954,8 @@ namespace Blogs
 
             string sql = "update article_tips set " +
                          " tipText    = '" + tbVideoName.Text + "'" +
-                         " IDicon     = '" + val[0] + "'" +
-                         " lang       = '" + val[1] + "'" +
+                         ",IDicon     =  " + val[0] +
+                         ",lang       = '" + val[1] + "'" +
                          ",status     = '" + val[2] + "'" +
                          " where IDarticle = @par1 and section = @par2";
 
@@ -2060,8 +2113,6 @@ namespace Blogs
             }
             else lblMessage.Text = "No hi ha canvis";
         }
-
-
 
         private void SetMode(int mode)
         {
@@ -2332,6 +2383,5 @@ namespace Blogs
             }
 
         }
-
     }
 }

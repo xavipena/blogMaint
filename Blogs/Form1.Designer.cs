@@ -1958,7 +1958,7 @@
             // label63
             // 
             this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(99, 101);
+            this.label63.Location = new System.Drawing.Point(99, 100);
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(72, 16);
             this.label63.TabIndex = 72;
@@ -2011,7 +2011,7 @@
             // label60
             // 
             this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(81, 69);
+            this.label60.Location = new System.Drawing.Point(84, 73);
             this.label60.Name = "label60";
             this.label60.Size = new System.Drawing.Size(87, 16);
             this.label60.TabIndex = 66;
@@ -2045,7 +2045,7 @@
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(99, 44);
+            this.label58.Location = new System.Drawing.Point(100, 43);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(72, 16);
             this.label58.TabIndex = 62;
@@ -2204,6 +2204,7 @@
             this.lbTipsSections.Name = "lbTipsSections";
             this.lbTipsSections.Size = new System.Drawing.Size(279, 372);
             this.lbTipsSections.TabIndex = 51;
+            this.lbTipsSections.SelectedIndexChanged += new System.EventHandler(this.lbTipsSections_SelectedIndexChanged);
             // 
             // tabMetadata
             // 
