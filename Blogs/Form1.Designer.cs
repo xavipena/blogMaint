@@ -245,6 +245,7 @@
             this.tbTitleCA = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.btnTabSelector = new System.Windows.Forms.Button();
             this.btnTranslate = new System.Windows.Forms.Button();
             this.btnTabTime = new System.Windows.Forms.Button();
             this.btnTagChain = new System.Windows.Forms.Button();
@@ -2443,7 +2444,7 @@
             // 
             // btnNewArticle
             // 
-            this.btnNewArticle.Location = new System.Drawing.Point(32, 63);
+            this.btnNewArticle.Location = new System.Drawing.Point(32, 100);
             this.btnNewArticle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNewArticle.Name = "btnNewArticle";
             this.btnNewArticle.Size = new System.Drawing.Size(129, 33);
@@ -2554,6 +2555,7 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.btnTabSelector);
             this.groupBox11.Controls.Add(this.btnTranslate);
             this.groupBox11.Controls.Add(this.btnTabTime);
             this.groupBox11.Controls.Add(this.btnTagChain);
@@ -2569,9 +2571,20 @@
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Accions generals";
             // 
+            // btnTabSelector
+            // 
+            this.btnTabSelector.Location = new System.Drawing.Point(32, 63);
+            this.btnTabSelector.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnTabSelector.Name = "btnTabSelector";
+            this.btnTabSelector.Size = new System.Drawing.Size(129, 33);
+            this.btnTabSelector.TabIndex = 44;
+            this.btnTabSelector.Text = "Seleccionar article";
+            this.btnTabSelector.UseVisualStyleBackColor = true;
+            this.btnTabSelector.Click += new System.EventHandler(this.btnTabSelector_Click);
+            // 
             // btnTranslate
             // 
-            this.btnTranslate.Location = new System.Drawing.Point(32, 174);
+            this.btnTranslate.Location = new System.Drawing.Point(32, 211);
             this.btnTranslate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTranslate.Name = "btnTranslate";
             this.btnTranslate.Size = new System.Drawing.Size(129, 33);
@@ -2582,7 +2595,7 @@
             // 
             // btnTabTime
             // 
-            this.btnTabTime.Location = new System.Drawing.Point(32, 100);
+            this.btnTabTime.Location = new System.Drawing.Point(32, 137);
             this.btnTabTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTabTime.Name = "btnTabTime";
             this.btnTabTime.Size = new System.Drawing.Size(129, 33);
@@ -2593,7 +2606,7 @@
             // 
             // btnTagChain
             // 
-            this.btnTagChain.Location = new System.Drawing.Point(32, 137);
+            this.btnTagChain.Location = new System.Drawing.Point(32, 174);
             this.btnTagChain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTagChain.Name = "btnTagChain";
             this.btnTagChain.Size = new System.Drawing.Size(129, 33);
@@ -2905,6 +2918,7 @@
         private System.Windows.Forms.TextBox tbTipsText;
         private System.Windows.Forms.Label label69;
         private System.Windows.Forms.ListBox lbTipsSections;
+        private System.Windows.Forms.Button btnTabSelector;
     }
 }
 

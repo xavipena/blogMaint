@@ -2240,6 +2240,12 @@ namespace Blogs
         {
             if (ForgotToSave()) return;
 
+            if (Gdata.maintMode != Modes.Status.QUERY)
+            {
+                lblMessage.Text = "Hi ha canvis pendents";
+                return;
+            }
+
             if (GetNewNumber())
             {
                 SetMode(Modes.Status.INSERT);
@@ -2257,6 +2263,12 @@ namespace Blogs
         private void btnNewText_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "En procès";
+            if (Gdata.maintMode != Modes.Status.QUERY)
+            {
+                lblMessage.Text = "Hi ha canvis pendents";
+                return;
+            }
+
             ListControlsInTab(tabControl1.TabPages[Tabs.SECTIONS], Actions.CLEAR);
             tbTextPos.Text = Readers.GetNextTextSection().ToString();
             lbTextSections.Enabled = false;
@@ -2266,6 +2278,12 @@ namespace Blogs
         private void btnNewImage_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+            if (Gdata.maintMode != Modes.Status.QUERY)
+            {
+                lblMessage.Text = "Hi ha canvis pendents";
+                return;
+            }
+
             ListControlsInTab(tabControl1.TabPages[Tabs.IMAGES], Actions.CLEAR);
             ListControlsInTab(tabControl1.TabPages[Tabs.IMAGES], Actions.ENABLE);
             SetMode(Modes.Status.INSERT);
@@ -2274,46 +2292,77 @@ namespace Blogs
         private void btnNewLink_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+            if (Gdata.maintMode != Modes.Status.QUERY)
+            {
+                lblMessage.Text = "Hi ha canvis pendents";
+                return;
+            }
+
             ListControlsInTab(tabControl1.TabPages[Tabs.LINKS], Actions.CLEAR);
             ListControlsInTab(tabControl1.TabPages[Tabs.LINKS], Actions.ENABLE);
             SetMode(Modes.Status.INSERT);
-
         }
 
         private void btnNewRef_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+            if (Gdata.maintMode != Modes.Status.QUERY)
+            {
+                lblMessage.Text = "Hi ha canvis pendents";
+                return;
+            }
+
             ListControlsInTab(tabControl1.TabPages[Tabs.REFERENCE], Actions.CLEAR);
              //get sequence number
             SetMode(Modes.Status.INSERT);
-
         }
 
         private void btnNewQuote_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+            if (Gdata.maintMode != Modes.Status.QUERY)
+            {
+                lblMessage.Text = "Hi ha canvis pendents";
+                return;
+            }
+
             ListControlsInTab(tabControl1.TabPages[Tabs.QUOTES], Actions.CLEAR);
             ListControlsInTab(tabControl1.TabPages[Tabs.QUOTES], Actions.ENABLE);
             SetMode(Modes.Status.INSERT);
-
         }
 
         private void btnNewCode_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+            if (Gdata.maintMode != Modes.Status.QUERY)
+            {
+                lblMessage.Text = "Hi ha canvis pendents";
+                return;
+            }
+
             ListControlsInTab(tabControl1.TabPages[Tabs.CODE], Actions.CLEAR);
             ListControlsInTab(tabControl1.TabPages[Tabs.CODE], Actions.ENABLE);
             SetMode(Modes.Status.INSERT);
-
         }
 
         private void btnNewTips_Click(object sender, EventArgs e)
         {
             lblMessage.Text = "Encara no";
+            if (Gdata.maintMode != Modes.Status.QUERY)
+            {
+                lblMessage.Text = "Hi ha canvis pendents";
+                return;
+            }
+
             ListControlsInTab(tabControl1.TabPages[Tabs.TIPS], Actions.CLEAR);
             ListControlsInTab(tabControl1.TabPages[Tabs.TIPS], Actions.ENABLE);
             SetMode(Modes.Status.INSERT);
+        }
 
+
+        private void btnTabSelector_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = Tabs.SELECTOR;
         }
 
         private void btnTabTime_Click(object sender, EventArgs e)
