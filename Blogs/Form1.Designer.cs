@@ -2422,6 +2422,11 @@
             // 
             // btnNewArticle
             // 
+            this.btnNewArticle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNewArticle.FlatAppearance.BorderSize = 0;
+            this.btnNewArticle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewArticle.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.btnNewArticle.ForeColor = System.Drawing.Color.White;
             this.btnNewArticle.Location = new System.Drawing.Point(12, 272);
             this.btnNewArticle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNewArticle.Name = "btnNewArticle";
@@ -2522,6 +2527,11 @@
             // 
             // btnTabSelector
             // 
+            this.btnTabSelector.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTabSelector.FlatAppearance.BorderSize = 0;
+            this.btnTabSelector.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTabSelector.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.btnTabSelector.ForeColor = System.Drawing.Color.White;
             this.btnTabSelector.Location = new System.Drawing.Point(12, 235);
             this.btnTabSelector.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTabSelector.Name = "btnTabSelector";
@@ -2533,6 +2543,11 @@
             // 
             // btnTranslate
             // 
+            this.btnTranslate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTranslate.FlatAppearance.BorderSize = 0;
+            this.btnTranslate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTranslate.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.btnTranslate.ForeColor = System.Drawing.Color.White;
             this.btnTranslate.Location = new System.Drawing.Point(12, 383);
             this.btnTranslate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTranslate.Name = "btnTranslate";
@@ -2544,6 +2559,11 @@
             // 
             // btnTabTime
             // 
+            this.btnTabTime.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTabTime.FlatAppearance.BorderSize = 0;
+            this.btnTabTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTabTime.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.btnTabTime.ForeColor = System.Drawing.Color.White;
             this.btnTabTime.Location = new System.Drawing.Point(12, 309);
             this.btnTabTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTabTime.Name = "btnTabTime";
@@ -2555,6 +2575,11 @@
             // 
             // btnTagChain
             // 
+            this.btnTagChain.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTagChain.FlatAppearance.BorderSize = 0;
+            this.btnTagChain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTagChain.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.btnTagChain.ForeColor = System.Drawing.Color.White;
             this.btnTagChain.Location = new System.Drawing.Point(12, 346);
             this.btnTagChain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTagChain.Name = "btnTagChain";
@@ -2592,6 +2617,10 @@
             // 
             // btnExit
             // 
+            this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Font = new System.Drawing.Font("Century Gothic", 10.2F);
+            this.btnExit.ForeColor = System.Drawing.Color.White;
             this.btnExit.Location = new System.Drawing.Point(12, 590);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnExit.Name = "btnExit";
@@ -2604,6 +2633,7 @@
             // btnChangeLang
             // 
             this.btnChangeLang.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChangeLang.FlatAppearance.BorderSize = 0;
             this.btnChangeLang.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangeLang.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangeLang.ForeColor = System.Drawing.Color.White;
