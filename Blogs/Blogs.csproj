@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="profile.ico" />
+    <None Include="Resources\idioma.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

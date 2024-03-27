@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnExit = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblMessage = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cbBlogs = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvArticles = new System.Windows.Forms.DataGridView();
@@ -103,7 +101,6 @@
             this.label35 = new System.Windows.Forms.Label();
             this.tbImageSeq = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
-            this.pbImage = new System.Windows.Forms.PictureBox();
             this.label32 = new System.Windows.Forms.Label();
             this.cbImageLang = new System.Windows.Forms.ComboBox();
             this.label33 = new System.Windows.Forms.Label();
@@ -119,6 +116,7 @@
             this.label27 = new System.Windows.Forms.Label();
             this.tbImageName = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
+            this.pbImage = new System.Windows.Forms.PictureBox();
             this.lbImageSections = new System.Windows.Forms.ListBox();
             this.tabLinks = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -234,7 +232,6 @@
             this.lblVersion = new System.Windows.Forms.Label();
             this.lblCreditsDesc = new System.Windows.Forms.Label();
             this.btnNewArticle = new System.Windows.Forms.Button();
-            this.btnChangeLang = new System.Windows.Forms.Button();
             this.tbArticle = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -244,13 +241,15 @@
             this.tbES = new System.Windows.Forms.TextBox();
             this.tbTitleCA = new System.Windows.Forms.TextBox();
             this.label53 = new System.Windows.Forms.Label();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.btnTabSelector = new System.Windows.Forms.Button();
             this.btnTranslate = new System.Windows.Forms.Button();
             this.btnTabTime = new System.Windows.Forms.Button();
             this.btnTagChain = new System.Windows.Forms.Button();
             this.lblMode = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.LeftMenu = new System.Windows.Forms.Panel();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.btnChangeLang = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticles)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -284,24 +283,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvTranslations)).BeginInit();
             this.tabViewer.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox11.SuspendLayout();
+            this.LeftMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnExit
-            // 
-            this.btnExit.Location = new System.Drawing.Point(32, 418);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(129, 33);
-            this.btnExit.TabIndex = 0;
-            this.btnExit.Text = "Surt";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(912, 6);
+            this.lblTitle.Location = new System.Drawing.Point(996, 14);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(33, 16);
             this.lblTitle.TabIndex = 1;
@@ -311,22 +300,11 @@
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(15, 719);
+            this.lblMessage.Location = new System.Drawing.Point(253, 725);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(59, 16);
             this.lblMessage.TabIndex = 2;
             this.lblMessage.Text = "Preparat";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::Blogs.Properties.Resources.profile;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(132, 110);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
             // 
             // cbBlogs
             // 
@@ -365,7 +343,7 @@
             this.groupBox1.Controls.Add(this.lblDesc);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cbBlogs);
-            this.groupBox1.Location = new System.Drawing.Point(171, 21);
+            this.groupBox1.Location = new System.Drawing.Point(255, 29);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -452,7 +430,7 @@
             this.tabControl1.Controls.Add(this.tabChain);
             this.tabControl1.Controls.Add(this.tabTranslate);
             this.tabControl1.Controls.Add(this.tabViewer);
-            this.tabControl1.Location = new System.Drawing.Point(12, 224);
+            this.tabControl1.Location = new System.Drawing.Point(255, 236);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -984,7 +962,6 @@
             this.tabImages.Controls.Add(this.label35);
             this.tabImages.Controls.Add(this.tbImageSeq);
             this.tabImages.Controls.Add(this.label34);
-            this.tabImages.Controls.Add(this.pbImage);
             this.tabImages.Controls.Add(this.label32);
             this.tabImages.Controls.Add(this.cbImageLang);
             this.tabImages.Controls.Add(this.label33);
@@ -1000,6 +977,7 @@
             this.tabImages.Controls.Add(this.label27);
             this.tabImages.Controls.Add(this.tbImageName);
             this.tabImages.Controls.Add(this.label26);
+            this.tabImages.Controls.Add(this.pbImage);
             this.tabImages.Controls.Add(this.lbImageSections);
             this.tabImages.Location = new System.Drawing.Point(4, 25);
             this.tabImages.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -1089,16 +1067,6 @@
             this.label34.Size = new System.Drawing.Size(48, 16);
             this.label34.TabIndex = 48;
             this.label34.Text = "Imatge";
-            // 
-            // pbImage
-            // 
-            this.pbImage.Location = new System.Drawing.Point(719, 263);
-            this.pbImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pbImage.Name = "pbImage";
-            this.pbImage.Size = new System.Drawing.Size(319, 180);
-            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbImage.TabIndex = 47;
-            this.pbImage.TabStop = false;
             // 
             // label32
             // 
@@ -1231,6 +1199,16 @@
             this.label26.Size = new System.Drawing.Size(63, 16);
             this.label26.TabIndex = 32;
             this.label26.Text = "Seccions";
+            // 
+            // pbImage
+            // 
+            this.pbImage.Location = new System.Drawing.Point(719, 263);
+            this.pbImage.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pbImage.Name = "pbImage";
+            this.pbImage.Size = new System.Drawing.Size(319, 180);
+            this.pbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbImage.TabIndex = 47;
+            this.pbImage.TabStop = false;
             // 
             // lbImageSections
             // 
@@ -2444,25 +2422,14 @@
             // 
             // btnNewArticle
             // 
-            this.btnNewArticle.Location = new System.Drawing.Point(32, 100);
+            this.btnNewArticle.Location = new System.Drawing.Point(12, 272);
             this.btnNewArticle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNewArticle.Name = "btnNewArticle";
-            this.btnNewArticle.Size = new System.Drawing.Size(129, 33);
+            this.btnNewArticle.Size = new System.Drawing.Size(204, 33);
             this.btnNewArticle.TabIndex = 40;
             this.btnNewArticle.Text = "Nou article";
             this.btnNewArticle.UseVisualStyleBackColor = true;
             this.btnNewArticle.Click += new System.EventHandler(this.btnNewArticle_Click);
-            // 
-            // btnChangeLang
-            // 
-            this.btnChangeLang.Location = new System.Drawing.Point(32, 26);
-            this.btnChangeLang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnChangeLang.Name = "btnChangeLang";
-            this.btnChangeLang.Size = new System.Drawing.Size(129, 33);
-            this.btnChangeLang.TabIndex = 10;
-            this.btnChangeLang.Text = "Canvia el idioma";
-            this.btnChangeLang.UseVisualStyleBackColor = true;
-            this.btnChangeLang.Click += new System.EventHandler(this.btnChangeLang_Click);
             // 
             // tbArticle
             // 
@@ -2509,7 +2476,7 @@
             this.groupBox2.Controls.Add(this.tbArticle);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(171, 123);
+            this.groupBox2.Location = new System.Drawing.Point(255, 131);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -2553,30 +2520,12 @@
             this.label53.TabIndex = 26;
             this.label53.Text = "Títol";
             // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.btnTabSelector);
-            this.groupBox11.Controls.Add(this.btnTranslate);
-            this.groupBox11.Controls.Add(this.btnTabTime);
-            this.groupBox11.Controls.Add(this.btnTagChain);
-            this.groupBox11.Controls.Add(this.btnChangeLang);
-            this.groupBox11.Controls.Add(this.btnNewArticle);
-            this.groupBox11.Controls.Add(this.btnExit);
-            this.groupBox11.Location = new System.Drawing.Point(1095, 249);
-            this.groupBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox11.Size = new System.Drawing.Size(192, 459);
-            this.groupBox11.TabIndex = 13;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Accions generals";
-            // 
             // btnTabSelector
             // 
-            this.btnTabSelector.Location = new System.Drawing.Point(32, 63);
+            this.btnTabSelector.Location = new System.Drawing.Point(12, 235);
             this.btnTabSelector.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTabSelector.Name = "btnTabSelector";
-            this.btnTabSelector.Size = new System.Drawing.Size(129, 33);
+            this.btnTabSelector.Size = new System.Drawing.Size(204, 33);
             this.btnTabSelector.TabIndex = 44;
             this.btnTabSelector.Text = "Seleccionar article";
             this.btnTabSelector.UseVisualStyleBackColor = true;
@@ -2584,10 +2533,10 @@
             // 
             // btnTranslate
             // 
-            this.btnTranslate.Location = new System.Drawing.Point(32, 211);
+            this.btnTranslate.Location = new System.Drawing.Point(12, 383);
             this.btnTranslate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTranslate.Name = "btnTranslate";
-            this.btnTranslate.Size = new System.Drawing.Size(129, 33);
+            this.btnTranslate.Size = new System.Drawing.Size(204, 33);
             this.btnTranslate.TabIndex = 43;
             this.btnTranslate.Text = "Traduccions";
             this.btnTranslate.UseVisualStyleBackColor = true;
@@ -2595,10 +2544,10 @@
             // 
             // btnTabTime
             // 
-            this.btnTabTime.Location = new System.Drawing.Point(32, 137);
+            this.btnTabTime.Location = new System.Drawing.Point(12, 309);
             this.btnTabTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTabTime.Name = "btnTabTime";
-            this.btnTabTime.Size = new System.Drawing.Size(129, 33);
+            this.btnTabTime.Size = new System.Drawing.Size(204, 33);
             this.btnTabTime.TabIndex = 42;
             this.btnTabTime.Text = "Temps de lectura";
             this.btnTabTime.UseVisualStyleBackColor = true;
@@ -2606,10 +2555,10 @@
             // 
             // btnTagChain
             // 
-            this.btnTagChain.Location = new System.Drawing.Point(32, 174);
+            this.btnTagChain.Location = new System.Drawing.Point(12, 346);
             this.btnTagChain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTagChain.Name = "btnTagChain";
-            this.btnTagChain.Size = new System.Drawing.Size(129, 33);
+            this.btnTagChain.Size = new System.Drawing.Size(204, 33);
             this.btnTagChain.TabIndex = 41;
             this.btnTagChain.Text = "Encadenament";
             this.btnTagChain.UseVisualStyleBackColor = true;
@@ -2619,30 +2568,84 @@
             // 
             this.lblMode.AutoSize = true;
             this.lblMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMode.Location = new System.Drawing.Point(1096, 180);
+            this.lblMode.Location = new System.Drawing.Point(1180, 188);
             this.lblMode.Name = "lblMode";
             this.lblMode.Size = new System.Drawing.Size(66, 25);
             this.lblMode.TabIndex = 14;
             this.lblMode.Text = "Mode";
+            // 
+            // LeftMenu
+            // 
+            this.LeftMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
+            this.LeftMenu.Controls.Add(this.btnTabSelector);
+            this.LeftMenu.Controls.Add(this.btnExit);
+            this.LeftMenu.Controls.Add(this.btnTranslate);
+            this.LeftMenu.Controls.Add(this.btnNewArticle);
+            this.LeftMenu.Controls.Add(this.btnTabTime);
+            this.LeftMenu.Controls.Add(this.btnChangeLang);
+            this.LeftMenu.Controls.Add(this.pictureBox1);
+            this.LeftMenu.Controls.Add(this.btnTagChain);
+            this.LeftMenu.Location = new System.Drawing.Point(0, 0);
+            this.LeftMenu.Name = "LeftMenu";
+            this.LeftMenu.Size = new System.Drawing.Size(237, 750);
+            this.LeftMenu.TabIndex = 15;
+            // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(12, 590);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(204, 33);
+            this.btnExit.TabIndex = 0;
+            this.btnExit.Text = "Surt";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // btnChangeLang
+            // 
+            this.btnChangeLang.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChangeLang.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnChangeLang.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangeLang.ForeColor = System.Drawing.Color.White;
+            this.btnChangeLang.Image = global::Blogs.Properties.Resources.idioma;
+            this.btnChangeLang.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnChangeLang.Location = new System.Drawing.Point(12, 187);
+            this.btnChangeLang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnChangeLang.Name = "btnChangeLang";
+            this.btnChangeLang.Size = new System.Drawing.Size(204, 44);
+            this.btnChangeLang.TabIndex = 10;
+            this.btnChangeLang.Text = "Canvia l\'idioma";
+            this.btnChangeLang.UseVisualStyleBackColor = true;
+            this.btnChangeLang.Click += new System.EventHandler(this.btnChangeLang_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Blogs.Properties.Resources.profile;
+            this.pictureBox1.Location = new System.Drawing.Point(50, 19);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(132, 110);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(1299, 750);
+            this.ClientSize = new System.Drawing.Size(1381, 750);
+            this.Controls.Add(this.LeftMenu);
             this.Controls.Add(this.lblMode);
-            this.Controls.Add(this.groupBox11);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.lblTitle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Blocs";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticles)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -2689,7 +2692,8 @@
             this.tabViewer.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
+            this.LeftMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2870,7 +2874,6 @@
         private System.Windows.Forms.TextBox tbHeadTitle;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label lblDescription;
-        private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.Label lblMode;
         private System.Windows.Forms.TabPage tabChain;
         private System.Windows.Forms.Button btnTabTime;
@@ -2919,6 +2922,7 @@
         private System.Windows.Forms.Label label69;
         private System.Windows.Forms.ListBox lbTipsSections;
         private System.Windows.Forms.Button btnTabSelector;
+        private System.Windows.Forms.Panel LeftMenu;
     }
 }
 
