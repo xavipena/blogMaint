@@ -12,7 +12,7 @@ namespace Blogs.Classes
         public const string NO = "N";
         public const string SAY_YES = "Sí";
         public const string SAY_NO = "No";
-        public const int NUM_TABS = 15;
+        public const int NUM_TABS = 11;
     }
     public class Texts
     {
@@ -72,6 +72,11 @@ namespace Blogs.Classes
     {
         public const string CASTELLA = "es";
         public const string CATALA = "ca";
+        public class Name
+        {
+            public const string CASTELLA = "Castellà";
+            public const string CATALA = "Català";
+        }
     }
     public class BlogSet
     {
