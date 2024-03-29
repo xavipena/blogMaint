@@ -14,6 +14,7 @@ using System.IO.Pipelines;
 using Mysqlx;
 using System.Xml.Linq;
 using System.Runtime.InteropServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Blogs
 {
@@ -32,6 +33,18 @@ namespace Blogs
             int nWidthEllipse, // width of ellipse
             int nHeightEllipse // height of ellipse
         );
+
+        // To draw window when click on top bar
+        // -----------------------------------------------
+
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HTCAPTION = 0x2;
+
+        [DllImport("User32.dll")]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("User32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
         // -----------------------------------------------
 
@@ -289,7 +302,7 @@ namespace Blogs
         {
             Singleton Gdata = Singleton.GetInstance();
             Gdata.Lang = Gdata.Lang == Language.CASTELLA ? Language.CATALA : Language.CASTELLA;
-            lblLang.Text = Gdata.Lang == Language.CASTELLA ?Language.Name.CASTELLA : lblLang.Text = Language.Name.CASTELLA;
+            lblLang.Text = Gdata.Lang == Language.CASTELLA ? Language.Name.CATALA : lblLang.Text = Language.Name.CASTELLA;
         }
 
         private void UpdateCurrentTab()
@@ -331,10 +344,12 @@ namespace Blogs
 
         }
 
+        // ---------------------------------------------------------------------------
+        // Left menu buttons
+        // ---------------------------------------------------------------------------
 
         private void btnTabSelector_Click(object sender, EventArgs e)
         {
-            //tabControl1.SelectedIndex = Tabs.SELECTOR;
             btnTabSelector.BackColor = Color.FromArgb(46, 51, 73);
             lblSelected.Text = "Article";
 
@@ -352,7 +367,6 @@ namespace Blogs
 
         private void btnTabTime_Click(object sender, EventArgs e)
         {
-            //tabControl1.SelectedIndex = Tabs.READ_TIME;
             btnTabTime.BackColor = Color.FromArgb(46, 51, 73);
             lblSelected.Text = "Temps de lectura";
 
@@ -369,7 +383,6 @@ namespace Blogs
 
         private void btnTagChain_Click(object sender, EventArgs e)
         {
-            //tabControl1.SelectedIndex = Tabs.CHAIN;
             btnTabChain.BackColor = Color.FromArgb(46, 51, 73);
             lblSelected.Text = "Encadenament";
 
@@ -385,12 +398,8 @@ namespace Blogs
             FrmLinking.Show();
         }
 
-
-
-
         private void btnTranslate_Click(object sender, EventArgs e)
         {
-            //tabControl1.SelectedIndex = Tabs.TRANSLATE;
             btnTabChain.BackColor = Color.FromArgb(46, 51, 73);
             lblSelected.Text = "Traduccions";
 
@@ -406,7 +415,17 @@ namespace Blogs
             FrmTranslate.Show();
         }
 
+        // ---------------------------------------------------------------------------
+        // Drag event
+        // ---------------------------------------------------------------------------
 
-
+        private void pnlTopBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+            }
+        }
     }
 }
