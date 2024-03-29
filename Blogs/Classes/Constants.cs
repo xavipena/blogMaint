@@ -119,6 +119,15 @@ namespace Blogs.Classes
         }
     }
 
+    public class Panels
+    {
+        public const string MAIN = "Principal";
+        public const string ARTICLE = "Article";
+        public const string READTIME = "Temps lectura";
+        public const string TRANSLATION = "Traduccions";
+        public const string LINKING = "Encadenament";
+    }
+
     public class GridCells
     {
         public class MetadataCell

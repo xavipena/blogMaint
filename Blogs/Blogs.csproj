@@ -206,6 +206,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="profile.ico" />
+    <None Include="Resources\translate1.png" />
+    <None Include="Resources\selection1.png" />
+    <None Include="Resources\readTime1.png" />
+    <None Include="Resources\new1.png" />
+    <None Include="Resources\link1.png" />
+    <None Include="Resources\language1.png" />
+    <None Include="Resources\exit1.png" />
     <None Include="Resources\FormBackground.jpg" />
     <None Include="Resources\idioma.png" />
   </ItemGroup>

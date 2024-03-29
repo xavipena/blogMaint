@@ -133,11 +133,14 @@ namespace Blogs
         /// </summary>
         private void SetDefaultValues()
         {
-            lblMessage.Text = Messages.READY;
-            lblDesc.Text = Readers.GetBlogDescription();
             lblTitle.Text = Texts.DESCRIPTION;
             lblMode.Text = Modes.Text.EMPTY;
+            lblLang.Text = Language.Name.CASTELLA;
+            lblSelected.Text = Panels.MAIN;
+            lblMessage.Text = Messages.READY;
+            lblDesc.Text = Readers.GetBlogDescription();
             Gdata.maintMode = Modes.Status.EMPTY;
+            Gdata.Lang = Language.CASTELLA;
             loading = false;
         }
 
@@ -351,7 +354,7 @@ namespace Blogs
         private void btnTabSelector_Click(object sender, EventArgs e)
         {
             btnTabSelector.BackColor = Color.FromArgb(46, 51, 73);
-            lblSelected.Text = "Article";
+            lblSelected.Text = Panels.ARTICLE;
 
             pnlContainer.Controls.Clear();
             FormArticle FrmArticle = new FormArticle()
@@ -368,7 +371,7 @@ namespace Blogs
         private void btnTabTime_Click(object sender, EventArgs e)
         {
             btnTabTime.BackColor = Color.FromArgb(46, 51, 73);
-            lblSelected.Text = "Temps de lectura";
+            lblSelected.Text = Panels.READTIME;
 
             pnlContainer.Controls.Clear();
             FormReadingTime FrmReading = new FormReadingTime() {
@@ -384,7 +387,7 @@ namespace Blogs
         private void btnTagChain_Click(object sender, EventArgs e)
         {
             btnTabChain.BackColor = Color.FromArgb(46, 51, 73);
-            lblSelected.Text = "Encadenament";
+            lblSelected.Text = Panels.LINKING;
 
             pnlContainer.Controls.Clear();
             FormLinking FrmLinking = new FormLinking()
@@ -401,7 +404,7 @@ namespace Blogs
         private void btnTranslate_Click(object sender, EventArgs e)
         {
             btnTabChain.BackColor = Color.FromArgb(46, 51, 73);
-            lblSelected.Text = "Traduccions";
+            lblSelected.Text = Panels.TRANSLATION;
 
             pnlContainer.Controls.Clear();
             FormTranslate FrmTranslate = new FormTranslate()

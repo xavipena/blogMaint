@@ -60,7 +60,7 @@ namespace Blogs
             tbES.Text = Language.CASTELLA;
             tbCA.Text = Language.CATALA;
             tbES.BackColor = Color.LightYellow;
-            lblMessage.Text = Messages.READY;
+            Parent.Parent.lblMessage.Text = Messages.READY;
             Gdata.maintMode = Modes.Status.EMPTY;
             loading = false;
         }
