@@ -52,6 +52,42 @@ namespace Blogs
 
         }
 
+        private void PrintMessage(string msg)
+        {
+            /*
+            To allow a top-level form to share a control with a lower-level form:
+
+            1.) In form designer, open the main form, select the control to be shared, and set its modifier 
+                to "Internal".
+            2.) When calling the lower-level form, supply "this" as the owner parameter of Show().
+
+                LoginForm login = new LoginForm();
+                login.Show(this);
+
+            3.) From the lower-level form, you can now reference the Owner property and cast it back to its 
+                class type to access the shared control by name.
+
+                ((MainForm)Owner).PanelContainer.Visible = false;
+             */
+
+            if (this.Parent == null || this.Parent.GetType() != typeof(Form1))
+                return;
+
+            // Check if calling from a thread that is not main
+
+            if (((Form1)Owner).lblMessage.InvokeRequired)
+            {
+                ((Form1)Owner).lblMessage.BeginInvoke((MethodInvoker)delegate ()
+                {
+                    ((Form1)Owner).lblMessage.Text = msg;
+                });
+            }
+            else
+            {
+                ((Form1)Owner).lblMessage.Text = msg;
+            }
+        }
+
         /// <summary>
         /// Default form values for initialization
         /// </summary>
@@ -60,7 +96,7 @@ namespace Blogs
             tbES.Text = Language.CASTELLA;
             tbCA.Text = Language.CATALA;
             tbES.BackColor = Color.LightYellow;
-            Parent.Parent.lblMessage.Text = Messages.READY;
+            PrintMessage(Messages.READY);
             Gdata.maintMode = Modes.Status.EMPTY;
             loading = false;
         }
@@ -107,9 +143,9 @@ namespace Blogs
             if (!Gdata.db.IsConnected) return;
 
             Loaders.LoadComboBox(cbHeadType, "select distinct type, type from articles");
-            lblMessage.Text = Gdata.ErrorText;
+            PrintMessage(Gdata.ErrorText);
             Loaders.LoadComboBox(cbTipsIcon, "select concat(IDicon, ''), name from article_tip_types");
-            lblMessage.Text = Gdata.ErrorText;
+            PrintMessage(Gdata.ErrorText);
 
             Loaders.LoadCombo(cbHeadStatus, Combos.STATUS);
             Loaders.LoadCombo(cbHeadLang, Combos.LANGUAGE);
@@ -341,10 +377,10 @@ namespace Blogs
 
         private void tabControl_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = string.Empty;
+            PrintMessage(string.Empty);
             if (Gdata.IDarticle == 0 && tabControl1.SelectedIndex < 9)
             {
-                lblMessage.Text = "Selecciona un article per mostrar els detalls";
+                PrintMessage("Selecciona un article per mostrar els detalls");
             }
 
             if (!done[tabControl1.SelectedIndex])
@@ -776,17 +812,17 @@ namespace Blogs
             try
             {
                 string url = Gdata.url + "/images/" + image;
-                UpdateMessage("Baixant...");
+                PrintMessage("Baixant...");
                 byte[] data = await client.GetByteArrayAsync(url);
-                UpdateMessage("Gravant...");
+                PrintMessage("Gravant...");
                 File.WriteAllBytes(Paths.DOWNLOAD + image, data);
-                UpdateMessage("Fet");
+                PrintMessage("Fet");
                 ShowImage(image);
             }
             catch (Exception ex)
             {
                 Gdata.ErrorText = ex.Message;
-                UpdateMessage(ex.Message);
+                PrinteMessage(ex.Message);
             }
         }
 
@@ -804,12 +840,13 @@ namespace Blogs
             }
             catch (OutOfMemoryException)
             {
-                UpdateMessage("Imatge massa gran");
+                PrintMessage("Imatge massa gran");
                 //throw; throw newOutOfMemoryException("Imatge massa gran: " + image, e);
             }
-            if (lblMessage.InvokeRequired)
+            // Access main thread
+            if (pbImage.InvokeRequired)
             {
-                lblMessage.BeginInvoke((MethodInvoker)delegate ()
+                pbImage.BeginInvoke((MethodInvoker)delegate ()
                 {
 
                     pbImage.Image = DownloadedImage;
@@ -821,26 +858,6 @@ namespace Blogs
             }
         }
         #endregion
-
-        /// <summary>
-        /// Update message labels depending on current thread
-        /// </summary>
-        /// <param name="message"></param>
-        private void UpdateMessage(string message)
-        {
-            if (lblMessage.InvokeRequired)
-            {
-                lblMessage.BeginInvoke((MethodInvoker)delegate ()
-                {
-
-                    lblMessage.Text = message;
-                });
-            }
-            else
-            {
-                lblMessage.Text = message;
-            }
-        }
 
         private void FillTabMetadata()
         {
@@ -1575,7 +1592,7 @@ namespace Blogs
 
             if (Gdata.maintMode != Modes.Status.QUERY)
             {
-                lblMessage.Text = "Hi ha canvis pendents";
+                PrintMessage("Hi ha canvis pendents");
                 return;
             }
 
@@ -1595,10 +1612,10 @@ namespace Blogs
 
         private void btnNewText_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "En procès";
+            PrintMessage("En procès");
             if (Gdata.maintMode != Modes.Status.QUERY)
             {
-                lblMessage.Text = "Hi ha canvis pendents";
+                PrintMessage("Hi ha canvis pendents");
                 return;
             }
 
@@ -1610,10 +1627,10 @@ namespace Blogs
 
         private void btnNewImage_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "Encara no";
+            PrintMessage("Encara no");
             if (Gdata.maintMode != Modes.Status.QUERY)
             {
-                lblMessage.Text = "Hi ha canvis pendents";
+                PrintMessage("Hi ha canvis pendents");
                 return;
             }
 
@@ -1624,10 +1641,10 @@ namespace Blogs
 
         private void btnNewLink_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "Encara no";
+            PrintMessage("Encara no");
             if (Gdata.maintMode != Modes.Status.QUERY)
             {
-                lblMessage.Text = "Hi ha canvis pendents";
+                PrintMessage("Hi ha canvis pendents");
                 return;
             }
 
@@ -1638,10 +1655,10 @@ namespace Blogs
 
         private void btnNewRef_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "Encara no";
+            PrintMessage("Encara no");
             if (Gdata.maintMode != Modes.Status.QUERY)
             {
-                lblMessage.Text = "Hi ha canvis pendents";
+                PrintMessage("Hi ha canvis pendents");
                 return;
             }
 
@@ -1652,10 +1669,10 @@ namespace Blogs
 
         private void btnNewQuote_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "Encara no";
+            PrintMessage("Encara no");
             if (Gdata.maintMode != Modes.Status.QUERY)
             {
-                lblMessage.Text = "Hi ha canvis pendents";
+                PrintMessage("Hi ha canvis pendents");
                 return;
             }
 
@@ -1666,10 +1683,10 @@ namespace Blogs
 
         private void btnNewCode_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "Encara no";
+            PrintMessage("Encara no");
             if (Gdata.maintMode != Modes.Status.QUERY)
             {
-                lblMessage.Text = "Hi ha canvis pendents";
+                PrintMessage("Hi ha canvis pendents");
                 return;
             }
 
@@ -1680,10 +1697,10 @@ namespace Blogs
 
         private void btnNewTips_Click(object sender, EventArgs e)
         {
-            lblMessage.Text = "Encara no";
+            PrintMessage("Encara no");
             if (Gdata.maintMode != Modes.Status.QUERY)
             {
-                lblMessage.Text = "Hi ha canvis pendents";
+                PrintMessage("Hi ha canvis pendents");
                 return;
             }
 
@@ -1699,7 +1716,7 @@ namespace Blogs
                 Cursor.Current = Cursors.WaitCursor;
                 if (Writers.UpdateMetadata(dgvMetadata))
                 {
-                    lblMessage.Text = "Actualització correcta";
+                    PrintMessage("Actualització correcta");
                 }
                 Cursor.Current = Cursors.Default;
             }
@@ -1718,7 +1735,7 @@ namespace Blogs
             }
             else
             {
-                lblMessage.Text = "Error recuperant número";
+                PrintMessage("Error recuperant número");
             }
             return num > 0;
         }
@@ -1735,7 +1752,7 @@ namespace Blogs
             }
             if (missingData)
             {
-                lblMessage.Text = "Falta omplir camps obigatoris";
+                PrintMessage("Falta omplir camps obigatoris");
             }
             return missingData;
         }
@@ -1773,7 +1790,7 @@ namespace Blogs
         {
             if (Gdata.IDarticle == 0)
             {
-                lblMessage.Text = "Res seleccionat";
+                PrintMessage("Res seleccionat");
                 return;
             }
 
@@ -1812,7 +1829,7 @@ namespace Blogs
             }
             if (NeedToSave[tab])
             {
-                lblMessage.Text = "Gravar canvis";
+                PrintMessage("Gravar canvis");
                 switch (tab)
                 {
                     case Tabs.HEADER:
@@ -1844,7 +1861,7 @@ namespace Blogs
                         break;
                 }
             }
-            else lblMessage.Text = "No hi ha canvis";
+            else PrintMessage("No hi ha canvis");
         }
 
         private void SetMode(int mode)

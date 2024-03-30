@@ -365,7 +365,7 @@ namespace Blogs
             };
             FrmArticle.FormBorderStyle = FormBorderStyle.None;
             pnlContainer.Controls.Add(FrmArticle);
-            FrmArticle.Show();
+            FrmArticle.Show(this);
         }
 
         private void btnTabTime_Click(object sender, EventArgs e)
@@ -415,7 +415,7 @@ namespace Blogs
             };
             FrmTranslate.FormBorderStyle = FormBorderStyle.None;
             pnlContainer.Controls.Add(FrmTranslate);
-            FrmTranslate.Show();
+            FrmTranslate.Show(this);
         }
 
         // ---------------------------------------------------------------------------
