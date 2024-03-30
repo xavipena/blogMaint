@@ -25,6 +25,7 @@ namespace Blogs.Classes
         public int IDarticle = 0;
         public int AuxKey = 0;
         public int maintMode = Modes.Status.EMPTY;
+        public int currentForm = Panels.Id.HOME;
         public bool testMode = false;
         
         // This is current database

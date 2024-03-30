@@ -37,20 +37,20 @@
             // 
             // btnes_ES
             // 
-            this.btnes_ES.Location = new System.Drawing.Point(448, 516);
-            this.btnes_ES.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnes_ES.Location = new System.Drawing.Point(305, 328);
+            this.btnes_ES.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnes_ES.Name = "btnes_ES";
-            this.btnes_ES.Size = new System.Drawing.Size(100, 31);
+            this.btnes_ES.Size = new System.Drawing.Size(75, 25);
             this.btnes_ES.TabIndex = 5;
             this.btnes_ES.Text = "Castellà";
             this.btnes_ES.UseVisualStyleBackColor = true;
             // 
             // btnca_ES
             // 
-            this.btnca_ES.Location = new System.Drawing.Point(689, 516);
-            this.btnca_ES.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnca_ES.Location = new System.Drawing.Point(486, 328);
+            this.btnca_ES.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnca_ES.Name = "btnca_ES";
-            this.btnca_ES.Size = new System.Drawing.Size(96, 31);
+            this.btnca_ES.Size = new System.Drawing.Size(72, 25);
             this.btnca_ES.TabIndex = 4;
             this.btnca_ES.Text = "Català";
             this.btnca_ES.UseVisualStyleBackColor = true;
@@ -58,32 +58,35 @@
             // dgvTranslations
             // 
             this.dgvTranslations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTranslations.Location = new System.Drawing.Point(81, 126);
-            this.dgvTranslations.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dgvTranslations.Location = new System.Drawing.Point(11, 11);
+            this.dgvTranslations.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvTranslations.Name = "dgvTranslations";
             this.dgvTranslations.RowHeadersWidth = 51;
             this.dgvTranslations.RowTemplate.Height = 24;
-            this.dgvTranslations.Size = new System.Drawing.Size(1056, 386);
+            this.dgvTranslations.Size = new System.Drawing.Size(850, 314);
             this.dgvTranslations.TabIndex = 3;
             // 
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(142, 571);
+            this.lblMessage.Location = new System.Drawing.Point(106, 464);
+            this.lblMessage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(44, 16);
+            this.lblMessage.Size = new System.Drawing.Size(35, 13);
             this.lblMessage.TabIndex = 6;
             this.lblMessage.Text = "label1";
             // 
             // FormTranslate
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1218, 673);
+            this.BackColor = System.Drawing.Color.Silver;
+            this.ClientSize = new System.Drawing.Size(872, 440);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.btnes_ES);
             this.Controls.Add(this.btnca_ES);
             this.Controls.Add(this.dgvTranslations);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FormTranslate";
             this.Text = "Translation";
             ((System.ComponentModel.ISupportInitialize)(this.dgvTranslations)).EndInit();

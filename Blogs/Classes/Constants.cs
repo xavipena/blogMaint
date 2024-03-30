@@ -54,10 +54,6 @@ namespace Blogs.Classes
         public const int VIDEO = 8;
         public const int TIPS = 9;
         public const int METADATA = 10;
-        public const int READ_TIME = 11;
-        public const int CHAIN = 12;
-        public const int TRANSLATE = 13;
-        public const int CREDITS = 14;
         // Update NUM_TABS
     }
     public class Combos
@@ -121,11 +117,27 @@ namespace Blogs.Classes
 
     public class Panels
     {
-        public const string MAIN = "Principal";
-        public const string ARTICLE = "Article";
-        public const string READTIME = "Temps lectura";
-        public const string TRANSLATION = "Traduccions";
-        public const string LINKING = "Encadenament";
+        public class Id
+        {
+            public const int HOME = 0;
+            public const int ARTICLE = 1;
+            public const int READTIME = 2;
+            public const int TRANSLATION = 3;
+            public const int LINKING = 4;
+            public const int SETTINGS = 5;
+            public const int EXIT = 9;
+        }
+
+        public class Name
+        {
+            public const string HOME = "Principal";
+            public const string ARTICLE = "Article";
+            public const string READTIME = "Temps lectura";
+            public const string TRANSLATION = "Traduccions";
+            public const string LINKING = "Encadenament";
+            public const string SETTINGS = "Ajusts";
+            public const string EXIT = "Sortida";
+        }
     }
 
     public class GridCells

@@ -81,11 +81,47 @@ namespace Blogs
                 Cursor.Current = Cursors.WaitCursor;
                 if (Writers.UpdateChains(dgvChains))
                 {
-                    lblMessage.Text = "Actualització correcta";
+                    PrintMessage("Actualització correcta");
                     FillTabChained();
                     btnChainSave.Enabled = false;
                 }
                 Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void PrintMessage(string msg)
+        {
+            /*
+            To allow a top-level form to share a control with a lower-level form:
+
+            1.) In form designer, open the main form, select the control to be shared, and set its modifier 
+                to "Internal".
+            2.) When calling the lower-level form, supply "this" as the owner parameter of Show().
+
+                LoginForm login = new LoginForm();
+                login.Show(this);
+
+            3.) From the lower-level form, you can now reference the Owner property and cast it back to its 
+                class type to access the shared control by name.
+
+                ((MainForm)Owner).PanelContainer.Visible = false;
+             */
+
+            if (this.Parent == null || this.Parent.GetType() != typeof(Form1))
+                return;
+
+            // Check if calling from a thread that is not main
+
+            if (((Form1)Owner).lblMessage.InvokeRequired)
+            {
+                ((Form1)Owner).lblMessage.BeginInvoke((MethodInvoker)delegate ()
+                {
+                    ((Form1)Owner).lblMessage.Text = msg;
+                });
+            }
+            else
+            {
+                ((Form1)Owner).lblMessage.Text = msg;
             }
         }
 

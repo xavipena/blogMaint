@@ -43,7 +43,7 @@ namespace Blogs
             DefineGrids();
             LoadCombos();
             SetButtonStatus();
-
+            LoadArticlesGrid();
         }
 
         private void SetUpForm()
@@ -301,7 +301,7 @@ namespace Blogs
         /// <summary>
         /// Load article list into grid
         /// </summary>
-        private void LoadArticlesGrid()
+        public void LoadArticlesGrid()
         {
             dgvSelector.Rows.Clear();
             dgvSelector.Sort(dgvSelector.Columns[0], ListSortDirection.Descending);
@@ -822,7 +822,7 @@ namespace Blogs
             catch (Exception ex)
             {
                 Gdata.ErrorText = ex.Message;
-                PrinteMessage(ex.Message);
+                PrintMessage(ex.Message);
             }
         }
 
@@ -1911,6 +1911,11 @@ namespace Blogs
             ClearDoneArray();
             LoadArticleSections();
             SetButtonStatus();
+        }
+
+        private void btnHeadSave_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

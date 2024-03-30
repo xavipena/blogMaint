@@ -65,10 +65,13 @@ namespace Blogs
             Cursor.Current = Cursors.WaitCursor;
             Gdata.db = DBConnect(Gdata.currentSet);
             Gdata.dbCommon = Gdata.db;
+            Gdata.Lang = Language.CASTELLA;
             LoadBlogs();
             Loaders.LoadCombo(cbSet, Combos.BLOG_SET);
             LoadCombos();
             SetDefaultValues();
+            LoadFormsInContainer();
+            ShowSelectedForm(Panels.Id.HOME);
             Cursor.Current = Cursors.Default;
         }
 
@@ -136,7 +139,7 @@ namespace Blogs
             lblTitle.Text = Texts.DESCRIPTION;
             lblMode.Text = Modes.Text.EMPTY;
             lblLang.Text = Language.Name.CASTELLA;
-            lblSelected.Text = Panels.MAIN;
+            lblSelected.Text = Panels.Name.HOME;
             lblMessage.Text = Messages.READY;
             lblDesc.Text = Readers.GetBlogDescription();
             Gdata.maintMode = Modes.Status.EMPTY;
@@ -144,6 +147,40 @@ namespace Blogs
             loading = false;
         }
 
+        private void LoadFormsInContainer()
+        {
+            pnlContainer.Controls.Clear();
+            AddFormToContainer(new FormHome());
+            AddFormToContainer(new FormArticle());
+            AddFormToContainer(new FormReadingTime());
+            AddFormToContainer(new FormTranslate());
+            AddFormToContainer(new FormLinking());
+            AddFormToContainer(new FormSettings());
+        }
+         
+        private void AddFormToContainer(Form FrmType)
+        { 
+            FrmType.Dock = DockStyle.Fill;
+            FrmType.TopLevel = false;
+            FrmType.TopMost = true;
+            FrmType.FormBorderStyle = FormBorderStyle.None;
+            pnlContainer.Controls.Add(FrmType);
+        }
+
+        private void ShowSelectedForm(int frm)
+        {
+
+            if (pnlContainer.Controls.Count > 0)
+            {
+                // Hide all
+                foreach (Control ctrl in pnlContainer.Controls)
+                {
+                    ctrl.Hide();
+                }
+                // Set current
+                pnlContainer.Controls[frm].Show();
+            }
+        }
 
         /// <summary>
         /// Connect to database using the connecion class
@@ -206,6 +243,7 @@ namespace Blogs
                 cbBlogs.ValueMember = "entityValue";
                 cbBlogs.DropDownStyle = ComboBoxStyle.DropDownList;
             }
+            Gdata.currentBlog = Int32.Parse(dataSource[0].entityValue);
         }
 
 
@@ -303,9 +341,10 @@ namespace Blogs
 
         private void btnChangeLang_Click(object sender, EventArgs e)
         {
+            // No background change because no form shows up
             Singleton Gdata = Singleton.GetInstance();
             Gdata.Lang = Gdata.Lang == Language.CASTELLA ? Language.CATALA : Language.CASTELLA;
-            lblLang.Text = Gdata.Lang == Language.CASTELLA ? Language.Name.CATALA : lblLang.Text = Language.Name.CASTELLA;
+            lblLang.Text = Gdata.Lang == Language.CASTELLA ? Language.Name.CASTELLA : lblLang.Text = Language.Name.CATALA;
         }
 
         private void UpdateCurrentTab()
@@ -331,6 +370,8 @@ namespace Blogs
 
         private void cbBlogs_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (loading) return;
+
             // Restart all for a new blog
             Singleton Gdata = Singleton.GetInstance();
             Gdata.IDarticle = 0;
@@ -340,11 +381,15 @@ namespace Blogs
             loading = true;
             Cursor.Current = Cursors.WaitCursor;
             LoadCombos();
-            loading = false;
-            Cursor.Current = Cursors.Default;
-
             lblDesc.Text = Readers.GetBlogDescription();
 
+            ShowSelectedForm(Panels.Id.ARTICLE);
+            // Load blog articles
+            FormArticle frm = pnlContainer.Controls[Panels.Id.ARTICLE] as FormArticle;
+            frm.LoadArticlesGrid();
+
+            loading = false;
+            Cursor.Current = Cursors.Default;
         }
 
         // ---------------------------------------------------------------------------
@@ -353,69 +398,50 @@ namespace Blogs
 
         private void btnTabSelector_Click(object sender, EventArgs e)
         {
+            HighlightButton(btnTabSelector);
             btnTabSelector.BackColor = Color.FromArgb(46, 51, 73);
-            lblSelected.Text = Panels.ARTICLE;
-
-            pnlContainer.Controls.Clear();
-            FormArticle FrmArticle = new FormArticle()
-            {
-                Dock = DockStyle.Fill,
-                TopLevel = false,
-                TopMost = true
-            };
-            FrmArticle.FormBorderStyle = FormBorderStyle.None;
-            pnlContainer.Controls.Add(FrmArticle);
-            FrmArticle.Show(this);
+            lblSelected.Text = Panels.Name.ARTICLE;
+            ShowSelectedForm(Panels.Id.ARTICLE);
         }
 
         private void btnTabTime_Click(object sender, EventArgs e)
         {
-            btnTabTime.BackColor = Color.FromArgb(46, 51, 73);
-            lblSelected.Text = Panels.READTIME;
-
-            pnlContainer.Controls.Clear();
-            FormReadingTime FrmReading = new FormReadingTime() {
-                Dock = DockStyle.Fill,
-                TopLevel = false,
-                TopMost = true 
-            }; 
-            FrmReading.FormBorderStyle = FormBorderStyle.None;
-            pnlContainer.Controls.Add(FrmReading);
-            FrmReading.Show();
+            HighlightButton(btnTabTime);
+            lblSelected.Text = Panels.Name.READTIME;
+            ShowSelectedForm(Panels.Id.READTIME);
         }
 
         private void btnTagChain_Click(object sender, EventArgs e)
         {
-            btnTabChain.BackColor = Color.FromArgb(46, 51, 73);
-            lblSelected.Text = Panels.LINKING;
-
-            pnlContainer.Controls.Clear();
-            FormLinking FrmLinking = new FormLinking()
-            {
-                Dock = DockStyle.Fill,
-                TopLevel = false,
-                TopMost = true
-            };
-            FrmLinking.FormBorderStyle = FormBorderStyle.None;
-            pnlContainer.Controls.Add(FrmLinking);
-            FrmLinking.Show();
+            HighlightButton(btnTabChain);
+            lblSelected.Text = Panels.Name.LINKING;
+            ShowSelectedForm(Panels.Id.LINKING);
         }
 
         private void btnTranslate_Click(object sender, EventArgs e)
         {
-            btnTabChain.BackColor = Color.FromArgb(46, 51, 73);
-            lblSelected.Text = Panels.TRANSLATION;
+            HighlightButton(btnTranslate);
+            lblSelected.Text = Panels.Name.TRANSLATION;
+            ShowSelectedForm(Panels.Id.TRANSLATION);
+        }
 
-            pnlContainer.Controls.Clear();
-            FormTranslate FrmTranslate = new FormTranslate()
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            HighlightButton(btnSettings);
+            lblSelected.Text = Panels.Name.SETTINGS;
+            ShowSelectedForm(Panels.Id.SETTINGS);
+        }
+
+        private void HighlightButton(Button btn)
+        {
+            foreach (Control ctrl in LeftMenu.Controls)
             {
-                Dock = DockStyle.Fill,
-                TopLevel = false,
-                TopMost = true
-            };
-            FrmTranslate.FormBorderStyle = FormBorderStyle.None;
-            pnlContainer.Controls.Add(FrmTranslate);
-            FrmTranslate.Show(this);
+                if (ctrl.GetType() == typeof(Button))
+                {
+                    ctrl.BackColor = Color.FromArgb(24, 30, 54);
+                }
+            }
+            btn.BackColor = Color.FromArgb(46, 51, 73);
         }
 
         // ---------------------------------------------------------------------------
@@ -429,6 +455,11 @@ namespace Blogs
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
             }
+        }
+
+        private void btnNewArticle_Click(object sender, EventArgs e)
+        {
+            lblMessage.Text = "Encara no està llest";
         }
     }
 }

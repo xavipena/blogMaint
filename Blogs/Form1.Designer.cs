@@ -75,7 +75,7 @@
             // 
             this.cbBlogs.FormattingEnabled = true;
             this.cbBlogs.Location = new System.Drawing.Point(50, 28);
-            this.cbBlogs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbBlogs.Margin = new System.Windows.Forms.Padding(2);
             this.cbBlogs.Name = "cbBlogs";
             this.cbBlogs.Size = new System.Drawing.Size(252, 23);
             this.cbBlogs.TabIndex = 4;
@@ -101,9 +101,9 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Silver;
             this.groupBox1.Location = new System.Drawing.Point(191, 24);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(688, 87);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
@@ -123,7 +123,7 @@
             // 
             this.cbSet.FormattingEnabled = true;
             this.cbSet.Location = new System.Drawing.Point(361, 28);
-            this.cbSet.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbSet.Margin = new System.Windows.Forms.Padding(2);
             this.cbSet.Name = "cbSet";
             this.cbSet.Size = new System.Drawing.Size(252, 23);
             this.cbSet.TabIndex = 12;
@@ -149,13 +149,14 @@
             this.btnNewArticle.Image = global::Blogs.Properties.Resources._new;
             this.btnNewArticle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNewArticle.Location = new System.Drawing.Point(7, 239);
-            this.btnNewArticle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNewArticle.Margin = new System.Windows.Forms.Padding(2);
             this.btnNewArticle.Name = "btnNewArticle";
             this.btnNewArticle.Size = new System.Drawing.Size(166, 37);
             this.btnNewArticle.TabIndex = 40;
             this.btnNewArticle.Text = "Nou article";
             this.btnNewArticle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNewArticle.UseVisualStyleBackColor = true;
+            this.btnNewArticle.Click += new System.EventHandler(this.btnNewArticle_Click);
             // 
             // btnTabSelector
             // 
@@ -167,7 +168,7 @@
             this.btnTabSelector.Image = global::Blogs.Properties.Resources.selection;
             this.btnTabSelector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTabSelector.Location = new System.Drawing.Point(7, 199);
-            this.btnTabSelector.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnTabSelector.Margin = new System.Windows.Forms.Padding(2);
             this.btnTabSelector.Name = "btnTabSelector";
             this.btnTabSelector.Size = new System.Drawing.Size(166, 37);
             this.btnTabSelector.TabIndex = 44;
@@ -186,7 +187,7 @@
             this.btnTranslate.Image = global::Blogs.Properties.Resources.translate;
             this.btnTranslate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTranslate.Location = new System.Drawing.Point(7, 358);
-            this.btnTranslate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnTranslate.Margin = new System.Windows.Forms.Padding(2);
             this.btnTranslate.Name = "btnTranslate";
             this.btnTranslate.Size = new System.Drawing.Size(166, 37);
             this.btnTranslate.TabIndex = 43;
@@ -205,7 +206,7 @@
             this.btnTabTime.Image = global::Blogs.Properties.Resources.readTime;
             this.btnTabTime.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTabTime.Location = new System.Drawing.Point(7, 279);
-            this.btnTabTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnTabTime.Margin = new System.Windows.Forms.Padding(2);
             this.btnTabTime.Name = "btnTabTime";
             this.btnTabTime.Size = new System.Drawing.Size(166, 37);
             this.btnTabTime.TabIndex = 42;
@@ -224,7 +225,7 @@
             this.btnTabChain.Image = global::Blogs.Properties.Resources.link;
             this.btnTabChain.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTabChain.Location = new System.Drawing.Point(7, 318);
-            this.btnTabChain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnTabChain.Margin = new System.Windows.Forms.Padding(2);
             this.btnTabChain.Name = "btnTabChain";
             this.btnTabChain.Size = new System.Drawing.Size(166, 37);
             this.btnTabChain.TabIndex = 41;
@@ -259,7 +260,7 @@
             this.LeftMenu.Controls.Add(this.btnTabChain);
             this.LeftMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.LeftMenu.Location = new System.Drawing.Point(0, 0);
-            this.LeftMenu.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.LeftMenu.Margin = new System.Windows.Forms.Padding(2);
             this.LeftMenu.Name = "LeftMenu";
             this.LeftMenu.Size = new System.Drawing.Size(178, 626);
             this.LeftMenu.TabIndex = 15;
@@ -274,13 +275,13 @@
             this.btnSettings.Image = global::Blogs.Properties.Resources.exit;
             this.btnSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSettings.Location = new System.Drawing.Point(7, 500);
-            this.btnSettings.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSettings.Margin = new System.Windows.Forms.Padding(2);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(166, 37);
             this.btnSettings.TabIndex = 45;
-            this.btnSettings.Text = "Preferencies";
-            this.btnSettings.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSettings.Text = "Ajusts";
             this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // btnExit
             // 
@@ -292,12 +293,11 @@
             this.btnExit.Image = global::Blogs.Properties.Resources.exit;
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExit.Location = new System.Drawing.Point(7, 540);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(2);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(166, 37);
             this.btnExit.TabIndex = 0;
             this.btnExit.Text = "Surt";
-            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -311,7 +311,7 @@
             this.btnChangeLang.Image = global::Blogs.Properties.Resources.language;
             this.btnChangeLang.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnChangeLang.Location = new System.Drawing.Point(7, 159);
-            this.btnChangeLang.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnChangeLang.Margin = new System.Windows.Forms.Padding(2);
             this.btnChangeLang.Name = "btnChangeLang";
             this.btnChangeLang.Size = new System.Drawing.Size(166, 37);
             this.btnChangeLang.TabIndex = 10;
@@ -324,7 +324,7 @@
             // 
             this.pictureBox1.Image = global::Blogs.Properties.Resources.profile;
             this.pictureBox1.Location = new System.Drawing.Point(38, 15);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(99, 89);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -346,7 +346,7 @@
             // pnlContainer
             // 
             this.pnlContainer.Location = new System.Drawing.Point(191, 116);
-            this.pnlContainer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlContainer.Margin = new System.Windows.Forms.Padding(2);
             this.pnlContainer.Name = "pnlContainer";
             this.pnlContainer.Size = new System.Drawing.Size(900, 479);
             this.pnlContainer.TabIndex = 17;
@@ -356,7 +356,7 @@
             this.lblLang.AutoSize = true;
             this.lblLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.lblLang.ForeColor = System.Drawing.Color.White;
-            this.lblLang.Location = new System.Drawing.Point(5, 36);
+            this.lblLang.Location = new System.Drawing.Point(5, 37);
             this.lblLang.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLang.Name = "lblLang";
             this.lblLang.Size = new System.Drawing.Size(49, 20);
@@ -370,7 +370,7 @@
             this.pnlTopBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTopBar.Location = new System.Drawing.Point(178, 0);
             this.pnlTopBar.Name = "pnlTopBar";
-            this.pnlTopBar.Size = new System.Drawing.Size(862, 24);
+            this.pnlTopBar.Size = new System.Drawing.Size(924, 24);
             this.pnlTopBar.TabIndex = 19;
             this.pnlTopBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlTopBar_MouseDown);
             // 
@@ -403,7 +403,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(1040, 626);
+            this.ClientSize = new System.Drawing.Size(1102, 626);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.pnlTopBar);
@@ -413,7 +413,7 @@
             this.Controls.Add(this.lblMessage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.HelpButton = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
