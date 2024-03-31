@@ -70,11 +70,13 @@ namespace Blogs
                 ((MainForm)Owner).PanelContainer.Visible = false;
              */
 
-            if (this.Parent == null || this.Parent.GetType() != typeof(Form1))
+            if (this.Parent == null || this.Owner == null)
                 return;
 
-            // Check if calling from a thread that is not main
+            if (msg == string.Empty) msg = Messages.READY;
 
+            // Check if calling from a thread that is not main
+            
             if (((Form1)Owner).lblMessage.InvokeRequired)
             {
                 ((Form1)Owner).lblMessage.BeginInvoke((MethodInvoker)delegate ()
@@ -84,7 +86,7 @@ namespace Blogs
             }
             else
             {
-                ((Form1)Owner).lblMessage.Text = msg;
+                ((Form1)this.Owner).lblMessage.Text = msg;
             }
         }
 
@@ -388,10 +390,12 @@ namespace Blogs
                 switch (tabControl1.SelectedIndex)
                 {
                     case Tabs.HEADER:
+
                         FillTabHead();
                         break;
 
                     case Tabs.SECTIONS:
+
                         // If tab is empty, show first section
                         if (tbTextDetail.Text == string.Empty)
                         {
@@ -404,6 +408,7 @@ namespace Blogs
                         break;
 
                     case Tabs.IMAGES:
+
                         if (tbImageName.Text == string.Empty)
                         {
                             cbOption op = lbImageSections.SelectedItem as cbOption;
@@ -415,6 +420,7 @@ namespace Blogs
                         break;
 
                     case Tabs.LINKS:
+
                         if (tbLinkName.Text == string.Empty)
                         {
                             cbOption op = lbLinkSections.SelectedItem as cbOption;
@@ -426,6 +432,7 @@ namespace Blogs
                         break;
 
                     case Tabs.REFERENCE:
+
                         if (lbRefSections.Items.Count > 0)
                         {
                             cbOption op = lbRefSections.SelectedItem as cbOption;
@@ -437,6 +444,7 @@ namespace Blogs
                         break;
 
                     case Tabs.QUOTES:
+
                         if (lbQuoteSections.Items.Count > 0)
                         {
                             cbOption op = lbQuoteSections.SelectedItem as cbOption;
@@ -448,6 +456,7 @@ namespace Blogs
                         break;
 
                     case Tabs.CODE:
+
                         if (lbCodeSections.Items.Count > 0)
                         {
                             cbOption op = lbCodeSections.SelectedItem as cbOption;
@@ -464,6 +473,7 @@ namespace Blogs
                         break;
 
                     case Tabs.TIPS:
+                        
                         if (lbTipsSections.Items.Count > 0)
                         {
                             cbOption op = lbTipsSections.SelectedItem as cbOption;
@@ -472,6 +482,11 @@ namespace Blogs
                                 FillTabTips(Int32.Parse(op.entityValue));
                             }
                         }
+                        break;
+
+                    case Tabs.METADATA:
+
+                        FillTabMetadata();
                         break;
                 }
                 done[tabControl1.SelectedIndex] = true;
@@ -1046,6 +1061,15 @@ namespace Blogs
             if (op != null)
             {
                 FillTabTips(Int32.Parse(op.entityValue));
+            }
+        }
+
+        private void lbQuoteSections_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbOption op = lbQuoteSections.SelectedItem as cbOption;
+            if (op != null)
+            {
+                FillTabQuotes(Int32.Parse(op.entityValue));
             }
         }
 
@@ -1695,7 +1719,7 @@ namespace Blogs
             SetMode(Modes.Status.INSERT);
         }
 
-        private void btnNewTips_Click(object sender, EventArgs e)
+        private void btnNewTip_Click(object sender, EventArgs e)
         {
             PrintMessage("Encara no");
             if (Gdata.maintMode != Modes.Status.QUERY)
@@ -1884,8 +1908,6 @@ namespace Blogs
             */
         }
 
-
-
         // ---------------------------------------------------------------------------
         // Events
         // on grid cell click
@@ -1913,9 +1935,6 @@ namespace Blogs
             SetButtonStatus();
         }
 
-        private void btnHeadSave_Click_1(object sender, EventArgs e)
-        {
 
-        }
     }
 }

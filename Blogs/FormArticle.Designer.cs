@@ -48,7 +48,6 @@ namespace Blogs
             this.tbHeadTitle = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnHeadDiscard = new System.Windows.Forms.Button();
             this.btnHeadSave = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.tbHeadWords = new System.Windows.Forms.TextBox();
@@ -448,26 +447,15 @@ namespace Blogs
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btnHeadDiscard);
             this.groupBox3.Controls.Add(this.btnHeadSave);
             this.groupBox3.Location = new System.Drawing.Point(11, 243);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(439, 110);
+            this.groupBox3.Size = new System.Drawing.Size(823, 110);
             this.groupBox3.TabIndex = 40;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Actualització";
-            // 
-            // btnHeadDiscard
-            // 
-            this.btnHeadDiscard.Location = new System.Drawing.Point(144, 28);
-            this.btnHeadDiscard.Margin = new System.Windows.Forms.Padding(2);
-            this.btnHeadDiscard.Name = "btnHeadDiscard";
-            this.btnHeadDiscard.Size = new System.Drawing.Size(122, 27);
-            this.btnHeadDiscard.TabIndex = 41;
-            this.btnHeadDiscard.Text = "Descarta els canvis";
-            this.btnHeadDiscard.UseVisualStyleBackColor = true;
+            this.groupBox3.Text = "Accions";
             // 
             // btnHeadSave
             // 
@@ -752,10 +740,10 @@ namespace Blogs
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox4.Size = new System.Drawing.Size(350, 110);
+            this.groupBox4.Size = new System.Drawing.Size(438, 110);
             this.groupBox4.TabIndex = 41;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Actualització";
+            this.groupBox4.Text = "Accions";
             // 
             // btnNewText
             // 
@@ -776,6 +764,7 @@ namespace Blogs
             this.btnTextSave.TabIndex = 39;
             this.btnTextSave.Text = "Desa els canvis";
             this.btnTextSave.UseVisualStyleBackColor = true;
+            this.btnTextSave.Click += new System.EventHandler(this.btnTextSave_Click);
             // 
             // label22
             // 
@@ -878,7 +867,7 @@ namespace Blogs
             this.tbTextDetail.Margin = new System.Windows.Forms.Padding(2);
             this.tbTextDetail.Multiline = true;
             this.tbTextDetail.Name = "tbTextDetail";
-            this.tbTextDetail.Size = new System.Drawing.Size(481, 189);
+            this.tbTextDetail.Size = new System.Drawing.Size(568, 189);
             this.tbTextDetail.TabIndex = 28;
             // 
             // lbTextSections
@@ -890,6 +879,7 @@ namespace Blogs
             this.lbTextSections.Name = "lbTextSections";
             this.lbTextSections.Size = new System.Drawing.Size(210, 289);
             this.lbTextSections.TabIndex = 27;
+            this.lbTextSections.SelectedIndexChanged += new System.EventHandler(this.lbTextSections_SelectedIndexChanged);
             // 
             // tabImages
             // 
@@ -943,19 +933,20 @@ namespace Blogs
             this.lbImageSeqs.Name = "lbImageSeqs";
             this.lbImageSeqs.Size = new System.Drawing.Size(91, 109);
             this.lbImageSeqs.TabIndex = 52;
+            this.lbImageSeqs.SelectedIndexChanged += new System.EventHandler(this.lbImageSeqs_SelectedIndexChanged);
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.btnNewImage);
             this.groupBox5.Controls.Add(this.btnImageSave);
-            this.groupBox5.Location = new System.Drawing.Point(240, 289);
+            this.groupBox5.Location = new System.Drawing.Point(236, 289);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox5.Size = new System.Drawing.Size(290, 73);
+            this.groupBox5.Size = new System.Drawing.Size(391, 73);
             this.groupBox5.TabIndex = 51;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Actualització";
+            this.groupBox5.Text = "Accions";
             // 
             // btnNewImage
             // 
@@ -966,6 +957,7 @@ namespace Blogs
             this.btnNewImage.TabIndex = 40;
             this.btnNewImage.Text = "Nova imatge";
             this.btnNewImage.UseVisualStyleBackColor = true;
+            this.btnNewImage.Click += new System.EventHandler(this.btnNewImage_Click);
             // 
             // btnImageSave
             // 
@@ -976,6 +968,7 @@ namespace Blogs
             this.btnImageSave.TabIndex = 39;
             this.btnImageSave.Text = "Desa els canvis";
             this.btnImageSave.UseVisualStyleBackColor = true;
+            this.btnImageSave.Click += new System.EventHandler(this.btnImageSave_Click);
             // 
             // label35
             // 
@@ -992,13 +985,13 @@ namespace Blogs
             this.tbImageSeq.Location = new System.Drawing.Point(388, 212);
             this.tbImageSeq.Margin = new System.Windows.Forms.Padding(2);
             this.tbImageSeq.Name = "tbImageSeq";
-            this.tbImageSeq.Size = new System.Drawing.Size(76, 21);
+            this.tbImageSeq.Size = new System.Drawing.Size(48, 21);
             this.tbImageSeq.TabIndex = 49;
             // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(488, 217);
+            this.label34.Location = new System.Drawing.Point(582, 215);
             this.label34.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(45, 15);
@@ -1058,7 +1051,7 @@ namespace Blogs
             this.tbImageCredit.Location = new System.Drawing.Point(388, 188);
             this.tbImageCredit.Margin = new System.Windows.Forms.Padding(2);
             this.tbImageCredit.Name = "tbImageCredit";
-            this.tbImageCredit.Size = new System.Drawing.Size(392, 21);
+            this.tbImageCredit.Size = new System.Drawing.Size(484, 21);
             this.tbImageCredit.TabIndex = 41;
             // 
             // label30
@@ -1076,13 +1069,13 @@ namespace Blogs
             this.tbImageAlternate.Location = new System.Drawing.Point(388, 164);
             this.tbImageAlternate.Margin = new System.Windows.Forms.Padding(2);
             this.tbImageAlternate.Name = "tbImageAlternate";
-            this.tbImageAlternate.Size = new System.Drawing.Size(392, 21);
+            this.tbImageAlternate.Size = new System.Drawing.Size(484, 21);
             this.tbImageAlternate.TabIndex = 39;
             // 
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(350, 109);
+            this.label29.Location = new System.Drawing.Point(350, 122);
             this.label29.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(35, 15);
@@ -1091,11 +1084,11 @@ namespace Blogs
             // 
             // tbImageLCaption
             // 
-            this.tbImageLCaption.Location = new System.Drawing.Point(388, 108);
+            this.tbImageLCaption.Location = new System.Drawing.Point(388, 123);
             this.tbImageLCaption.Margin = new System.Windows.Forms.Padding(2);
             this.tbImageLCaption.Multiline = true;
             this.tbImageLCaption.Name = "tbImageLCaption";
-            this.tbImageLCaption.Size = new System.Drawing.Size(392, 53);
+            this.tbImageLCaption.Size = new System.Drawing.Size(484, 38);
             this.tbImageLCaption.TabIndex = 37;
             // 
             // label28
@@ -1114,7 +1107,7 @@ namespace Blogs
             this.tbImageCaption.Margin = new System.Windows.Forms.Padding(2);
             this.tbImageCaption.Multiline = true;
             this.tbImageCaption.Name = "tbImageCaption";
-            this.tbImageCaption.Size = new System.Drawing.Size(392, 59);
+            this.tbImageCaption.Size = new System.Drawing.Size(484, 73);
             this.tbImageCaption.TabIndex = 35;
             // 
             // label27
@@ -1147,7 +1140,7 @@ namespace Blogs
             // 
             // pbImage
             // 
-            this.pbImage.Location = new System.Drawing.Point(539, 214);
+            this.pbImage.Location = new System.Drawing.Point(633, 212);
             this.pbImage.Margin = new System.Windows.Forms.Padding(2);
             this.pbImage.Name = "pbImage";
             this.pbImage.Size = new System.Drawing.Size(239, 146);
@@ -1164,6 +1157,7 @@ namespace Blogs
             this.lbImageSections.Name = "lbImageSections";
             this.lbImageSections.Size = new System.Drawing.Size(210, 289);
             this.lbImageSections.TabIndex = 31;
+            this.lbImageSections.SelectedIndexChanged += new System.EventHandler(this.lbImageSections_SelectedIndexChanged);
             // 
             // tabLinks
             // 
@@ -1190,14 +1184,14 @@ namespace Blogs
             // 
             this.groupBox6.Controls.Add(this.btnNewLink);
             this.groupBox6.Controls.Add(this.btnLinkSave);
-            this.groupBox6.Location = new System.Drawing.Point(333, 220);
+            this.groupBox6.Location = new System.Drawing.Point(236, 207);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox6.Size = new System.Drawing.Size(458, 110);
+            this.groupBox6.Size = new System.Drawing.Size(556, 110);
             this.groupBox6.TabIndex = 51;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Actualització";
+            this.groupBox6.Text = "Accions";
             // 
             // btnNewLink
             // 
@@ -1208,6 +1202,7 @@ namespace Blogs
             this.btnNewLink.TabIndex = 40;
             this.btnNewLink.Text = "Nou enllàç";
             this.btnNewLink.UseVisualStyleBackColor = true;
+            this.btnNewLink.Click += new System.EventHandler(this.btnNewLink_Click);
             // 
             // btnLinkSave
             // 
@@ -1218,6 +1213,7 @@ namespace Blogs
             this.btnLinkSave.TabIndex = 39;
             this.btnLinkSave.Text = "Desa els canvis";
             this.btnLinkSave.UseVisualStyleBackColor = true;
+            this.btnLinkSave.Click += new System.EventHandler(this.btnLinkSave_Click);
             // 
             // label25
             // 
@@ -1313,6 +1309,7 @@ namespace Blogs
             this.lbLinkSections.Name = "lbLinkSections";
             this.lbLinkSections.Size = new System.Drawing.Size(210, 289);
             this.lbLinkSections.TabIndex = 31;
+            this.lbLinkSections.SelectedIndexChanged += new System.EventHandler(this.lbLinkSections_SelectedIndexChanged);
             // 
             // tabReference
             // 
@@ -1343,10 +1340,10 @@ namespace Blogs
             this.groupBox7.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox7.Size = new System.Drawing.Size(232, 110);
+            this.groupBox7.Size = new System.Drawing.Size(232, 161);
             this.groupBox7.TabIndex = 61;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Actualització";
+            this.groupBox7.Text = "Accions";
             // 
             // btnNewRef
             // 
@@ -1357,6 +1354,7 @@ namespace Blogs
             this.btnNewRef.TabIndex = 40;
             this.btnNewRef.Text = "Nova referència";
             this.btnNewRef.UseVisualStyleBackColor = true;
+            this.btnNewRef.Click += new System.EventHandler(this.btnNewRef_Click);
             // 
             // btnRefSave
             // 
@@ -1367,6 +1365,7 @@ namespace Blogs
             this.btnRefSave.TabIndex = 39;
             this.btnRefSave.Text = "Desa els canvis";
             this.btnRefSave.UseVisualStyleBackColor = true;
+            this.btnRefSave.Click += new System.EventHandler(this.btnRefSave_Click);
             // 
             // label37
             // 
@@ -1461,6 +1460,7 @@ namespace Blogs
             this.lbRefSections.Name = "lbRefSections";
             this.lbRefSections.Size = new System.Drawing.Size(622, 154);
             this.lbRefSections.TabIndex = 51;
+            this.lbRefSections.SelectedIndexChanged += new System.EventHandler(this.lbRefSections_SelectedIndexChanged);
             // 
             // tabQuotes
             // 
@@ -1487,14 +1487,14 @@ namespace Blogs
             // 
             this.groupBox8.Controls.Add(this.btnNewQuote);
             this.groupBox8.Controls.Add(this.btnQuoteSave);
-            this.groupBox8.Location = new System.Drawing.Point(334, 219);
+            this.groupBox8.Location = new System.Drawing.Point(236, 207);
             this.groupBox8.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox8.Size = new System.Drawing.Size(350, 110);
+            this.groupBox8.Size = new System.Drawing.Size(636, 110);
             this.groupBox8.TabIndex = 63;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Actualització";
+            this.groupBox8.Text = "Accions";
             // 
             // btnNewQuote
             // 
@@ -1505,6 +1505,7 @@ namespace Blogs
             this.btnNewQuote.TabIndex = 40;
             this.btnNewQuote.Text = "Nova cita";
             this.btnNewQuote.UseVisualStyleBackColor = true;
+            this.btnNewQuote.Click += new System.EventHandler(this.btnNewQuote_Click);
             // 
             // btnQuoteSave
             // 
@@ -1515,6 +1516,7 @@ namespace Blogs
             this.btnQuoteSave.TabIndex = 39;
             this.btnQuoteSave.Text = "Desa els canvis";
             this.btnQuoteSave.UseVisualStyleBackColor = true;
+            this.btnQuoteSave.Click += new System.EventHandler(this.btnQuoteSave_Click);
             // 
             // label45
             // 
@@ -1610,6 +1612,7 @@ namespace Blogs
             this.lbQuoteSections.Name = "lbQuoteSections";
             this.lbQuoteSections.Size = new System.Drawing.Size(210, 289);
             this.lbQuoteSections.TabIndex = 53;
+            this.lbQuoteSections.SelectedIndexChanged += new System.EventHandler(this.lbQuoteSections_SelectedIndexChanged);
             // 
             // tabCode
             // 
@@ -1652,19 +1655,20 @@ namespace Blogs
             this.lbCodeSeqs.Name = "lbCodeSeqs";
             this.lbCodeSeqs.Size = new System.Drawing.Size(83, 169);
             this.lbCodeSeqs.TabIndex = 70;
+            this.lbCodeSeqs.SelectedIndexChanged += new System.EventHandler(this.lbCodeSeqs_SelectedIndexChanged);
             // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.btnNewCode);
             this.groupBox9.Controls.Add(this.btnCodeSave);
-            this.groupBox9.Location = new System.Drawing.Point(325, 274);
+            this.groupBox9.Location = new System.Drawing.Point(237, 274);
             this.groupBox9.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox9.Size = new System.Drawing.Size(350, 82);
+            this.groupBox9.Size = new System.Drawing.Size(635, 82);
             this.groupBox9.TabIndex = 69;
             this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Actualització";
+            this.groupBox9.Text = "Accions";
             // 
             // btnNewCode
             // 
@@ -1675,6 +1679,7 @@ namespace Blogs
             this.btnNewCode.TabIndex = 40;
             this.btnNewCode.Text = "Nou snippet";
             this.btnNewCode.UseVisualStyleBackColor = true;
+            this.btnNewCode.Click += new System.EventHandler(this.btnNewCode_Click);
             // 
             // btnCodeSave
             // 
@@ -1685,6 +1690,7 @@ namespace Blogs
             this.btnCodeSave.TabIndex = 39;
             this.btnCodeSave.Text = "Desa els canvis";
             this.btnCodeSave.UseVisualStyleBackColor = true;
+            this.btnCodeSave.Click += new System.EventHandler(this.btnCodeSave_Click);
             // 
             // label51
             // 
@@ -1721,7 +1727,7 @@ namespace Blogs
             this.tbCode.Margin = new System.Windows.Forms.Padding(2);
             this.tbCode.Multiline = true;
             this.tbCode.Name = "tbCode";
-            this.tbCode.Size = new System.Drawing.Size(459, 187);
+            this.tbCode.Size = new System.Drawing.Size(547, 187);
             this.tbCode.TabIndex = 65;
             // 
             // label48
@@ -1780,6 +1786,7 @@ namespace Blogs
             this.lbCodeSections.Name = "lbCodeSections";
             this.lbCodeSections.Size = new System.Drawing.Size(210, 289);
             this.lbCodeSections.TabIndex = 55;
+            this.lbCodeSections.SelectedIndexChanged += new System.EventHandler(this.lbCodeSections_SelectedIndexChanged);
             // 
             // tabVideo
             // 
@@ -1813,14 +1820,14 @@ namespace Blogs
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.btnVideoSave);
-            this.groupBox10.Location = new System.Drawing.Point(136, 261);
+            this.groupBox10.Location = new System.Drawing.Point(6, 248);
             this.groupBox10.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox10.Size = new System.Drawing.Size(645, 82);
+            this.groupBox10.Size = new System.Drawing.Size(866, 111);
             this.groupBox10.TabIndex = 79;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Actualització";
+            this.groupBox10.Text = "Accions";
             // 
             // btnVideoSave
             // 
@@ -1831,6 +1838,7 @@ namespace Blogs
             this.btnVideoSave.TabIndex = 39;
             this.btnVideoSave.Text = "Desa els canvis";
             this.btnVideoSave.UseVisualStyleBackColor = true;
+            this.btnVideoSave.Click += new System.EventHandler(this.btnVideoSave_Click);
             // 
             // label65
             // 
@@ -1941,7 +1949,7 @@ namespace Blogs
             this.tbVideoEmbed.Margin = new System.Windows.Forms.Padding(2);
             this.tbVideoEmbed.Multiline = true;
             this.tbVideoEmbed.Name = "tbVideoEmbed";
-            this.tbVideoEmbed.Size = new System.Drawing.Size(347, 157);
+            this.tbVideoEmbed.Size = new System.Drawing.Size(391, 157);
             this.tbVideoEmbed.TabIndex = 67;
             // 
             // label60
@@ -2023,14 +2031,14 @@ namespace Blogs
             // 
             this.groupBox12.Controls.Add(this.btnNewTip);
             this.groupBox12.Controls.Add(this.btnTipsSave);
-            this.groupBox12.Location = new System.Drawing.Point(320, 232);
+            this.groupBox12.Location = new System.Drawing.Point(236, 218);
             this.groupBox12.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox12.Size = new System.Drawing.Size(458, 99);
+            this.groupBox12.Size = new System.Drawing.Size(623, 99);
             this.groupBox12.TabIndex = 61;
             this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Actualització";
+            this.groupBox12.Text = "Accions";
             // 
             // btnNewTip
             // 
@@ -2041,6 +2049,7 @@ namespace Blogs
             this.btnNewTip.TabIndex = 40;
             this.btnNewTip.Text = "Nou tip";
             this.btnNewTip.UseVisualStyleBackColor = true;
+            this.btnNewTip.Click += new System.EventHandler(this.btnNewTip_Click);
             // 
             // btnTipsSave
             // 
@@ -2051,6 +2060,7 @@ namespace Blogs
             this.btnTipsSave.TabIndex = 39;
             this.btnTipsSave.Text = "Desa els canvis";
             this.btnTipsSave.UseVisualStyleBackColor = true;
+            this.btnTipsSave.Click += new System.EventHandler(this.btnTipsSave_Click);
             // 
             // label71
             // 
@@ -2125,13 +2135,13 @@ namespace Blogs
             this.tbTipsText.Margin = new System.Windows.Forms.Padding(2);
             this.tbTipsText.Multiline = true;
             this.tbTipsText.Name = "tbTipsText";
-            this.tbTipsText.Size = new System.Drawing.Size(459, 93);
+            this.tbTipsText.Size = new System.Drawing.Size(539, 93);
             this.tbTipsText.TabIndex = 53;
             // 
             // label69
             // 
             this.label69.AutoSize = true;
-            this.label69.Location = new System.Drawing.Point(6, 10);
+            this.label69.Location = new System.Drawing.Point(19, 10);
             this.label69.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label69.Name = "label69";
             this.label69.Size = new System.Drawing.Size(57, 15);
@@ -2142,11 +2152,12 @@ namespace Blogs
             // 
             this.lbTipsSections.FormattingEnabled = true;
             this.lbTipsSections.ItemHeight = 15;
-            this.lbTipsSections.Location = new System.Drawing.Point(9, 28);
+            this.lbTipsSections.Location = new System.Drawing.Point(22, 28);
             this.lbTipsSections.Margin = new System.Windows.Forms.Padding(2);
             this.lbTipsSections.Name = "lbTipsSections";
             this.lbTipsSections.Size = new System.Drawing.Size(210, 289);
             this.lbTipsSections.TabIndex = 51;
+            this.lbTipsSections.SelectedIndexChanged += new System.EventHandler(this.lbTipsSections_SelectedIndexChanged);
             // 
             // tabMetadata
             // 
@@ -2169,6 +2180,7 @@ namespace Blogs
             this.btnSaveMeta.TabIndex = 43;
             this.btnSaveMeta.Text = "Desa";
             this.btnSaveMeta.UseVisualStyleBackColor = true;
+            this.btnSaveMeta.Click += new System.EventHandler(this.btnSaveMeta_Click);
             // 
             // dgvMetadata
             // 
@@ -2178,7 +2190,7 @@ namespace Blogs
             this.dgvMetadata.Name = "dgvMetadata";
             this.dgvMetadata.RowHeadersWidth = 51;
             this.dgvMetadata.RowTemplate.Height = 24;
-            this.dgvMetadata.Size = new System.Drawing.Size(785, 314);
+            this.dgvMetadata.Size = new System.Drawing.Size(864, 314);
             this.dgvMetadata.TabIndex = 0;
             // 
             // FormArticle
@@ -2252,7 +2264,6 @@ namespace Blogs
         private System.Windows.Forms.TextBox tbHeadTitle;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button btnHeadDiscard;
         private System.Windows.Forms.Button btnHeadSave;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox tbHeadWords;

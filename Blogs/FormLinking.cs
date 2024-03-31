@@ -20,6 +20,7 @@ namespace Blogs
             InitializeComponent();
             SetUpForm();
             DefineGrids();
+            FillTabChained();
         }
 
         private void SetUpForm()

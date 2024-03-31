@@ -55,7 +55,7 @@
             this.chkTestMode.Checked = true;
             this.chkTestMode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkTestMode.Location = new System.Drawing.Point(21, 31);
-            this.chkTestMode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkTestMode.Margin = new System.Windows.Forms.Padding(2);
             this.chkTestMode.Name = "chkTestMode";
             this.chkTestMode.Size = new System.Drawing.Size(93, 17);
             this.chkTestMode.TabIndex = 22;
@@ -101,9 +101,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.chkTestMode);
-            this.groupBox1.Location = new System.Drawing.Point(441, 12);
+            this.groupBox1.Location = new System.Drawing.Point(437, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(387, 123);
+            this.groupBox1.Size = new System.Drawing.Size(387, 416);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ajusts";
@@ -115,9 +115,9 @@
             this.groupBox2.Controls.Add(this.lblDatabase);
             this.groupBox2.Controls.Add(this.lblCreditsDesc);
             this.groupBox2.Controls.Add(this.lblCopyright);
-            this.groupBox2.Location = new System.Drawing.Point(45, 12);
+            this.groupBox2.Location = new System.Drawing.Point(41, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(387, 123);
+            this.groupBox2.Size = new System.Drawing.Size(387, 416);
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Crèdits";
@@ -130,7 +130,7 @@
             this.ClientSize = new System.Drawing.Size(872, 440);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormSettings";
             this.Text = "Settings";
             this.groupBox1.ResumeLayout(false);

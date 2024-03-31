@@ -20,20 +20,6 @@ namespace Blogs
 {
     public partial class Form1 : Form
     {
-        // Import dll to make form borders round
-        // -----------------------------------------------
-
-        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
-        private static extern IntPtr CreateRoundRectRgn
-        (
-            int nLeftRect,     // x-coordinate of upper-left corner
-            int nTopRect,      // y-coordinate of upper-left corner
-            int nRightRect,    // x-coordinate of lower-right corner
-            int nBottomRect,   // y-coordinate of lower-right corner
-            int nWidthEllipse, // width of ellipse
-            int nHeightEllipse // height of ellipse
-        );
-
         // To draw window when click on top bar
         // -----------------------------------------------
 
@@ -58,7 +44,6 @@ namespace Blogs
             SetUpForm();
 
             // Make it rounded
-            //Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
             RoundBorderForm(this);
 
             loading = true;
@@ -66,6 +51,7 @@ namespace Blogs
             Gdata.db = DBConnect(Gdata.currentSet);
             Gdata.dbCommon = Gdata.db;
             Gdata.Lang = Language.CASTELLA;
+            Gdata.testMode = true;
             LoadBlogs();
             Loaders.LoadCombo(cbSet, Combos.BLOG_SET);
             LoadCombos();
@@ -159,7 +145,8 @@ namespace Blogs
         }
          
         private void AddFormToContainer(Form FrmType)
-        { 
+        {
+            FrmType.Owner = this;
             FrmType.Dock = DockStyle.Fill;
             FrmType.TopLevel = false;
             FrmType.TopMost = true;

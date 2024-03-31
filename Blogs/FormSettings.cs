@@ -20,7 +20,7 @@ namespace Blogs
         {
             InitializeComponent();
             chkTestMode.Checked = Gdata.testMode;
-
+            FillTabSettings();
             lblDatabase.Text = Gdata.currentSet == BlogSet.TECHNICAL ? dBServers.TECHNICAL : dBServers.PERSONAL;
 
         }

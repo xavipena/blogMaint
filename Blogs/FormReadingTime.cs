@@ -25,6 +25,7 @@ namespace Blogs
             SetUpForm();
             SetDefaultValues();
             DefineGrids();
+            LoadArticlesGrid();
         }
 
         private void SetUpForm()
@@ -53,6 +54,44 @@ namespace Blogs
             dgvArticles.Columns[4].Name = "Mod";
             dgvArticles.Columns[4].Width = 40;
 
+        }
+
+        private void PrintMessage(string msg)
+        {
+            /*
+            To allow a top-level form to share a control with a lower-level form:
+
+            1.) In form designer, open the main form, select the control to be shared, and set its modifier 
+                to "Internal".
+            2.) When calling the lower-level form, supply "this" as the owner parameter of Show().
+
+                LoginForm login = new LoginForm();
+                login.Show(this);
+
+            3.) From the lower-level form, you can now reference the Owner property and cast it back to its 
+                class type to access the shared control by name.
+
+                ((MainForm)Owner).PanelContainer.Visible = false;
+             */
+
+            if (this.Parent == null || this.Owner == null)
+                return;
+
+            if (msg == string.Empty) msg = Messages.READY;
+
+            // Check if calling from a thread that is not main
+
+            if (((Form1)Owner).lblMessage.InvokeRequired)
+            {
+                ((Form1)Owner).lblMessage.BeginInvoke((MethodInvoker)delegate ()
+                {
+                    ((Form1)Owner).lblMessage.Text = msg;
+                });
+            }
+            else
+            {
+                ((Form1)this.Owner).lblMessage.Text = msg;
+            }
         }
 
         // ---------------------------------------------------------------------------
@@ -141,7 +180,7 @@ namespace Blogs
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
+                PrintMessage(ex.Message);
             }
             finally
             {
@@ -177,7 +216,7 @@ namespace Blogs
             }
             if (noData)
             {
-                lblMessage.Text = "Res seleccionat";
+                PrintMessage("Res seleccionat");
             }
             Cursor.Current = Cursors.Default;
         }
@@ -186,7 +225,7 @@ namespace Blogs
         {
             if (dgvArticles.Rows.Count == 0)
             {
-                lblMessage.Text = "No hi ha articles";
+                PrintMessage("No hi ha articles");
                 return;
             }
             Cursor.Current = Cursors.WaitCursor;
@@ -203,7 +242,7 @@ namespace Blogs
             if (x > 0)
             {
                 //LoadArticlesGrid();
-                lblMessage.Text = x + " articles actualitzats";
+                PrintMessage(x + " articles actualitzats");
             }
             Cursor.Current = Cursors.Default;
         }

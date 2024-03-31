@@ -31,14 +31,13 @@
             this.btnes_ES = new System.Windows.Forms.Button();
             this.btnca_ES = new System.Windows.Forms.Button();
             this.dgvTranslations = new System.Windows.Forms.DataGridView();
-            this.lblMessage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTranslations)).BeginInit();
             this.SuspendLayout();
             // 
             // btnes_ES
             // 
-            this.btnes_ES.Location = new System.Drawing.Point(305, 328);
-            this.btnes_ES.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnes_ES.Location = new System.Drawing.Point(306, 404);
+            this.btnes_ES.Margin = new System.Windows.Forms.Padding(2);
             this.btnes_ES.Name = "btnes_ES";
             this.btnes_ES.Size = new System.Drawing.Size(75, 25);
             this.btnes_ES.TabIndex = 5;
@@ -47,8 +46,8 @@
             // 
             // btnca_ES
             // 
-            this.btnca_ES.Location = new System.Drawing.Point(486, 328);
-            this.btnca_ES.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnca_ES.Location = new System.Drawing.Point(487, 404);
+            this.btnca_ES.Margin = new System.Windows.Forms.Padding(2);
             this.btnca_ES.Name = "btnca_ES";
             this.btnca_ES.Size = new System.Drawing.Size(72, 25);
             this.btnca_ES.TabIndex = 4;
@@ -59,22 +58,12 @@
             // 
             this.dgvTranslations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTranslations.Location = new System.Drawing.Point(11, 11);
-            this.dgvTranslations.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvTranslations.Margin = new System.Windows.Forms.Padding(2);
             this.dgvTranslations.Name = "dgvTranslations";
             this.dgvTranslations.RowHeadersWidth = 51;
             this.dgvTranslations.RowTemplate.Height = 24;
-            this.dgvTranslations.Size = new System.Drawing.Size(850, 314);
+            this.dgvTranslations.Size = new System.Drawing.Size(850, 389);
             this.dgvTranslations.TabIndex = 3;
-            // 
-            // lblMessage
-            // 
-            this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(106, 464);
-            this.lblMessage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(35, 13);
-            this.lblMessage.TabIndex = 6;
-            this.lblMessage.Text = "label1";
             // 
             // FormTranslate
             // 
@@ -82,16 +71,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(872, 440);
-            this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.btnes_ES);
             this.Controls.Add(this.btnca_ES);
             this.Controls.Add(this.dgvTranslations);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormTranslate";
             this.Text = "Translation";
             ((System.ComponentModel.ISupportInitialize)(this.dgvTranslations)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -100,6 +87,5 @@
         private System.Windows.Forms.Button btnes_ES;
         private System.Windows.Forms.Button btnca_ES;
         private System.Windows.Forms.DataGridView dgvTranslations;
-        private System.Windows.Forms.Label lblMessage;
     }
 }

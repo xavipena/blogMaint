@@ -172,7 +172,7 @@
             this.btnTabSelector.Name = "btnTabSelector";
             this.btnTabSelector.Size = new System.Drawing.Size(166, 37);
             this.btnTabSelector.TabIndex = 44;
-            this.btnTabSelector.Text = "Selecciona article";
+            this.btnTabSelector.Text = "Article";
             this.btnTabSelector.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnTabSelector.UseVisualStyleBackColor = true;
             this.btnTabSelector.Click += new System.EventHandler(this.btnTabSelector_Click);
