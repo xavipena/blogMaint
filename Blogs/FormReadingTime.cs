@@ -253,6 +253,5 @@ namespace Blogs
             NeedToSave = false;
             LoadArticlesGrid();
         }
-
     }
 }

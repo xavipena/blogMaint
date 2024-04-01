@@ -21,17 +21,20 @@ namespace Blogs
             InitializeComponent();
             chkTestMode.Checked = Gdata.testMode;
             FillTabSettings();
-            lblDatabase.Text = Gdata.currentSet == BlogSet.TECHNICAL ? dBServers.TECHNICAL : dBServers.PERSONAL;
-
         }
 
         private void FillTabSettings()
         {
+            lblDatabase.Text = "Base de dades ";
+            lblDatabase.Text += Gdata.currentSet == BlogSet.TECHNICAL ? dBServers.TECHNICAL : dBServers.PERSONAL;
+
             Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             lblVersion.Text = "Versió " + version.Major + "." + version.Minor + " (build " + version.Build + ")";
 
-            lblCreditsDesc.Text = "Manteniment de la base de dades dels blocs publicats a Diari Digital";
+            lblCreditsDesc.Text = Texts.DESCRIPTION;
             lblCopyright.Text = "© " + DateTime.Today.Year + " Xavier Peña";
+
+            lblBlogs.Text = "https://diaridigital.net";
         }
 
 

@@ -16,7 +16,7 @@ namespace Blogs.Classes
     }
     public class Texts
     {
-        public const string DESCRIPTION = @"Manteniment dels blocs ubicats a DiariDigital.net";
+        public const string DESCRIPTION = @"Manteniment dels blocs publicats a DiariDigital.net";
     }
     public class Paths
     {

@@ -54,7 +54,6 @@ namespace Blogs
             Gdata.testMode = true;
             LoadBlogs();
             Loaders.LoadCombo(cbSet, Combos.BLOG_SET);
-            LoadCombos();
             SetDefaultValues();
             LoadFormsInContainer();
             ShowSelectedForm(Panels.Id.HOME);
@@ -102,19 +101,6 @@ namespace Blogs
 
             // Remove border
             this.FormBorderStyle = FormBorderStyle.None;
-
-            // Load default form
-
-            pnlContainer.Controls.Clear();
-            FormHome FrmHome = new FormHome()
-            {
-                Dock = DockStyle.Fill,
-                TopLevel = false,
-                TopMost = true
-            };
-            FrmHome.FormBorderStyle = FormBorderStyle.None;
-            pnlContainer.Controls.Add(FrmHome);
-            FrmHome.Show();
         }
 
         /// <summary>
@@ -197,14 +183,6 @@ namespace Blogs
                 lblMessage.Text = "No es pot connectar a la base de dades";
                 return null;
             }
-        }
-
-        /// <summary>
-        /// Load all combos in app using a common loading routine
-        /// </summary>
-        private void LoadCombos()
-        {
-            if (!Gdata.db.IsConnected) return;
         }
 
         /// <summary>
@@ -367,7 +345,6 @@ namespace Blogs
 
             loading = true;
             Cursor.Current = Cursors.WaitCursor;
-            LoadCombos();
             lblDesc.Text = Readers.GetBlogDescription();
 
             ShowSelectedForm(Panels.Id.ARTICLE);
@@ -386,7 +363,6 @@ namespace Blogs
         private void btnTabSelector_Click(object sender, EventArgs e)
         {
             HighlightButton(btnTabSelector);
-            btnTabSelector.BackColor = Color.FromArgb(46, 51, 73);
             lblSelected.Text = Panels.Name.ARTICLE;
             ShowSelectedForm(Panels.Id.ARTICLE);
         }

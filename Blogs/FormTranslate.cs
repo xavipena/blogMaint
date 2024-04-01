@@ -36,9 +36,9 @@ namespace Blogs
             dgvTranslations.Columns[0].Name = "ID";
             dgvTranslations.Columns[0].Width = 40;
             dgvTranslations.Columns[1].Name = "Castellà";
-            dgvTranslations.Columns[1].Width = 360;
+            dgvTranslations.Columns[1].Width = 300;
             dgvTranslations.Columns[2].Name = "Català";
-            dgvTranslations.Columns[2].Width = 360;
+            dgvTranslations.Columns[2].Width = 300;
         }
 
         private void PrintMessage(string msg)
@@ -77,7 +77,6 @@ namespace Blogs
             }
         }
 
-
         private void FillTabTranslate()
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -95,6 +94,8 @@ namespace Blogs
         {
             if (dgvTranslations.Rows.Count == 0) return;
 
+            HighlightButton(btnes_ES);
+
             bool noData = true;
             foreach (DataGridViewRow row in dgvTranslations.SelectedRows)
             {
@@ -110,6 +111,8 @@ namespace Blogs
         {
             if (dgvTranslations.Rows.Count == 0) return;
 
+            HighlightButton(btnca_ES);
+
             bool noData = true;
             foreach (DataGridViewRow row in dgvTranslations.SelectedRows)
             {
@@ -119,6 +122,18 @@ namespace Blogs
             {
                 PrintMessage("Res seleccionat");
             }
+        }
+
+        private void HighlightButton(Button btn)
+        {
+            foreach (Control ctrl in RightMenu.Controls)
+            {
+                if (ctrl.GetType() == typeof(Button))
+                {
+                    ctrl.BackColor = Color.FromArgb(24, 30, 54);
+                }
+            }
+            btn.BackColor = Color.FromArgb(46, 51, 73);
         }
     }
 }
