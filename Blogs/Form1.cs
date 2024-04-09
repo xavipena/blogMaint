@@ -222,33 +222,6 @@ namespace Blogs
         }
 
 
-
-
-
-
-        /// <summary>
-        /// Update message labels depending on current thread
-        /// </summary>
-        /// <param name="message"></param>
-        private void UpdateMessage(string message)
-        {
-            if (lblMessage.InvokeRequired)
-            {
-                lblMessage.BeginInvoke((MethodInvoker)delegate ()
-                {
-
-                    lblMessage.Text = message;
-                });
-            }
-            else
-            {
-                lblMessage.Text = message;
-            }
-        }
-
-
-
-
         // ---------------------------------------------------------------------------
         // Save
         // ---------------------------------------------------------------------------
