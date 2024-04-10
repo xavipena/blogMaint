@@ -211,8 +211,6 @@ namespace Blogs
             Gdata.currentBlog = Int32.Parse(dataSource[0].entityValue);
         }
 
-
-
         /// <summary>
         /// Close app
         /// </summary>
@@ -220,7 +218,6 @@ namespace Blogs
         {
             if (Gdata.db.IsOpen) Gdata.db.DBClose();
         }
-
 
         // ---------------------------------------------------------------------------
         // Save
