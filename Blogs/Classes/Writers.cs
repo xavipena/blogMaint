@@ -482,6 +482,21 @@ namespace Blogs.Classes
                 case "article_details":
                     sql += "IDarticle = " + Gdata.IDarticle + " and position = " + Gdata.AuxKey + " and lang = '" + Gdata.Lang + "'";
                     break;
+                case "article_images":
+                    sql += "IDarticle = " + Gdata.IDarticle;
+                    break;
+                case "article_links":
+                    sql += "IDarticle = " + Gdata.IDarticle;
+                    break;
+                case "article_related":
+                    sql += "IDarticle = " + Gdata.IDarticle;
+                    break;
+                case "article_quotes":
+                    sql += "IDarticle = " + Gdata.IDarticle;
+                    break;
+                case "article_code":
+                    sql += "IDarticle = " + Gdata.IDarticle;
+                    break;
                 case "article_metadata":
                     sql += "IDarticle = " + Gdata.IDarticle + " and IDmeta = " + Gdata.AuxKey + " and lang = '" + Gdata.Lang + "'";
                     break;
