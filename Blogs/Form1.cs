@@ -280,6 +280,10 @@ namespace Blogs
             Singleton Gdata = Singleton.GetInstance();
             Gdata.Lang = Gdata.Lang == Language.CASTELLA ? Language.CATALA : Language.CASTELLA;
             lblLang.Text = Gdata.Lang == Language.CASTELLA ? Language.Name.CASTELLA : lblLang.Text = Language.Name.CATALA;
+            
+            // change in child form
+            FormArticle formArticle = new FormArticle();
+            formArticle.ChangeLang = Gdata.Lang;
         }
 
         private void UpdateCurrentTab()
@@ -371,10 +375,10 @@ namespace Blogs
             {
                 if (ctrl.GetType() == typeof(Button))
                 {
-                    ctrl.BackColor = Color.FromArgb(24, 30, 54);
+                    ctrl.BackColor = Colors.MenuOptionColor;
                 }
             }
-            btn.BackColor = Color.FromArgb(46, 51, 73);
+            btn.BackColor = Colors.MenuOptionColorSelected;
         }
 
         // ---------------------------------------------------------------------------

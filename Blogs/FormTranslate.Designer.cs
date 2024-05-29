@@ -46,16 +46,17 @@
             this.btnes_ES.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnes_ES.FlatAppearance.BorderSize = 0;
             this.btnes_ES.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnes_ES.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.btnes_ES.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnes_ES.ForeColor = System.Drawing.Color.White;
             this.btnes_ES.Image = ((System.Drawing.Image)(resources.GetObject("btnes_ES.Image")));
             this.btnes_ES.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnes_ES.Location = new System.Drawing.Point(3, 95);
+            this.btnes_ES.Location = new System.Drawing.Point(3, 78);
             this.btnes_ES.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnes_ES.Name = "btnes_ES";
-            this.btnes_ES.Size = new System.Drawing.Size(232, 46);
+            this.btnes_ES.Size = new System.Drawing.Size(223, 46);
             this.btnes_ES.TabIndex = 5;
             this.btnes_ES.Text = "Castellà";
+            this.btnes_ES.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnes_ES.UseVisualStyleBackColor = true;
             this.btnes_ES.Click += new System.EventHandler(this.btnes_ES_Click);
             // 
@@ -64,16 +65,17 @@
             this.btnca_ES.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnca_ES.FlatAppearance.BorderSize = 0;
             this.btnca_ES.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnca_ES.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.btnca_ES.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnca_ES.ForeColor = System.Drawing.Color.White;
             this.btnca_ES.Image = ((System.Drawing.Image)(resources.GetObject("btnca_ES.Image")));
             this.btnca_ES.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnca_ES.Location = new System.Drawing.Point(3, 44);
+            this.btnca_ES.Location = new System.Drawing.Point(3, 27);
             this.btnca_ES.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnca_ES.Name = "btnca_ES";
-            this.btnca_ES.Size = new System.Drawing.Size(232, 46);
+            this.btnca_ES.Size = new System.Drawing.Size(223, 46);
             this.btnca_ES.TabIndex = 4;
             this.btnca_ES.Text = "Català";
+            this.btnca_ES.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnca_ES.UseVisualStyleBackColor = true;
             this.btnca_ES.Click += new System.EventHandler(this.btnca_ES_Click);
             // 
@@ -82,8 +84,11 @@
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.AliceBlue;
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Gray;
             this.dgvTranslations.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvTranslations.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTranslations.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvTranslations.BackgroundColor = System.Drawing.Color.BlueViolet;
+            this.dgvTranslations.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(179)))), ((int)(((byte)(255)))));
             this.dgvTranslations.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvTranslations.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -97,10 +102,10 @@
             this.dgvTranslations.ColumnHeadersHeight = 35;
             this.dgvTranslations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.BlueViolet;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.RoyalBlue;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.MediumOrchid;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.DeepSkyBlue;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvTranslations.DefaultCellStyle = dataGridViewCellStyle3;
@@ -123,7 +128,7 @@
             // 
             // RightMenu
             // 
-            this.RightMenu.BackColor = System.Drawing.Color.SlateGray;
+            this.RightMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(67)))), ((int)(((byte)(244)))));
             this.RightMenu.Controls.Add(this.btnca_ES);
             this.RightMenu.Controls.Add(this.btnes_ES);
             this.RightMenu.Dock = System.Windows.Forms.DockStyle.Right;

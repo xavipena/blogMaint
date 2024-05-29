@@ -46,10 +46,25 @@ namespace Blogs
             LoadArticlesGrid();
         }
 
+        public string ChangeLang
+        {
+            set {
+                if (value == Language.CATALA)
+                {
+                    tbCA.BackColor = Colors.ColorSelectedLanguage;
+                    tbES.BackColor = Color.White;
+                }
+                else
+                {
+                    tbCA.BackColor = Color.White;
+                    tbES.BackColor = Colors.ColorSelectedLanguage;
+                }
+            }
+        }
+
         private void SetUpForm()
         {
             tabControl1.Click += new EventHandler(tabControl_Click);
-
         }
 
         private void PrintMessage(string msg)
@@ -79,7 +94,7 @@ namespace Blogs
             
             if (((Form1)Owner).lblMessage.InvokeRequired)
             {
-                ((Form1)Owner).lblMessage.BeginInvoke((MethodInvoker)delegate ()
+                ((Form1)Owner).lblMessage.BeginInvoke((MethodInvoker)delegate()
                 {
                     ((Form1)Owner).lblMessage.Text = msg;
                 });
@@ -97,7 +112,7 @@ namespace Blogs
         {
             tbES.Text = Language.CASTELLA;
             tbCA.Text = Language.CATALA;
-            tbES.BackColor = Color.LightYellow;
+            tbES.BackColor = Colors.ColorSelectedLanguage;
             PrintMessage(Messages.READY);
             Gdata.maintMode = Modes.Status.EMPTY;
             loading = false;
@@ -1890,22 +1905,18 @@ namespace Blogs
 
         private void SetMode(int mode)
         {
-            /* ??????
-             * How to access lblMode from this form
-             * 
             switch (mode)
             {
                 case Modes.Status.INSERT:
                     Gdata.maintMode = mode;
-                    lblMode.Text = Modes.Text.INSERT;
+                    ((Form1)this.Owner).lblMode.Text = Modes.Text.INSERT;
                     break;
 
                 case Modes.Status.QUERY:
                     Gdata.maintMode = mode;
-                    lblMode.Text = Modes.Text.QUERY;
+                    ((Form1)this.Owner).lblMode.Text = Modes.Text.QUERY;
                     break;
             }
-            */
         }
 
         // ---------------------------------------------------------------------------
@@ -1927,6 +1938,7 @@ namespace Blogs
             tbArticle.Text = IDarticle.ToString();
             tbTitle.Text = Readers.GetTitle(Language.CASTELLA);
             tbTitleCA.Text = Readers.GetTitle(Language.CATALA);
+            SetMode(Modes.Status.QUERY);
 
             // Restar tabs and load
             ClearAllBoxes();
@@ -1934,7 +1946,5 @@ namespace Blogs
             LoadArticleSections();
             SetButtonStatus();
         }
-
-
     }
 }

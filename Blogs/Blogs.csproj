@@ -114,6 +114,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Colors.cs" />
     <Compile Include="FormArticle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -234,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="profile.ico" />
+    <None Include="Resources\technology.jpg" />
     <None Include="Resources\translate1.png" />
     <None Include="Resources\selection1.png" />
     <None Include="Resources\readTime1.png" />

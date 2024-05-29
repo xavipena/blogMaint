@@ -40,50 +40,55 @@
             this.btnChainSave.Enabled = false;
             this.btnChainSave.FlatAppearance.BorderSize = 0;
             this.btnChainSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChainSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.btnChainSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnChainSave.ForeColor = System.Drawing.Color.White;
             this.btnChainSave.Image = global::Blogs.Properties.Resources.link;
             this.btnChainSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnChainSave.Location = new System.Drawing.Point(2, 24);
-            this.btnChainSave.Margin = new System.Windows.Forms.Padding(2);
+            this.btnChainSave.Location = new System.Drawing.Point(3, 30);
+            this.btnChainSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChainSave.Name = "btnChainSave";
-            this.btnChainSave.Size = new System.Drawing.Size(152, 37);
+            this.btnChainSave.Size = new System.Drawing.Size(223, 46);
             this.btnChainSave.TabIndex = 47;
-            this.btnChainSave.Text = "Desa els canvis";
+            this.btnChainSave.Text = "Desa canvis";
+            this.btnChainSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnChainSave.UseVisualStyleBackColor = true;
             this.btnChainSave.Click += new System.EventHandler(this.btnChainSave_Click);
             // 
             // dgvChains
             // 
+            this.dgvChains.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvChains.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(179)))), ((int)(((byte)(255)))));
             this.dgvChains.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvChains.Dock = System.Windows.Forms.DockStyle.Left;
             this.dgvChains.Location = new System.Drawing.Point(0, 0);
-            this.dgvChains.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvChains.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvChains.Name = "dgvChains";
             this.dgvChains.RowHeadersWidth = 51;
             this.dgvChains.RowTemplate.Height = 24;
-            this.dgvChains.Size = new System.Drawing.Size(711, 440);
+            this.dgvChains.Size = new System.Drawing.Size(918, 542);
             this.dgvChains.TabIndex = 46;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.SlateGray;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(91)))), ((int)(((byte)(67)))), ((int)(((byte)(244)))));
             this.panel1.Controls.Add(this.btnChainSave);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(716, 0);
+            this.panel1.Location = new System.Drawing.Point(925, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(156, 440);
+            this.panel1.Size = new System.Drawing.Size(238, 542);
             this.panel1.TabIndex = 48;
             // 
             // FormLinking
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(872, 440);
+            this.ClientSize = new System.Drawing.Size(1163, 542);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvChains);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormLinking";
             this.Text = "Linking";
             ((System.ComponentModel.ISupportInitialize)(this.dgvChains)).EndInit();

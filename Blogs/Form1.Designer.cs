@@ -63,7 +63,7 @@
             // 
             this.lblMessage.AutoSize = true;
             this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lblMessage.ForeColor = System.Drawing.Color.White;
+            this.lblMessage.ForeColor = System.Drawing.Color.Black;
             this.lblMessage.Location = new System.Drawing.Point(253, 740);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(64, 18);
@@ -97,12 +97,12 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cbBlogs);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.Silver;
-            this.groupBox1.Location = new System.Drawing.Point(255, 30);
+            this.groupBox1.ForeColor = System.Drawing.Color.DimGray;
+            this.groupBox1.Location = new System.Drawing.Point(255, 36);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(917, 107);
+            this.groupBox1.Size = new System.Drawing.Size(917, 101);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Selecció";
@@ -140,14 +140,14 @@
             this.btnNewArticle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNewArticle.FlatAppearance.BorderSize = 0;
             this.btnNewArticle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNewArticle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.btnNewArticle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnNewArticle.ForeColor = System.Drawing.Color.White;
             this.btnNewArticle.Image = global::Blogs.Properties.Resources._new;
             this.btnNewArticle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNewArticle.Location = new System.Drawing.Point(4, 288);
             this.btnNewArticle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnNewArticle.Name = "btnNewArticle";
-            this.btnNewArticle.Size = new System.Drawing.Size(208, 46);
+            this.btnNewArticle.Size = new System.Drawing.Size(220, 46);
             this.btnNewArticle.TabIndex = 40;
             this.btnNewArticle.Text = "Nou article";
             this.btnNewArticle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -159,16 +159,16 @@
             this.btnTabSelector.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTabSelector.FlatAppearance.BorderSize = 0;
             this.btnTabSelector.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTabSelector.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.btnTabSelector.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnTabSelector.ForeColor = System.Drawing.Color.White;
             this.btnTabSelector.Image = global::Blogs.Properties.Resources.selection;
             this.btnTabSelector.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTabSelector.Location = new System.Drawing.Point(4, 239);
             this.btnTabSelector.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTabSelector.Name = "btnTabSelector";
-            this.btnTabSelector.Size = new System.Drawing.Size(208, 46);
+            this.btnTabSelector.Size = new System.Drawing.Size(220, 46);
             this.btnTabSelector.TabIndex = 44;
-            this.btnTabSelector.Text = "Article";
+            this.btnTabSelector.Text = "Articles";
             this.btnTabSelector.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnTabSelector.UseVisualStyleBackColor = true;
             this.btnTabSelector.Click += new System.EventHandler(this.btnTabSelector_Click);
@@ -178,14 +178,14 @@
             this.btnTranslate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTranslate.FlatAppearance.BorderSize = 0;
             this.btnTranslate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTranslate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.btnTranslate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnTranslate.ForeColor = System.Drawing.Color.White;
             this.btnTranslate.Image = global::Blogs.Properties.Resources.translate;
             this.btnTranslate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTranslate.Location = new System.Drawing.Point(4, 434);
             this.btnTranslate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTranslate.Name = "btnTranslate";
-            this.btnTranslate.Size = new System.Drawing.Size(208, 46);
+            this.btnTranslate.Size = new System.Drawing.Size(220, 46);
             this.btnTranslate.TabIndex = 43;
             this.btnTranslate.Text = "Traduccions";
             this.btnTranslate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -197,14 +197,14 @@
             this.btnTabTime.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTabTime.FlatAppearance.BorderSize = 0;
             this.btnTabTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTabTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.btnTabTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnTabTime.ForeColor = System.Drawing.Color.White;
             this.btnTabTime.Image = global::Blogs.Properties.Resources.readTime;
             this.btnTabTime.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTabTime.Location = new System.Drawing.Point(4, 337);
             this.btnTabTime.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTabTime.Name = "btnTabTime";
-            this.btnTabTime.Size = new System.Drawing.Size(208, 46);
+            this.btnTabTime.Size = new System.Drawing.Size(220, 46);
             this.btnTabTime.TabIndex = 42;
             this.btnTabTime.Text = "Temps lectura";
             this.btnTabTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -216,14 +216,14 @@
             this.btnTabChain.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTabChain.FlatAppearance.BorderSize = 0;
             this.btnTabChain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTabChain.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.btnTabChain.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnTabChain.ForeColor = System.Drawing.Color.White;
             this.btnTabChain.Image = global::Blogs.Properties.Resources.link;
             this.btnTabChain.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTabChain.Location = new System.Drawing.Point(4, 385);
             this.btnTabChain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnTabChain.Name = "btnTabChain";
-            this.btnTabChain.Size = new System.Drawing.Size(208, 46);
+            this.btnTabChain.Size = new System.Drawing.Size(220, 46);
             this.btnTabChain.TabIndex = 41;
             this.btnTabChain.Text = "Encadenament";
             this.btnTabChain.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -234,7 +234,7 @@
             // 
             this.lblMode.AutoSize = true;
             this.lblMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblMode.ForeColor = System.Drawing.Color.White;
+            this.lblMode.ForeColor = System.Drawing.Color.Gray;
             this.lblMode.Location = new System.Drawing.Point(7, 74);
             this.lblMode.Name = "lblMode";
             this.lblMode.Size = new System.Drawing.Size(66, 25);
@@ -243,7 +243,7 @@
             // 
             // LeftMenu
             // 
-            this.LeftMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(47)))), ((int)(((byte)(106)))));
+            this.LeftMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(31)))), ((int)(((byte)(170)))));
             this.LeftMenu.Controls.Add(this.btnSettings);
             this.LeftMenu.Controls.Add(this.btnTabSelector);
             this.LeftMenu.Controls.Add(this.btnExit);
@@ -265,14 +265,14 @@
             this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSettings.FlatAppearance.BorderSize = 0;
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.btnSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnSettings.ForeColor = System.Drawing.Color.White;
             this.btnSettings.Image = global::Blogs.Properties.Resources.exit;
             this.btnSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSettings.Location = new System.Drawing.Point(4, 635);
             this.btnSettings.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(208, 46);
+            this.btnSettings.Size = new System.Drawing.Size(220, 46);
             this.btnSettings.TabIndex = 45;
             this.btnSettings.Text = "Ajusts";
             this.btnSettings.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -284,14 +284,14 @@
             this.btnExit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F);
+            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnExit.ForeColor = System.Drawing.Color.White;
             this.btnExit.Image = global::Blogs.Properties.Resources.exit;
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExit.Location = new System.Drawing.Point(4, 684);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(208, 46);
+            this.btnExit.Size = new System.Drawing.Size(220, 46);
             this.btnExit.TabIndex = 0;
             this.btnExit.Text = "Surt";
             this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -303,14 +303,14 @@
             this.btnChangeLang.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnChangeLang.FlatAppearance.BorderSize = 0;
             this.btnChangeLang.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChangeLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangeLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangeLang.ForeColor = System.Drawing.Color.White;
             this.btnChangeLang.Image = global::Blogs.Properties.Resources.language;
             this.btnChangeLang.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnChangeLang.Location = new System.Drawing.Point(4, 188);
             this.btnChangeLang.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChangeLang.Name = "btnChangeLang";
-            this.btnChangeLang.Size = new System.Drawing.Size(208, 46);
+            this.btnChangeLang.Size = new System.Drawing.Size(220, 46);
             this.btnChangeLang.TabIndex = 10;
             this.btnChangeLang.Text = "Canvia l\'idioma";
             this.btnChangeLang.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -332,7 +332,7 @@
             // 
             this.lblSelected.AutoSize = true;
             this.lblSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblSelected.ForeColor = System.Drawing.Color.White;
+            this.lblSelected.ForeColor = System.Drawing.Color.Gray;
             this.lblSelected.Location = new System.Drawing.Point(7, 17);
             this.lblSelected.Name = "lblSelected";
             this.lblSelected.Size = new System.Drawing.Size(66, 25);
@@ -351,8 +351,8 @@
             // 
             this.lblLang.AutoSize = true;
             this.lblLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblLang.ForeColor = System.Drawing.Color.White;
-            this.lblLang.Location = new System.Drawing.Point(7, 46);
+            this.lblLang.ForeColor = System.Drawing.Color.Gray;
+            this.lblLang.Location = new System.Drawing.Point(7, 44);
             this.lblLang.Name = "lblLang";
             this.lblLang.Size = new System.Drawing.Size(60, 25);
             this.lblLang.TabIndex = 18;
@@ -360,11 +360,11 @@
             // 
             // pnlTopBar
             // 
-            this.pnlTopBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(30)))), ((int)(((byte)(54)))));
+            this.pnlTopBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(31)))), ((int)(((byte)(170)))));
             this.pnlTopBar.Controls.Add(this.lblTitle);
             this.pnlTopBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTopBar.Location = new System.Drawing.Point(237, 0);
-            this.pnlTopBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlTopBar.Margin = new System.Windows.Forms.Padding(4);
             this.pnlTopBar.Name = "pnlTopBar";
             this.pnlTopBar.Size = new System.Drawing.Size(1232, 30);
             this.pnlTopBar.TabIndex = 19;
@@ -385,12 +385,12 @@
             this.groupBox2.Controls.Add(this.lblMode);
             this.groupBox2.Controls.Add(this.lblSelected);
             this.groupBox2.Controls.Add(this.lblLang);
-            this.groupBox2.ForeColor = System.Drawing.Color.Silver;
-            this.groupBox2.Location = new System.Drawing.Point(1179, 30);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.ForeColor = System.Drawing.Color.DimGray;
+            this.groupBox2.Location = new System.Drawing.Point(1179, 36);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox2.Size = new System.Drawing.Size(276, 107);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(276, 101);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Estat";
@@ -399,7 +399,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(56)))), ((int)(((byte)(133)))));
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1469, 770);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox2);
@@ -442,7 +442,7 @@
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.ComboBox cbSet;
         private System.Windows.Forms.Button btnNewArticle;
-        private System.Windows.Forms.Label lblMode;
+        internal System.Windows.Forms.Label lblMode;
         private System.Windows.Forms.Button btnTabTime;
         private System.Windows.Forms.Button btnTabChain;
         private System.Windows.Forms.Button btnTranslate;
