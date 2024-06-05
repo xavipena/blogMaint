@@ -251,7 +251,7 @@ namespace Blogs
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.ForeColor = System.Drawing.Color.DimGray;
+            this.groupBox2.ForeColor = System.Drawing.Color.Black;
             this.groupBox2.Location = new System.Drawing.Point(13, 10);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
@@ -354,7 +354,7 @@ namespace Blogs
             // 
             // tabSelector
             // 
-            this.tabSelector.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(212)))), ((int)(((byte)(135)))));
+            this.tabSelector.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabSelector.Controls.Add(this.lblRowCount);
             this.tabSelector.Controls.Add(this.dgvSelector);
             this.tabSelector.Location = new System.Drawing.Point(4, 27);
@@ -376,6 +376,9 @@ namespace Blogs
             // 
             // dgvSelector
             // 
+            this.dgvSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvSelector.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSelector.Location = new System.Drawing.Point(117, 6);
             this.dgvSelector.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -388,7 +391,7 @@ namespace Blogs
             // 
             // tabHeader
             // 
-            this.tabHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(212)))), ((int)(((byte)(135)))));
+            this.tabHeader.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabHeader.Controls.Add(this.tbHeadTitle);
             this.tabHeader.Controls.Add(this.label57);
             this.tabHeader.Controls.Add(this.groupBox3);
@@ -674,7 +677,7 @@ namespace Blogs
             // 
             // tabTexts
             // 
-            this.tabTexts.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(212)))), ((int)(((byte)(135)))));
+            this.tabTexts.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabTexts.Controls.Add(this.label56);
             this.tabTexts.Controls.Add(this.tbTextSection);
             this.tabTexts.Controls.Add(this.groupBox4);
@@ -859,7 +862,7 @@ namespace Blogs
             // 
             // tabImages
             // 
-            this.tabImages.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(212)))), ((int)(((byte)(135)))));
+            this.tabImages.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabImages.Controls.Add(this.label54);
             this.tabImages.Controls.Add(this.lbImageSeqs);
             this.tabImages.Controls.Add(this.groupBox5);
@@ -1126,7 +1129,7 @@ namespace Blogs
             // 
             // tabLinks
             // 
-            this.tabLinks.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(212)))), ((int)(((byte)(135)))));
+            this.tabLinks.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabLinks.Controls.Add(this.groupBox6);
             this.tabLinks.Controls.Add(this.label25);
             this.tabLinks.Controls.Add(this.cbLinkLang);
@@ -1273,7 +1276,7 @@ namespace Blogs
             // 
             // tabReference
             // 
-            this.tabReference.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(212)))), ((int)(((byte)(135)))));
+            this.tabReference.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabReference.Controls.Add(this.groupBox7);
             this.tabReference.Controls.Add(this.label37);
             this.tabReference.Controls.Add(this.tbRefSeq);
@@ -1419,7 +1422,7 @@ namespace Blogs
             // 
             // tabQuotes
             // 
-            this.tabQuotes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(212)))), ((int)(((byte)(135)))));
+            this.tabQuotes.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabQuotes.Controls.Add(this.groupBox8);
             this.tabQuotes.Controls.Add(this.label45);
             this.tabQuotes.Controls.Add(this.tbQuoteText);
@@ -1566,7 +1569,7 @@ namespace Blogs
             // 
             // tabCode
             // 
-            this.tabCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(212)))), ((int)(((byte)(135)))));
+            this.tabCode.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabCode.Controls.Add(this.label55);
             this.tabCode.Controls.Add(this.lbCodeSeqs);
             this.tabCode.Controls.Add(this.groupBox9);
@@ -1735,7 +1738,7 @@ namespace Blogs
             // 
             // tabVideo
             // 
-            this.tabVideo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(212)))), ((int)(((byte)(135)))));
+            this.tabVideo.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabVideo.Controls.Add(this.groupBox10);
             this.tabVideo.Controls.Add(this.label65);
             this.tabVideo.Controls.Add(this.cbVideoLang);
@@ -1944,7 +1947,7 @@ namespace Blogs
             // 
             // tabTips
             // 
-            this.tabTips.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(212)))), ((int)(((byte)(135)))));
+            this.tabTips.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabTips.Controls.Add(this.groupBox12);
             this.tabTips.Controls.Add(this.label71);
             this.tabTips.Controls.Add(this.cbTipsIcon);
@@ -2092,7 +2095,7 @@ namespace Blogs
             // 
             // tabMetadata
             // 
-            this.tabMetadata.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(212)))), ((int)(((byte)(135)))));
+            this.tabMetadata.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.tabMetadata.Controls.Add(this.btnSaveMeta);
             this.tabMetadata.Controls.Add(this.dgvMetadata);
             this.tabMetadata.Location = new System.Drawing.Point(4, 27);
@@ -2115,6 +2118,9 @@ namespace Blogs
             // 
             // dgvMetadata
             // 
+            this.dgvMetadata.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMetadata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMetadata.Location = new System.Drawing.Point(11, 25);
             this.dgvMetadata.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -2128,7 +2134,7 @@ namespace Blogs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(212)))), ((int)(((byte)(68)))));
+            this.BackColor = System.Drawing.Color.Khaki;
             this.ClientSize = new System.Drawing.Size(1184, 590);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.tabControl1);

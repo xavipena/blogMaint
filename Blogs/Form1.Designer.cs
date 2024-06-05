@@ -63,7 +63,7 @@
             // 
             this.lblMessage.AutoSize = true;
             this.lblMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lblMessage.ForeColor = System.Drawing.Color.Black;
+            this.lblMessage.ForeColor = System.Drawing.Color.White;
             this.lblMessage.Location = new System.Drawing.Point(253, 740);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(64, 18);
@@ -91,13 +91,14 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(98)))), ((int)(((byte)(156)))));
             this.groupBox1.Controls.Add(this.label52);
             this.groupBox1.Controls.Add(this.cbSet);
             this.groupBox1.Controls.Add(this.lblDesc);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cbBlogs);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.DimGray;
+            this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(255, 36);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
@@ -234,7 +235,7 @@
             // 
             this.lblMode.AutoSize = true;
             this.lblMode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblMode.ForeColor = System.Drawing.Color.Gray;
+            this.lblMode.ForeColor = System.Drawing.Color.White;
             this.lblMode.Location = new System.Drawing.Point(7, 74);
             this.lblMode.Name = "lblMode";
             this.lblMode.Size = new System.Drawing.Size(66, 25);
@@ -243,7 +244,7 @@
             // 
             // LeftMenu
             // 
-            this.LeftMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(31)))), ((int)(((byte)(170)))));
+            this.LeftMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(101)))), ((int)(((byte)(180)))));
             this.LeftMenu.Controls.Add(this.btnSettings);
             this.LeftMenu.Controls.Add(this.btnTabSelector);
             this.LeftMenu.Controls.Add(this.btnExit);
@@ -332,7 +333,7 @@
             // 
             this.lblSelected.AutoSize = true;
             this.lblSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblSelected.ForeColor = System.Drawing.Color.Gray;
+            this.lblSelected.ForeColor = System.Drawing.Color.White;
             this.lblSelected.Location = new System.Drawing.Point(7, 17);
             this.lblSelected.Name = "lblSelected";
             this.lblSelected.Size = new System.Drawing.Size(66, 25);
@@ -341,6 +342,7 @@
             // 
             // pnlContainer
             // 
+            this.pnlContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(126)))), ((int)(((byte)(149)))));
             this.pnlContainer.Location = new System.Drawing.Point(255, 143);
             this.pnlContainer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlContainer.Name = "pnlContainer";
@@ -351,7 +353,7 @@
             // 
             this.lblLang.AutoSize = true;
             this.lblLang.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblLang.ForeColor = System.Drawing.Color.Gray;
+            this.lblLang.ForeColor = System.Drawing.Color.White;
             this.lblLang.Location = new System.Drawing.Point(7, 44);
             this.lblLang.Name = "lblLang";
             this.lblLang.Size = new System.Drawing.Size(60, 25);
@@ -360,7 +362,7 @@
             // 
             // pnlTopBar
             // 
-            this.pnlTopBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(72)))), ((int)(((byte)(31)))), ((int)(((byte)(170)))));
+            this.pnlTopBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(101)))), ((int)(((byte)(180)))));
             this.pnlTopBar.Controls.Add(this.lblTitle);
             this.pnlTopBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTopBar.Location = new System.Drawing.Point(237, 0);
@@ -373,7 +375,7 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.ForeColor = System.Drawing.Color.Silver;
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
             this.lblTitle.Location = new System.Drawing.Point(16, 6);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(34, 16);
@@ -382,10 +384,11 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(98)))), ((int)(((byte)(156)))));
             this.groupBox2.Controls.Add(this.lblMode);
             this.groupBox2.Controls.Add(this.lblSelected);
             this.groupBox2.Controls.Add(this.lblLang);
-            this.groupBox2.ForeColor = System.Drawing.Color.DimGray;
+            this.groupBox2.ForeColor = System.Drawing.Color.White;
             this.groupBox2.Location = new System.Drawing.Point(1179, 36);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
@@ -399,7 +402,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.DarkSlateBlue;
             this.ClientSize = new System.Drawing.Size(1469, 770);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox2);
