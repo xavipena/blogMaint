@@ -43,9 +43,16 @@ namespace Blogs
             DefineGrids();
             LoadCombos();
             SetButtonStatus();
-            LoadArticlesGrid();
+
+            // set up when showing form
+            Shown += FormReadingTime_Shown;
         }
 
+        private void FormReadingTime_Shown(object sender, EventArgs e)
+        {
+            LoadArticlesGrid();
+        }
+    
         public string ChangeLang
         {
             set {

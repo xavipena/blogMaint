@@ -18,6 +18,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace Blogs
 {
+    // Icons Phosphor light
+    // https://icon-sets.iconify.design/ph/?query=lis
+
     public partial class Form1 : Form
     {
         // To draw window when click on top bar
@@ -142,9 +145,9 @@ namespace Blogs
 
         private void ShowSelectedForm(int frm)
         {
-
             if (pnlContainer.Controls.Count > 0)
             {
+                Gdata.currentBlog = Int32.Parse(cbBlogs.SelectedValue.ToString());
                 // Hide all
                 foreach (Control ctrl in pnlContainer.Controls)
                 {
@@ -190,8 +193,6 @@ namespace Blogs
         /// </summary>
         private void LoadBlogs()
         {
-            Singleton Gdata = Singleton.GetInstance();
-
             //Build a list
             var dataSource = new List<cbOption>();
 
@@ -277,13 +278,14 @@ namespace Blogs
         private void btnChangeLang_Click(object sender, EventArgs e)
         {
             // No background change because no form shows up
-            Singleton Gdata = Singleton.GetInstance();
             Gdata.Lang = Gdata.Lang == Language.CASTELLA ? Language.CATALA : Language.CASTELLA;
             lblLang.Text = Gdata.Lang == Language.CASTELLA ? Language.Name.CASTELLA : lblLang.Text = Language.Name.CATALA;
             
+
             // change in child form
             FormArticle formArticle = new FormArticle();
             formArticle.ChangeLang = Gdata.Lang;
+            formArticle.LoadArticlesGrid();
         }
 
         private void UpdateCurrentTab()
@@ -299,7 +301,6 @@ namespace Blogs
         {
             if (loading) return;
 
-            Singleton Gdata = Singleton.GetInstance();
             cbOption op = cbSet.SelectedItem as cbOption;
             Gdata.db = DBConnect(op.entityValue);
 
@@ -312,7 +313,6 @@ namespace Blogs
             if (loading) return;
 
             // Restart all for a new blog
-            Singleton Gdata = Singleton.GetInstance();
             Gdata.IDarticle = 0;
             cbOption op = cbBlogs.SelectedItem as cbOption;
             Gdata.currentBlog = Int32.Parse(op.entityValue);

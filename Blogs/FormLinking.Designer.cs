@@ -42,9 +42,9 @@
             this.btnChainSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChainSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnChainSave.ForeColor = System.Drawing.Color.White;
-            this.btnChainSave.Image = global::Blogs.Properties.Resources.link;
+            this.btnChainSave.Image = global::Blogs.Properties.Resources.ph__note_pencil_light;
             this.btnChainSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnChainSave.Location = new System.Drawing.Point(3, 30);
+            this.btnChainSave.Location = new System.Drawing.Point(5, 30);
             this.btnChainSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChainSave.Name = "btnChainSave";
             this.btnChainSave.Size = new System.Drawing.Size(223, 46);

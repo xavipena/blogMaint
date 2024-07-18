@@ -20,6 +20,12 @@ namespace Blogs
             InitializeComponent();
             SetUpForm();
             DefineGrids();
+            // set up when showing form
+            Shown += FormReadingTime_Shown;
+        }
+
+        private void FormReadingTime_Shown(object sender, EventArgs e)
+        {
             FillTabChained();
         }
 

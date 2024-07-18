@@ -235,16 +235,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="profile.ico" />
+    <Content Include="Resources\ph--article-ny-times-light.png" />
+    <Content Include="Resources\ph--chat-circle-dots-light.png" />
+    <Content Include="Resources\ph--clock-user-light.png" />
+    <Content Include="Resources\ph--equalizer-light.png" />
+    <Content Include="Resources\ph--link-light.png" />
+    <Content Include="Resources\ph--list-heart-light.png" />
+    <Content Include="Resources\ph--note-blank-light.png" />
+    <None Include="Resources\ph--note-blank-light1.png" />
+    <Content Include="Resources\ph--note-light.png" />
+    <None Include="Resources\ph--note-light1.png" />
+    <Content Include="Resources\ph--note-pencil-light.png" />
+    <Content Include="Resources\ph--radio-button-light.png" />
+    <Content Include="Resources\ph--stack-light.png" />
+    <Content Include="Resources\ph--translate-light.png" />
     <None Include="Resources\technology.jpg" />
-    <None Include="Resources\translate1.png" />
-    <None Include="Resources\selection1.png" />
-    <None Include="Resources\readTime1.png" />
-    <None Include="Resources\new1.png" />
-    <None Include="Resources\link1.png" />
-    <None Include="Resources\language1.png" />
-    <None Include="Resources\exit1.png" />
     <None Include="Resources\FormBackground.jpg" />
-    <None Include="Resources\idioma.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -28,12 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormReadingTime));
             this.dgvArticles = new System.Windows.Forms.DataGridView();
-            this.btnSaveChanges = new System.Windows.Forms.Button();
-            this.btnWordsAll = new System.Windows.Forms.Button();
-            this.btnWords = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSaveChanges = new System.Windows.Forms.Button();
+            this.btnWords = new System.Windows.Forms.Button();
+            this.btnWordsAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticles)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -54,63 +53,6 @@
             this.dgvArticles.Size = new System.Drawing.Size(918, 542);
             this.dgvArticles.TabIndex = 11;
             // 
-            // btnSaveChanges
-            // 
-            this.btnSaveChanges.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSaveChanges.FlatAppearance.BorderSize = 0;
-            this.btnSaveChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveChanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnSaveChanges.ForeColor = System.Drawing.Color.White;
-            this.btnSaveChanges.Image = ((System.Drawing.Image)(resources.GetObject("btnSaveChanges.Image")));
-            this.btnSaveChanges.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveChanges.Location = new System.Drawing.Point(5, 129);
-            this.btnSaveChanges.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnSaveChanges.Name = "btnSaveChanges";
-            this.btnSaveChanges.Size = new System.Drawing.Size(221, 46);
-            this.btnSaveChanges.TabIndex = 14;
-            this.btnSaveChanges.Text = "Desa canvis";
-            this.btnSaveChanges.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSaveChanges.UseVisualStyleBackColor = true;
-            this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
-            // 
-            // btnWordsAll
-            // 
-            this.btnWordsAll.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnWordsAll.FlatAppearance.BorderSize = 0;
-            this.btnWordsAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWordsAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnWordsAll.ForeColor = System.Drawing.Color.White;
-            this.btnWordsAll.Image = ((System.Drawing.Image)(resources.GetObject("btnWordsAll.Image")));
-            this.btnWordsAll.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnWordsAll.Location = new System.Drawing.Point(5, 79);
-            this.btnWordsAll.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnWordsAll.Name = "btnWordsAll";
-            this.btnWordsAll.Size = new System.Drawing.Size(221, 46);
-            this.btnWordsAll.TabIndex = 13;
-            this.btnWordsAll.Text = "Actualitza tot";
-            this.btnWordsAll.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnWordsAll.UseVisualStyleBackColor = true;
-            this.btnWordsAll.Click += new System.EventHandler(this.btnWordsAll_Click);
-            // 
-            // btnWords
-            // 
-            this.btnWords.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnWords.FlatAppearance.BorderSize = 0;
-            this.btnWords.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWords.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnWords.ForeColor = System.Drawing.Color.White;
-            this.btnWords.Image = ((System.Drawing.Image)(resources.GetObject("btnWords.Image")));
-            this.btnWords.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnWords.Location = new System.Drawing.Point(3, 28);
-            this.btnWords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnWords.Name = "btnWords";
-            this.btnWords.Size = new System.Drawing.Size(224, 46);
-            this.btnWords.TabIndex = 12;
-            this.btnWords.Text = "Actualitza";
-            this.btnWords.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnWords.UseVisualStyleBackColor = true;
-            this.btnWords.Click += new System.EventHandler(this.btnWords_Click);
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(110)))), ((int)(((byte)(101)))), ((int)(((byte)(180)))));
@@ -123,6 +65,63 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(245, 542);
             this.panel1.TabIndex = 15;
+            // 
+            // btnSaveChanges
+            // 
+            this.btnSaveChanges.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSaveChanges.FlatAppearance.BorderSize = 0;
+            this.btnSaveChanges.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveChanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.btnSaveChanges.ForeColor = System.Drawing.Color.White;
+            this.btnSaveChanges.Image = global::Blogs.Properties.Resources.ph__note_pencil_light;
+            this.btnSaveChanges.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveChanges.Location = new System.Drawing.Point(7, 140);
+            this.btnSaveChanges.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnSaveChanges.Name = "btnSaveChanges";
+            this.btnSaveChanges.Size = new System.Drawing.Size(223, 46);
+            this.btnSaveChanges.TabIndex = 14;
+            this.btnSaveChanges.Text = "Desa canvis";
+            this.btnSaveChanges.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSaveChanges.UseVisualStyleBackColor = true;
+            this.btnSaveChanges.Click += new System.EventHandler(this.btnSaveChanges_Click);
+            // 
+            // btnWords
+            // 
+            this.btnWords.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnWords.FlatAppearance.BorderSize = 0;
+            this.btnWords.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWords.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.btnWords.ForeColor = System.Drawing.Color.White;
+            this.btnWords.Image = global::Blogs.Properties.Resources.ph__note_blank_light;
+            this.btnWords.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnWords.Location = new System.Drawing.Point(6, 28);
+            this.btnWords.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnWords.Name = "btnWords";
+            this.btnWords.Size = new System.Drawing.Size(224, 46);
+            this.btnWords.TabIndex = 12;
+            this.btnWords.Text = "Actualitza";
+            this.btnWords.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnWords.UseVisualStyleBackColor = true;
+            this.btnWords.Click += new System.EventHandler(this.btnWords_Click);
+            // 
+            // btnWordsAll
+            // 
+            this.btnWordsAll.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnWordsAll.FlatAppearance.BorderSize = 0;
+            this.btnWordsAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWordsAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.btnWordsAll.ForeColor = System.Drawing.Color.White;
+            this.btnWordsAll.Image = global::Blogs.Properties.Resources.ph__note_light;
+            this.btnWordsAll.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnWordsAll.Location = new System.Drawing.Point(7, 84);
+            this.btnWordsAll.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnWordsAll.Name = "btnWordsAll";
+            this.btnWordsAll.Size = new System.Drawing.Size(223, 46);
+            this.btnWordsAll.TabIndex = 13;
+            this.btnWordsAll.Text = "Actualitza tot";
+            this.btnWordsAll.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnWordsAll.UseVisualStyleBackColor = true;
+            this.btnWordsAll.Click += new System.EventHandler(this.btnWordsAll_Click);
             // 
             // FormReadingTime
             // 
